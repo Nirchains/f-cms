@@ -1,0 +1,1 @@
+cur_frm.add_fetch("module_name", "title", "module_name_title");

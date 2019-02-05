@@ -1,0 +1,16 @@
+<li class="dropdown">
+	<a class="dropdown-item dropdown-toggle {{ 'active' if pathname==page.url else '' }}" href="{{ (page.url or '')|abs_url }}">
+		{{ page.label or '' }}
+	</a>
+	{%- if page.child_items -%}
+	<ul class="dropdown-menu">
+		{%- for child in page.child_items -%}
+		<li>
+			<a class="dropdown-item" href="{{ child.url | abs_url }}"  {{ child.target or '' }}>
+				{{ child.label or '' }}
+			</a>
+		</li>
+		{%- endfor -%}
+	</ul>
+	{%- endif -%}
+</li>

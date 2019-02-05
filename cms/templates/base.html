@@ -1,0 +1,171 @@
+{% macro render_position(position) %}
+	{%if layout_positions and layout_positions[position]|length > 0 %}
+	<!--TODO		{{ layout_positions[position] }}-->
+	{% endif%}
+	{% if module_positions and module_positions[position]|length > 0 %}
+	<div class="container py-2">
+		<div class="row {{pos|lower}}-content">
+				{% for module in module_positions[position] %}
+				<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
+				{% include 'templates/includes/modules/index.html' %}
+				</div>
+				{% endfor %}		
+		</div>
+	</div>
+	{% endif %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
+	<meta name="generator" content="frappe">
+
+    {% block favicon %}
+	<link rel="shortcut icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+	<link rel="icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+    {% endblock %}
+	{%- block head -%}
+		{% if meta_block is defined -%}
+		{{ meta_block }}
+		{%- endif %}
+
+		{% if head_html is defined -%}
+		{{ head_html or "" }}
+		{%- endif %}
+
+		{%- for link in web_include_css %}
+		<link type="text/css" rel="stylesheet" href="{{ link|abs_url }}">
+		{%- endfor -%}
+
+	    {%- block head_include %}{{ head_include or "" }}{% endblock -%}
+
+		{%- block style %}{%- endblock -%}
+	{%- endblock -%}
+	<script src="/assets/cms/vendor/modernizr/modernizr.min.js"></script>
+    <script>
+		window.frappe = {};
+		frappe.ready_events = [];
+		frappe.ready = function(fn) {
+			frappe.ready_events.push(fn);
+		}
+		window.dev_server = {{ dev_server }};
+    </script>
+</head>
+<body data-path="{{ path }}" class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500}">
+<div class="loading-overlay">
+	<div class="bounce-loader">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
+</div>
+<div class="body">
+	<header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 45, 'stickySetTop': '-45px', 'stickyChangeLogo': true}">
+		<div class="header-body">
+			{%- block navbar2 -%}
+		        {% include "templates/includes/navbar/navbar-2.html" %}
+	        {%- endblock -%}
+		</div>
+	</header>
+
+	<div role="main" class="main">
+		<section class="page-header page-header-modern page-header-background page-header-background-sm overlay overlay-color-primary overlay-show overlay-op-8 mb-5" style="background-image: url(img/page-header/page-header-elements.jpg);">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 align-self-center p-static order-2 text-center">
+						{% block header %}{% endblock %}
+					</div>
+					<div class="col-md-12 align-self-center order-1">
+						{% if not no_breadcrumbs and parents %}
+								{% block breadcrumbs %}
+								{% include 'templates/includes/breadcrumbs.html' %}
+								{% endblock %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</section>
+		{{ render_position('top-1') }}
+
+	</div>
+            <div class="hero-and-content">
+                <div data-html-block="hero">
+				{%- block hero -%}{%- endblock -%}
+                </div>
+                
+                <div class="container">
+                {% block content %}{% endblock %}
+                </div>
+            </div>
+		<div>
+		</div>
+
+
+	<footer id="footer">
+		<div class="container">
+			<div class="footer-ribbon">
+				<span>Contacto</span>
+			</div>
+			<div class="row py-5 my-4">
+				{{ render_position('footer-1') }}
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container py-2">
+				<div class="row py-4">
+					{{ render_position('footer-copyright') }}
+				</div>
+			</div>
+		</div>
+		{%- block footer -%}{%- endblock -%}
+	</footer>
+</div>
+	
+{% block base_scripts %}
+<!-- js should be loaded in body! -->
+<script src="/assets/cms/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/cms/vendor/jquery.appear/jquery.appear.min.js"></script>
+<script src="/assets/cms/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assets/cms/vendor/jquery.cookie/jquery.cookie.min.js"></script>
+<script src="/assets/cms/vendor/popper/umd/popper.min.js"></script>
+<script src="/assets/cms/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/cms/vendor/common/common.min.js"></script>
+<script src="/assets/cms/vendor/jquery.validation/jquery.validate.min.js"></script>
+<script src="/assets/cms/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="/assets/cms/vendor/jquery.gmap/jquery.gmap.min.js"></script>
+<script src="/assets/cms/vendor/jquery.lazyload/jquery.lazyload.min.js"></script>
+<script src="/assets/cms/vendor/isotope/jquery.isotope.min.js"></script>
+<script src="/assets/cms/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/assets/cms/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/assets/cms/vendor/vide/jquery.vide.min.js"></script>
+<script src="/assets/cms/vendor/vivus/vivus.min.js"></script>
+
+<script type="text/javascript" src="/assets/cms/js/build/frappe-web.min.js"></script>
+{% endblock %}
+{%- if js_globals is defined %}
+<script>
+{%- for key, value in js_globals.iteritems() %}
+window.{{ key }} = "{{ value[0] }}";
+{%- endfor -%}
+</script>
+{% endif -%}
+
+{%- for link in web_include_js %}
+<script type="text/javascript" src="{{ link|abs_url }}"></script>
+{%- endfor -%}
+
+{%- block script %}{%- endblock %}
+
+<!-- csrf_token -->
+
+{%- block body_include %}{{ body_include or "" }}{% endblock -%}
+</body>
+</html>

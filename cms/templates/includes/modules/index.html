@@ -1,0 +1,11 @@
+<div class="{{module.context.css_class or ''}}">
+{% if module.context.header != "" %}
+<div class="{{module.context.css_title or ''}}">
+<{{module.context.header}}>{{ module.context.title }}</{{module.context.header}}>
+</div>
+{% endif %}
+
+{% if module.module_type == "Module HTML" %}
+	{% include 'templates/includes/modules/module_html.html' %}
+{% endif %}
+</div>
