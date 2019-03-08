@@ -1,38 +1,51 @@
 
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/js/theme.js
+ */
+/*
+Name: 			Theme Base
+Written by: 	Okler Themes - (http://www.okler.net)
+Theme Version:	7.1.0
+*/
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+// Theme
 window.theme = {};
 
+// Theme Common Functions
 window.theme.fn = {
 
-	getOptions: function getOptions(opts) {
+	getOptions: function(opts) {
 
-		if ((typeof opts === 'undefined' ? 'undefined' : _typeof(opts)) == 'object') {
+		if (typeof(opts) == 'object') {
 
 			return opts;
-		} else if (typeof opts == 'string') {
+
+		} else if (typeof(opts) == 'string') {
 
 			try {
-				return JSON.parse(opts.replace(/'/g, '"').replace(';', ''));
-			} catch (e) {
+				return JSON.parse(opts.replace(/'/g,'"').replace(';',''));
+			} catch(e) {
 				return {};
 			}
+
 		} else {
 
 			return {};
+
 		}
+
 	}
 
 };
 
-(function (theme, $) {
+// Animate
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__animate';
 
-	var PluginAnimate = function PluginAnimate($el, opts) {
+	var PluginAnimate = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -44,25 +57,28 @@ window.theme.fn = {
 	};
 
 	PluginAnimate.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginAnimate.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -70,11 +86,11 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			var self = this;
 
-			if ($('body').hasClass('loading-overlay-showing')) {
-				$(window).on('loading.overlay.ready', function () {
+			if($('body').hasClass('loading-overlay-showing')) {
+				$(window).on('loading.overlay.ready', function(){
 					self.animate();
 				});
 			} else {
@@ -84,23 +100,23 @@ window.theme.fn = {
 			return this;
 		},
 
-		animate: function animate() {
+		animate: function() {
 			var self = this,
-			    $el = this.options.wrapper,
-			    delay = 0,
-			    duration = this.options.duration,
-			    elTopDistance = $el.offset().top,
-			    windowTopDistance = $(window).scrollTop();
+				$el = this.options.wrapper,
+				delay = 0,
+				duration = this.options.duration,
+				elTopDistance = $el.offset().top,
+				windowTopDistance = $(window).scrollTop();
 
 			$el.addClass('appear-animation animated');
 
 			if (!$('html').hasClass('no-csstransitions') && $(window).width() > 767 && elTopDistance >= windowTopDistance) {
 
-				$el.appear(function () {
+				$el.appear(function() {
 
-					$el.one('animation:show', function (ev) {
-						delay = $el.attr('data-appear-animation-delay') ? $el.attr('data-appear-animation-delay') : self.options.delay;
-						duration = $el.attr('data-appear-animation-duration') ? $el.attr('data-appear-animation-duration') : self.options.duration;
+					$el.one('animation:show', function(ev) {
+						delay = ($el.attr('data-appear-animation-delay') ? $el.attr('data-appear-animation-delay') : self.options.delay);
+						duration = ($el.attr('data-appear-animation-duration') ? $el.attr('data-appear-animation-duration') : self.options.duration);
 
 						if (duration != '750ms') {
 							$el.css('animation-duration', duration);
@@ -112,25 +128,30 @@ window.theme.fn = {
 					});
 
 					$el.trigger('animation:show');
+
 				}, {
 					accX: self.options.accX,
 					accY: self.options.accY
 				});
+
 			} else {
 
 				$el.addClass('appear-animation-visible');
+
 			}
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginAnimate: PluginAnimate
 	});
 
-	$.fn.themePluginAnimate = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginAnimate = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -138,17 +159,20 @@ window.theme.fn = {
 			} else {
 				return new PluginAnimate($this, opts);
 			}
+
 		});
 	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Carousel
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__carousel';
 
-	var PluginCarousel = function PluginCarousel($el, opts) {
+	var PluginCarousel = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -175,25 +199,28 @@ window.theme.fn = {
 	};
 
 	PluginCarousel.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginCarousel.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -201,18 +228,21 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.owlCarousel)) {
+		build: function() {
+			if (!($.isFunction($.fn.owlCarousel))) {
 				return this;
 			}
 
 			var self = this,
-			    $el = this.options.wrapper;
+				$el = this.options.wrapper;
 
+			// Add Theme Class
 			$el.addClass('owl-theme');
 
+			// Add Loading
 			$el.addClass('owl-loading');
 
+			// Force RTL according to HTML dir attribute
 			if ($('html').attr('dir') == 'rtl') {
 				this.options = $.extend(true, {}, this.options, {
 					rtl: true
@@ -220,7 +250,7 @@ window.theme.fn = {
 			}
 
 			if (this.options.items == 1) {
-				this.options.responsive = {};
+				this.options.responsive = {}
 			}
 
 			if (this.options.items > 4) {
@@ -233,70 +263,80 @@ window.theme.fn = {
 				});
 			}
 
+			// Auto Height Fixes
 			if (this.options.autoHeight) {
 				var itemsHeight = [];
 
-				$el.find('.owl-item').each(function () {
-					if ($(this).hasClass('active')) {
-						itemsHeight.push($(this).height());
+				$el.find('.owl-item').each(function(){
+					if( $(this).hasClass('active') ) {
+						itemsHeight.push( $(this).height() );
 					}
 				});
 
-				$(window).afterResize(function () {
-					$el.find('.owl-stage-outer').height(Math.max.apply(null, itemsHeight));
+				$(window).afterResize(function() {
+					$el.find('.owl-stage-outer').height( Math.max.apply(null, itemsHeight) );
 				});
 
-				$(window).on('load', function () {
-					$el.find('.owl-stage-outer').height(Math.max.apply(null, itemsHeight));
+				$(window).on('load', function() {
+					$el.find('.owl-stage-outer').height( Math.max.apply(null, itemsHeight) );
 				});
 			}
 
+			// Initialize OwlCarousel
 			$el.owlCarousel(this.options).addClass('owl-carousel-init');
 
+			// Sync
 			if ($el.attr('data-sync')) {
-				$el.on('change.owl.carousel', function (event) {
+				$el.on('change.owl.carousel', function(event) {
 					if (event.namespace && event.property.name === 'position') {
-						var target = event.relatedTarget.relative(event.property.value, true);
-						$($el.data('sync')).owlCarousel('to', target, 300, true);
-					}
+					    var target = event.relatedTarget.relative(event.property.value, true);
+					    $( $el.data('sync') ).owlCarousel('to', target, 300, true);				        
+				  	}
 				});
 			}
 
-			if ($el.hasClass('carousel-center-active-item')) {
-				var itemsActive = $el.find('.owl-item.active'),
-				    indexCenter = Math.floor(($el.find('.owl-item.active').length - 1) / 2),
-				    itemCenter = itemsActive.eq(indexCenter);
+			// Carousel Center Active Item
+			if( $el.hasClass('carousel-center-active-item') ) {
+				var itemsActive    = $el.find('.owl-item.active'),
+					indexCenter    = Math.floor( ($el.find('.owl-item.active').length - 1) / 2 ),
+					itemCenter     = itemsActive.eq(indexCenter);
 
 				itemCenter.addClass('current');
 
-				$el.on('change.owl.carousel', function (event) {
-					$el.find('.owl-item').removeClass('current');
+				$el.on('change.owl.carousel', function(event) {
+				  	$el.find('.owl-item').removeClass('current');
+					
+					setTimeout(function(){
+					  	var itemsActive    = $el.find('.owl-item.active'),
+					  		itemCenter     = itemsActive.eq(indexCenter);
 
-					setTimeout(function () {
-						var itemsActive = $el.find('.owl-item.active'),
-						    itemCenter = itemsActive.eq(indexCenter);
-
-						itemCenter.addClass('current');
+					  	itemCenter.addClass('current');
 					}, 100);
 				});
 
+				// Refresh
 				$el.trigger('refresh.owl.carousel');
+
 			}
 
+			// Remove Loading
 			$el.removeClass('owl-loading');
 
+			// Remove Height
 			$el.css('height', 'auto');
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginCarousel: PluginCarousel
 	});
 
-	$.fn.themePluginCarousel = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginCarousel = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -304,17 +344,20 @@ window.theme.fn = {
 			} else {
 				return new PluginCarousel($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Chart Circular
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__chartCircular';
 
-	var PluginChartCircular = function PluginChartCircular($el, opts) {
+	var PluginChartCircular = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -330,32 +373,35 @@ window.theme.fn = {
 		lineWidth: 13,
 		size: 175,
 		rotate: 0,
-		animate: {
+		animate: ({
 			duration: 2500,
 			enabled: true
-		}
+		})
 	};
 
 	PluginChartCircular.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginChartCircular.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -363,33 +409,35 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.appear) || !$.isFunction($.fn.easyPieChart)) {
+		build: function() {
+			if (!($.isFunction($.fn.appear)) || !($.isFunction($.fn.easyPieChart))) {
 				return this;
 			}
 
 			var self = this,
-			    $el = this.options.wrapper,
-			    value = $el.attr('data-percent') ? $el.attr('data-percent') : 0,
-			    percentEl = $el.find('.percent');
+				$el = this.options.wrapper,
+				value = ($el.attr('data-percent') ? $el.attr('data-percent') : 0),
+				percentEl = $el.find('.percent');
 
 			$.extend(true, self.options, {
-				onStep: function onStep(from, to, currentValue) {
+				onStep: function(from, to, currentValue) {
 					percentEl.html(parseInt(currentValue));
 				}
 			});
 
 			$el.attr('data-percent', 0);
 
-			$el.appear(function () {
+			$el.appear(function() {
 
 				$el.easyPieChart(self.options);
 
-				setTimeout(function () {
+				setTimeout(function() {
 
 					$el.data('easyPieChart').update(value);
 					$el.attr('data-percent', value);
+
 				}, self.options.delay);
+
 			}, {
 				accX: self.options.accX,
 				accY: self.options.accY
@@ -399,12 +447,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginChartCircular: PluginChartCircular
 	});
 
-	$.fn.themePluginChartCircular = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginChartCircular = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -412,17 +462,20 @@ window.theme.fn = {
 			} else {
 				return new PluginChartCircular($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Countdown
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__countdown';
 
-	var PluginCountdown = function PluginCountdown($el, opts) {
+	var PluginCountdown = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -440,25 +493,28 @@ window.theme.fn = {
 	};
 
 	PluginCountdown.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginCountdown.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -466,23 +522,35 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.countTo)) {
+		build: function() {
+			if (!($.isFunction($.fn.countTo))) {
 				return this;
 			}
 
 			var self = this,
-			    $el = this.options.wrapper,
-			    numberClass = self.options.numberClass ? ' ' + self.options.numberClass : '',
-			    wrapperClass = self.options.wrapperClass ? ' ' + self.options.wrapperClass : '';
+				$el = this.options.wrapper,
+				numberClass = ( self.options.numberClass ) ? ' ' + self.options.numberClass : '',
+				wrapperClass = ( self.options.wrapperClass ) ? ' ' + self.options.wrapperClass : '';
 
-			if (self.options.uppercase) {
-				$el.countdown(self.options.date).on('update.countdown', function (event) {
-					var $this = $(this).html(event.strftime(self.options.insertHTMLbefore + '<span class="days' + wrapperClass + '"><span class="' + numberClass + '">%D</span> ' + self.options.textDay + '<div class="d-inline text-uppercase">%!d</div></span> ' + '<span class="hours' + wrapperClass + '"><span class="' + numberClass + '">%H</span> ' + self.options.textHour + '</span> ' + '<span class="minutes' + wrapperClass + '"><span class="' + numberClass + '">%M</span> ' + self.options.textMin + '</span> ' + '<span class="seconds' + wrapperClass + '"><span class="' + numberClass + '">%S</span> ' + self.options.textSec + '</span> ' + self.options.insertHTMLafter));
+			if( self.options.uppercase ) {
+				$el.countdown(self.options.date).on('update.countdown', function(event) {
+					var $this = $(this).html(event.strftime(self.options.insertHTMLbefore
+						+ '<span class="days'+ wrapperClass +'"><span class="'+ numberClass +'">%D</span> '+ self.options.textDay +'<div class="d-inline text-uppercase">%!d</div></span> '
+						+ '<span class="hours'+ wrapperClass +'"><span class="'+ numberClass +'">%H</span> '+ self.options.textHour +'</span> '
+						+ '<span class="minutes'+ wrapperClass +'"><span class="'+ numberClass +'">%M</span> '+ self.options.textMin +'</span> '
+						+ '<span class="seconds'+ wrapperClass +'"><span class="'+ numberClass +'">%S</span> '+ self.options.textSec +'</span> '
+						+ self.options.insertHTMLafter
+					));
 				});
 			} else {
-				$el.countdown(self.options.date).on('update.countdown', function (event) {
-					var $this = $(this).html(event.strftime(self.options.insertHTMLbefore + '<span class="days' + wrapperClass + '"><span class="' + numberClass + '">%D</span> ' + self.options.textDay + '%!d</span> ' + '<span class="hours' + wrapperClass + '"><span class="' + numberClass + '">%H</span> ' + self.options.textHour + '</span> ' + '<span class="minutes' + wrapperClass + '"><span class="' + numberClass + '">%M</span> ' + self.options.textMin + '</span> ' + '<span class="seconds' + wrapperClass + '"><span class="' + numberClass + '">%S</span> ' + self.options.textSec + '</span> ' + self.options.insertHTMLafter));
+				$el.countdown(self.options.date).on('update.countdown', function(event) {
+					var $this = $(this).html(event.strftime(self.options.insertHTMLbefore
+						+ '<span class="days'+ wrapperClass +'"><span class="'+ numberClass +'">%D</span> '+ self.options.textDay +'%!d</span> '
+						+ '<span class="hours'+ wrapperClass +'"><span class="'+ numberClass +'">%H</span> '+ self.options.textHour +'</span> '
+						+ '<span class="minutes'+ wrapperClass +'"><span class="'+ numberClass +'">%M</span> '+ self.options.textMin +'</span> '
+						+ '<span class="seconds'+ wrapperClass +'"><span class="'+ numberClass +'">%S</span> '+ self.options.textSec +'</span> '
+						+ self.options.insertHTMLafter
+					));
 				});
 			}
 
@@ -490,12 +558,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginCountdown: PluginCountdown
 	});
 
-	$.fn.themePluginCountdown = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginCountdown = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -503,17 +573,20 @@ window.theme.fn = {
 			} else {
 				return new PluginCountdown($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Counter
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__counter';
 
-	var PluginCounter = function PluginCounter($el, opts) {
+	var PluginCounter = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -528,25 +601,28 @@ window.theme.fn = {
 	};
 
 	PluginCounter.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginCounter.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -554,16 +630,16 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.countTo)) {
+		build: function() {
+			if (!($.isFunction($.fn.countTo))) {
 				return this;
 			}
 
 			var self = this,
-			    $el = this.options.wrapper;
+				$el = this.options.wrapper;
 
 			$.extend(self.options, {
-				onComplete: function onComplete() {
+				onComplete: function() {
 					if ($el.data('append')) {
 						$el.html($el.html() + $el.data('append'));
 					}
@@ -574,9 +650,10 @@ window.theme.fn = {
 				}
 			});
 
-			$el.appear(function () {
+			$el.appear(function() {
 
 				$el.countTo(self.options);
+
 			}, {
 				accX: self.options.accX,
 				accY: self.options.accY
@@ -586,12 +663,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginCounter: PluginCounter
 	});
 
-	$.fn.themePluginCounter = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginCounter = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -599,11 +678,14 @@ window.theme.fn = {
 			} else {
 				return new PluginCounter($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Icon
+(function(theme, $) {
 
 	
 
@@ -611,7 +693,7 @@ window.theme.fn = {
 
 	var instanceName = '__icon';
 
-	var PluginIcon = function PluginIcon($el, opts) {
+	var PluginIcon = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -622,25 +704,28 @@ window.theme.fn = {
 	};
 
 	PluginIcon.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginIcon.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -648,28 +733,31 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			var self = this,
-			    $el = this.options.wrapper,
-			    color = self.options.color,
-			    elTopDistance = $el.offset().top,
-			    windowTopDistance = $(window).scrollTop(),
-			    duration = self.options.animated && !self.options.strokeBased ? 200 : 100;
+		build: function() {
+			var self  	 = this,
+				$el   	 = this.options.wrapper,
+				color 	 = self.options.color,
+				elTopDistance = $el.offset().top,
+				windowTopDistance = $(window).scrollTop(),
+				duration = ( self.options.animated && !self.options.strokeBased ) ? 200 : 100;
 
-			if (window.location.origin === 'file://') {
+			// Check origin
+			if( window.location.origin === 'file://' ) {
 				$el.css('opacity', 1);
 				return;
 			}
 
-			if (self.options.duration) {
+			// Duration
+			if( self.options.duration ) {
 				duration = self.options.duration;
 			}
 
+			// SVG Content
 			var SVGContent = $.get({
-				url: $el.attr('src'),
-				success: function success(data, status, xhr) {
-					var iconWrapper = $('<div class="animated-icon">' + xhr.responseText + '</div>'),
-					    uniqid = 'icon_' + Math.floor(Math.random() * 26) + Date.now();
+				url: $el.attr('src'), 
+				success: function(data, status, xhr){
+					var iconWrapper = $('<div class="animated-icon">'+ xhr.responseText +'</div>'),
+						uniqid = 'icon_' + Math.floor(Math.random() * 26) + Date.now();
 
 					iconWrapper.find('svg').attr('id', uniqid);
 
@@ -677,84 +765,99 @@ window.theme.fn = {
 
 					$el = iconWrapper;
 
-					var icon = new Vivus(uniqid, { start: 'manual', type: 'sync', selfDestroy: true, duration: duration, onReady: function onReady(obj) {
-							var styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style"),
-							    animateStyle = '';
+					var icon = new Vivus(uniqid, {start: 'manual', type: 'sync', selfDestroy: true, duration: duration, onReady: function(obj){
+						var styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style"),
+							animateStyle = '';
 
-							if (self.options.animated && !self.options.strokeBased || !self.options.animated && color && !self.options.strokeBased) {
-								animateStyle = 'stroke-width: 0.1px; fill-opacity: 0; transition: ease fill-opacity 300ms;';
+						// SVG Fill Based
+						if( self.options.animated && !self.options.strokeBased || !self.options.animated && color && !self.options.strokeBased ) {
+							animateStyle = 'stroke-width: 0.1px; fill-opacity: 0; transition: ease fill-opacity 300ms;';
+							
+							// Set Style on SVG inside object
+							styleElement.textContent = '#' + uniqid + ' path, #' + uniqid + ' line, #' + uniqid + ' rect, #' + uniqid + ' circle, #' + uniqid + ' polyline { fill: '+ color +'; stroke: '+ color +'; '+ animateStyle + (self.options.svgStyle ? self.options.svgStyle : "") + ' } .finished path { fill-opacity: 1; }';
+							obj.el.appendChild(styleElement);
+						}
 
-								styleElement.textContent = '#' + uniqid + ' path, #' + uniqid + ' line, #' + uniqid + ' rect, #' + uniqid + ' circle, #' + uniqid + ' polyline { fill: ' + color + '; stroke: ' + color + '; ' + animateStyle + (self.options.svgStyle ? self.options.svgStyle : "") + ' } .finished path { fill-opacity: 1; }';
-								obj.el.appendChild(styleElement);
-							}
+						// SVG Stroke Based
+						if( self.options.animated && self.options.strokeBased || !self.options.animated && color && self.options.strokeBased ) {
 
-							if (self.options.animated && self.options.strokeBased || !self.options.animated && color && self.options.strokeBased) {
-								styleElement.textContent = '#' + uniqid + ' path, #' + uniqid + ' line, #' + uniqid + ' rect, #' + uniqid + ' circle, #' + uniqid + ' polyline { stroke: ' + color + '; ' + (self.options.svgStyle ? self.options.svgStyle : "") + '}';
-								obj.el.appendChild(styleElement);
-							}
+							// Set Style on SVG inside object
+							styleElement.textContent = '#' + uniqid + ' path, #' + uniqid + ' line, #' + uniqid + ' rect, #' + uniqid + ' circle, #' + uniqid + ' polyline { stroke: '+ color +'; ' + (self.options.svgStyle ? self.options.svgStyle : "") + '}';
+							obj.el.appendChild(styleElement);
+						}
 
-							$.event.trigger('theme.plugin.icon.svg.ready');
-						} });
+						$.event.trigger('theme.plugin.icon.svg.ready');
+					}});
 
-					if (!self.options.animated) {
-						setTimeout(function () {
+					// Isn't animated
+					if( !self.options.animated ) {
+						setTimeout(function(){
 							icon.finish();
 						}, 10);
 						$el.css({ opacity: 1 });
 					}
 
-					if (self.options.animated && $(window).width() > 767) {
-						if ($el.visible(true)) {
-							self.startIconAnimation(icon, $el);
-						} else if (elTopDistance < windowTopDistance) {
-							self.startIconAnimation(icon, $el);
+					// Animated
+					if( self.options.animated && $(window).width() > 767 ) {
+						// First Load
+						if( $el.visible( true ) ) {
+							self.startIconAnimation( icon, $el );
+						} else if( elTopDistance < windowTopDistance ) {
+							self.startIconAnimation( icon, $el );
 						}
 
-						$(window).on('scroll', function () {
-							if ($el.visible(true)) {
-								self.startIconAnimation(icon, $el);
+						// On Scroll
+						$(window).on('scroll', function(){
+							if( $el.visible( true ) ) {
+								self.startIconAnimation( icon, $el );
 							}
 						});
-					} else {
 
+					} else {
+						
 						$el.css({ opacity: 1 });
 						icon.finish();
-
-						$(window).on('theme.plugin.icon.svg.ready', function () {
-							setTimeout(function () {
+						
+						$(window).on('theme.plugin.icon.svg.ready', function(){
+							setTimeout(function(){
 								icon.el.setAttribute('class', 'finished');
 								icon.finish();
 							}, 300);
 						});
+						
 					}
+
 				}
 			});
 
 			return this;
 		},
-		startIconAnimation: function startIconAnimation(icon, $el) {
+		startIconAnimation: function(icon, $el) {
 			var self = this;
 
-			$({ to: 0 }).animate({ to: 1 }, self.options.strokeBased ? self.options.delay : self.options.delay + 300, function () {
+			// Animate for better performance
+			$({to:0}).animate({to:1}, ((self.options.strokeBased) ? self.options.delay : self.options.delay + 300 ), function() {
 				$el.css({ opacity: 1 });
 			});
 
-			$({ to: 0 }).animate({ to: 1 }, self.options.delay, function () {
+			$({to:0}).animate({to:1}, self.options.delay, function() {
 				icon.play(1);
 
-				setTimeout(function () {
+				setTimeout(function(){
 					icon.el.setAttribute('class', 'finished');
-				}, icon.duration * 5);
+				}, icon.duration * 5 );
 			});
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginIcon: PluginIcon
 	});
 
-	$.fn.themePluginIcon = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginIcon = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -762,49 +865,57 @@ window.theme.fn = {
 			} else {
 				return new PluginIcon($this, opts);
 			}
+
 		});
 	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Lazy Load
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__lazyload';
 
-	var PluginLazyLoad = function PluginLazyLoad($el, opts) {
+	var PluginLazyLoad = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
 	PluginLazyLoad.defaults = {
 		effect: 'show',
 		appearEffect: '',
-		appear: function appear(elements_left, settings) {},
-		load: function load(elements_left, settings) {
+		appear: function(elements_left, settings) {
+			
+		},
+		load: function(elements_left, settings) {
 			$(this).addClass($.trim('lazy-load-loaded ' + settings.appearEffect));
 		}
 	};
 
 	PluginLazyLoad.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginLazyLoad.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -812,8 +923,8 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.lazyload)) {
+		build: function() {
+			if (!($.isFunction($.fn.lazyload))) {
 				return this;
 			}
 
@@ -825,12 +936,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginLazyLoad: PluginLazyLoad
 	});
 
-	$.fn.themePluginLazyLoad = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginLazyLoad = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -838,61 +951,70 @@ window.theme.fn = {
 			} else {
 				return new PluginLazyLoad($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Lightbox
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__lightbox';
 
-	var PluginLightbox = function PluginLightbox($el, opts) {
+	var PluginLightbox = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
 	PluginLightbox.defaults = {
-		tClose: 'Close (Esc)',
-		tLoading: 'Loading...',
+		tClose: 'Close (Esc)', // Alt text on close button
+		tLoading: 'Loading...', // Text that is displayed during loading. Can contain %curr% and %total% keys
 		gallery: {
-			tPrev: 'Previous (Left arrow key)',
-			tNext: 'Next (Right arrow key)',
-			tCounter: '%curr% of %total%' },
+			tPrev: 'Previous (Left arrow key)', // Alt text on left arrow
+			tNext: 'Next (Right arrow key)', // Alt text on right arrow
+			tCounter: '%curr% of %total%' // Markup for "1 of 7" counter
+		},
 		image: {
-			tError: '<a href="%url%">The image</a> could not be loaded.' },
+			tError: '<a href="%url%">The image</a> could not be loaded.' // Error message when image could not be loaded
+		},
 		ajax: {
-			tError: '<a href="%url%">The content</a> could not be loaded.' },
+			tError: '<a href="%url%">The content</a> could not be loaded.' // Error message when ajax request failed
+		},
 		callbacks: {
-			open: function open() {
+			open: function() {
 				$('html').addClass('lightbox-opened');
 			},
-			close: function close() {
+			close: function() {
 				$('html').removeClass('lightbox-opened');
 			}
 		}
 	};
 
 	PluginLightbox.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginLightbox.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -900,8 +1022,8 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.magnificPopup)) {
+		build: function() {
+			if (!($.isFunction($.fn.magnificPopup))) {
 				return this;
 			}
 
@@ -911,12 +1033,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginLightbox: PluginLightbox
 	});
 
-	$.fn.themePluginLightbox = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginLightbox = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -924,20 +1048,27 @@ window.theme.fn = {
 			} else {
 				return new PluginLightbox($this, opts);
 			}
+
 		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
+	}
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
 
-	'use strict';
+// Loading Overlay
+(function(theme, $) {
+
+	
 
 	theme = theme || {};
 
-	var loadingOverlayTemplate = ['<div class="loading-overlay">', '<div class="bounce-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>', '</div>'].join('');
+	var loadingOverlayTemplate = [
+		'<div class="loading-overlay">',
+			'<div class="bounce-loader"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>',
+		'</div>'
+	].join('');
 
-	var LoadingOverlay = function LoadingOverlay($wrapper, options) {
-		return this.initialize($wrapper, options);
+	var LoadingOverlay = function( $wrapper, options ) {
+		return this.initialize( $wrapper, options );
 	};
 
 	LoadingOverlay.prototype = {
@@ -947,115 +1078,123 @@ window.theme.fn = {
 			hideDelay: 500
 		},
 
-		initialize: function initialize($wrapper, options) {
+		initialize: function( $wrapper, options ) {
 			this.$wrapper = $wrapper;
 
-			this.setVars().setOptions(options).build().events();
+			this
+				.setVars()
+				.setOptions( options )
+				.build()
+				.events();
 
-			this.$wrapper.data('loadingOverlay', this);
+			this.$wrapper.data( 'loadingOverlay', this );
 		},
 
-		setVars: function setVars() {
+		setVars: function() {
 			this.$overlay = this.$wrapper.find('.loading-overlay');
 
 			return this;
 		},
 
-		setOptions: function setOptions(options) {
-			if (!this.$overlay.get(0)) {
+		setOptions: function( options ) {
+			if ( !this.$overlay.get(0) ) {
 				this.matchProperties();
 			}
-			this.options = $.extend(true, {}, this.options, options, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
+			this.options     = $.extend( true, {}, this.options, options, theme.fn.getOptions(this.$wrapper.data('plugin-options')) );
 
-			this.loaderClass = this.getLoaderClass(this.options.css.backgroundColor);
+			this.loaderClass = this.getLoaderClass( this.options.css.backgroundColor );
 
 			return this;
 		},
 
-		build: function build() {
-			if (!this.$overlay.closest(document.documentElement).get(0)) {
-				if (!this.$cachedOverlay) {
-					this.$overlay = $(loadingOverlayTemplate).clone();
+		build: function() {
+			if ( !this.$overlay.closest(document.documentElement).get(0) ) {
+				if ( !this.$cachedOverlay ) {
+					this.$overlay = $( loadingOverlayTemplate ).clone();
 
-					if (this.options.css) {
-						this.$overlay.css(this.options.css);
-						this.$overlay.find('.loader').addClass(this.loaderClass);
+					if ( this.options.css ) {
+						this.$overlay.css( this.options.css );
+						this.$overlay.find( '.loader' ).addClass( this.loaderClass );
 					}
 				} else {
 					this.$overlay = this.$cachedOverlay.clone();
 				}
 
-				this.$wrapper.append(this.$overlay);
+				this.$wrapper.append( this.$overlay );
 			}
 
-			if (!this.$cachedOverlay) {
+			if ( !this.$cachedOverlay ) {
 				this.$cachedOverlay = this.$overlay.clone();
 			}
 
 			return this;
 		},
 
-		events: function events() {
+		events: function() {
 			var _self = this;
 
-			if (this.options.startShowing) {
+			if ( this.options.startShowing ) {
 				_self.show();
 			}
 
-			if (this.$wrapper.is('body') || this.options.hideOnWindowLoad) {
-				$(window).on('load error', function () {
+			if ( this.$wrapper.is('body') || this.options.hideOnWindowLoad ) {
+				$( window ).on( 'load error', function() {
 					_self.hide();
 				});
 			}
 
-			if (this.options.listenOn) {
-				$(this.options.listenOn).on('loading-overlay:show beforeSend.ic', function (e) {
-					e.stopPropagation();
-					_self.show();
-				}).on('loading-overlay:hide complete.ic', function (e) {
-					e.stopPropagation();
-					_self.hide();
-				});
+			if ( this.options.listenOn ) {
+				$( this.options.listenOn )
+					.on( 'loading-overlay:show beforeSend.ic', function( e ) {
+						e.stopPropagation();
+						_self.show();
+					})
+					.on( 'loading-overlay:hide complete.ic', function( e ) {
+						e.stopPropagation();
+						_self.hide();
+					});
 			}
 
-			this.$wrapper.on('loading-overlay:show beforeSend.ic', function (e) {
-				if (e.target === _self.$wrapper.get(0)) {
-					e.stopPropagation();
-					_self.show();
-					return true;
-				}
-				return false;
-			}).on('loading-overlay:hide complete.ic', function (e) {
-				if (e.target === _self.$wrapper.get(0)) {
-					e.stopPropagation();
-					_self.hide();
-					return true;
-				}
-				return false;
-			});
+			this.$wrapper
+				.on( 'loading-overlay:show beforeSend.ic', function( e ) {
+					if ( e.target === _self.$wrapper.get(0) ) {
+						e.stopPropagation();
+						_self.show();
+						return true;
+					}
+					return false;
+				})
+				.on( 'loading-overlay:hide complete.ic', function( e ) {
+					if ( e.target === _self.$wrapper.get(0) ) {
+						e.stopPropagation();
+						_self.hide();
+						return true;
+					}
+					return false;
+				});
 
 			return this;
 		},
 
-		show: function show() {
+		show: function() {
 			this.build();
 
-			this.position = this.$wrapper.css('position').toLowerCase();
-			if (this.position != 'relative' || this.position != 'absolute' || this.position != 'fixed') {
+			this.position = this.$wrapper.css( 'position' ).toLowerCase();
+			if ( this.position != 'relative' || this.position != 'absolute' || this.position != 'fixed' ) {
 				this.$wrapper.css({
 					position: 'relative'
 				});
 			}
-			this.$wrapper.addClass('loading-overlay-showing');
+			this.$wrapper.addClass( 'loading-overlay-showing' );
 		},
 
-		hide: function hide() {
+		hide: function() {
 			var _self = this;
 
-			setTimeout(function () {
-				_self.$wrapper.removeClass('loading-overlay-showing');
-
-				if (this.position != 'relative' || this.position != 'absolute' || this.position != 'fixed') {
+			setTimeout(function() {
+				_self.$wrapper.removeClass( 'loading-overlay-showing' );
+				
+				if ( this.position != 'relative' || this.position != 'absolute' || this.position != 'fixed' ) {
 					_self.$wrapper.css({ position: '' });
 				}
 
@@ -1063,110 +1202,130 @@ window.theme.fn = {
 			}, _self.options.hideDelay);
 		},
 
-		matchProperties: function matchProperties() {
-			var i, l, properties;
+		matchProperties: function() {
+			var i,
+				l,
+				properties;
 
-			properties = ['backgroundColor', 'borderRadius'];
+			properties = [
+				'backgroundColor',
+				'borderRadius'
+			];
 
 			l = properties.length;
 
-			for (i = 0; i < l; i++) {
+			for( i = 0; i < l; i++ ) {
 				var obj = {};
-				obj[properties[i]] = this.$wrapper.css(properties[i]);
+				obj[ properties[ i ] ] = this.$wrapper.css( properties[ i ] );
 
-				$.extend(this.options.css, obj);
+				$.extend( this.options.css, obj );
 			}
 		},
 
-		getLoaderClass: function getLoaderClass(backgroundColor) {
-			if (!backgroundColor || backgroundColor === 'transparent' || backgroundColor === 'inherit') {
+		getLoaderClass: function( backgroundColor ) {
+			if ( !backgroundColor || backgroundColor === 'transparent' || backgroundColor === 'inherit' ) {
 				return 'black';
 			}
 
-			var hexColor, r, g, b, yiq;
+			var hexColor,
+				r,
+				g,
+				b,
+				yiq;
 
-			var colorToHex = function colorToHex(color) {
-				var hex, rgb;
+			var colorToHex = function( color ){
+				var hex,
+					rgb;
 
-				if (color.indexOf('#') > -1) {
+				if( color.indexOf('#') >- 1 ){
 					hex = color.replace('#', '');
 				} else {
 					rgb = color.match(/\d+/g);
 					hex = ('0' + parseInt(rgb[0], 10).toString(16)).slice(-2) + ('0' + parseInt(rgb[1], 10).toString(16)).slice(-2) + ('0' + parseInt(rgb[2], 10).toString(16)).slice(-2);
 				}
 
-				if (hex.length === 3) {
+				if ( hex.length === 3 ) {
 					hex = hex + hex;
 				}
 
 				return hex;
 			};
 
-			hexColor = colorToHex(backgroundColor);
+			hexColor = colorToHex( backgroundColor );
 
-			r = parseInt(hexColor.substr(0, 2), 16);
-			g = parseInt(hexColor.substr(2, 2), 16);
-			b = parseInt(hexColor.substr(4, 2), 16);
-			yiq = (r * 299 + g * 587 + b * 114) / 1000;
+			r = parseInt( hexColor.substr( 0, 2), 16 );
+			g = parseInt( hexColor.substr( 2, 2), 16 );
+			b = parseInt( hexColor.substr( 4, 2), 16 );
+			yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
 
-			return yiq >= 128 ? 'black' : 'white';
+			return ( yiq >= 128 ) ? 'black' : 'white';
 		}
 
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		LoadingOverlay: LoadingOverlay
 	});
 
-	$.fn.loadingOverlay = function (opts) {
-		return this.each(function () {
-			var $this = $(this);
+	// expose as a jquery plugin
+	$.fn.loadingOverlay = function( opts ) {
+		return this.each(function() {
+			var $this = $( this );
 
-			var loadingOverlay = $this.data('loadingOverlay');
-			if (loadingOverlay) {
+			var loadingOverlay = $this.data( 'loadingOverlay' );
+			if ( loadingOverlay ) {
 				return loadingOverlay;
 			} else {
-				var options = opts || $this.data('loading-overlay-options') || {};
-				return new LoadingOverlay($this, options);
+				var options = opts || $this.data( 'loading-overlay-options' ) || {};
+				return new LoadingOverlay( $this, options );
 			}
 		});
-	};
+	}
 
+	// auto init
 	$('[data-loading-overlay]').loadingOverlay();
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Masonry
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__masonry';
 
-	var PluginMasonry = function PluginMasonry($el, opts) {
+	var PluginMasonry = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
-	PluginMasonry.defaults = {};
+	PluginMasonry.defaults = {
+
+	};
 
 	PluginMasonry.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginMasonry.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -1174,13 +1333,13 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.isotope)) {
+		build: function() {
+			if (!($.isFunction($.fn.isotope))) {
 				return this;
 			}
 
 			var self = this,
-			    $window = $(window);
+				$window = $(window);
 
 			self.$loader = false;
 
@@ -1189,42 +1348,49 @@ window.theme.fn = {
 				self.createLoader();
 			}
 
-			self.options.wrapper.one('layoutComplete', function (event, laidOutItems) {
+			self.options.wrapper.one('layoutComplete', function(event, laidOutItems) {
 				self.removeLoader();
 			});
 
-			self.options.wrapper.waitForImages(function () {
-				self.options.wrapper.isotope(self.options);
+			self.options.wrapper.waitForImages(function() {
+				self.options.wrapper.isotope(self.options);	
 			});
 
-			if ($('html').hasClass('ie10') || $('html').hasClass('ie11')) {
-				var padding = parseInt(self.options.wrapper.children().css('padding-left')) + parseInt(self.options.wrapper.children().css('padding-right'));
+			// IE10/11 fix
+			if( $('html').hasClass('ie10') || $('html').hasClass('ie11') ) {
+				var padding = parseInt( self.options.wrapper.children().css('padding-left') ) + parseInt( self.options.wrapper.children().css('padding-right') );
 			}
 
-			$(window).on('resize', function () {
-				setTimeout(function () {
+			$(window).on('resize', function() {
+				setTimeout(function() {
 					self.options.wrapper.isotope('layout');
 				}, 300);
 			});
 
-			setTimeout(function () {
+			setTimeout(function() {
 				self.removeLoader();
 			}, 3000);
 
 			return this;
 		},
 
-		createLoader: function createLoader() {
+		createLoader: function() {
 			var self = this;
 
-			var loaderTemplate = ['<div class="bounce-loader">', '<div class="bounce1"></div>', '<div class="bounce2"></div>', '<div class="bounce3"></div>', '</div>'].join('');
+			var loaderTemplate = [
+				'<div class="bounce-loader">',
+					'<div class="bounce1"></div>',
+					'<div class="bounce2"></div>',
+					'<div class="bounce3"></div>',
+				'</div>'
+			].join('');
 
 			self.$loader.append(loaderTemplate);
 
 			return this;
 		},
 
-		removeLoader: function removeLoader() {
+		removeLoader: function() {
 
 			var self = this;
 
@@ -1232,19 +1398,23 @@ window.theme.fn = {
 
 				self.$loader.removeClass('masonry-loader-showing');
 
-				setTimeout(function () {
+				setTimeout(function() {
 					self.$loader.addClass('masonry-loader-loaded');
 				}, 300);
+
 			}
+
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginMasonry: PluginMasonry
 	});
 
-	$.fn.themePluginMasonry = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginMasonry = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -1252,17 +1422,20 @@ window.theme.fn = {
 			} else {
 				return new PluginMasonry($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Match Height
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__matchHeight';
 
-	var PluginMatchHeight = function PluginMatchHeight($el, opts) {
+	var PluginMatchHeight = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -1274,25 +1447,28 @@ window.theme.fn = {
 	};
 
 	PluginMatchHeight.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginMatchHeight.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -1300,8 +1476,8 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.matchHeight)) {
+		build: function() {
+			if (!($.isFunction($.fn.matchHeight))) {
 				return this;
 			}
 
@@ -1314,12 +1490,14 @@ window.theme.fn = {
 
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginMatchHeight: PluginMatchHeight
 	});
 
-	$.fn.themePluginMatchHeight = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginMatchHeight = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -1327,17 +1505,20 @@ window.theme.fn = {
 			} else {
 				return new PluginMatchHeight($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Parallax
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__parallax';
 
-	var PluginParallax = function PluginParallax($el, opts) {
+	var PluginParallax = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -1349,25 +1530,28 @@ window.theme.fn = {
 	};
 
 	PluginParallax.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginParallax.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -1375,51 +1559,56 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			var self = this,
-			    $window = $(window),
-			    offset,
-			    yPos,
-			    bgpos,
-			    background;
+				$window = $(window),
+				offset,
+				yPos,
+				bgpos,
+				background;
 
+			// Create Parallax Element
 			background = $('<div class="parallax-background"></div>');
 
+			// Set Style for Parallax Element
 			background.css({
-				'background-image': 'url(' + self.options.wrapper.data('image-src') + ')',
-				'background-size': 'cover',
-				'position': 'absolute',
-				'top': 0,
-				'left': 0,
-				'width': '100%',
-				'height': self.options.parallaxHeight
+				'background-image' : 'url(' + self.options.wrapper.data('image-src') + ')',
+				'background-size' : 'cover',
+				'position' : 'absolute',
+				'top' : 0,
+				'left' : 0,
+				'width' : '100%',
+				'height' : self.options.parallaxHeight
 			});
 
+			// Add Parallax Element on DOM
 			self.options.wrapper.prepend(background);
 
+			// Set Overlfow Hidden and Position Relative to Parallax Wrapper
 			self.options.wrapper.css({
-				'position': 'relative',
-				'overflow': 'hidden'
+				'position' : 'relative',
+				'overflow' : 'hidden'
 			});
 
-			var parallaxEffectOnScrolResize = function parallaxEffectOnScrolResize() {
-				$window.on('scroll resize', function () {
-					offset = self.options.wrapper.offset();
-					yPos = -($window.scrollTop() - (offset.top - 100)) / (self.options.speed + 2);
-					plxPos = yPos < 0 ? Math.abs(yPos) : -Math.abs(yPos);
+			// Parallax Effect on Scroll & Resize
+			var parallaxEffectOnScrolResize = function() {
+				$window.on('scroll resize', function() {
+					offset  = self.options.wrapper.offset();
+					yPos    = -($window.scrollTop() - (offset.top - 100)) / ((self.options.speed + 2 ));
+					plxPos  = (yPos < 0) ? Math.abs(yPos) : -Math.abs(yPos);
 					background.css({
-						'transform': 'translate3d(0, ' + (plxPos - 50 + self.options.offset) + 'px, 0)',
-						'background-position-x': self.options.horizontalPosition
+						'transform' : 'translate3d(0, '+ ( (plxPos - 50) + (self.options.offset) ) +'px, 0)',
+						'background-position-x' : self.options.horizontalPosition
 					});
 				});
 
 				$window.trigger('scroll');
-			};
+			}
 
 			if (!$.browser.mobile) {
 				parallaxEffectOnScrolResize();
 			} else {
-				if (self.options.enableOnMobile == true) {
+				if( self.options.enableOnMobile == true ) {
 					parallaxEffectOnScrolResize();
 				} else {
 					self.options.wrapper.addClass('parallax-disabled');
@@ -1430,12 +1619,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginParallax: PluginParallax
 	});
 
-	$.fn.themePluginParallax = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginParallax = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -1443,17 +1634,20 @@ window.theme.fn = {
 			} else {
 				return new PluginParallax($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Progress Bar
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__progressBar';
 
-	var PluginProgressBar = function PluginProgressBar($el, opts) {
+	var PluginProgressBar = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -1464,25 +1658,28 @@ window.theme.fn = {
 	};
 
 	PluginProgressBar.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginProgressBar.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -1490,31 +1687,33 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.appear)) {
+		build: function() {
+			if (!($.isFunction($.fn.appear))) {
 				return this;
 			}
 
 			var self = this,
-			    $el = this.options.wrapper,
-			    delay = 1;
+				$el = this.options.wrapper,
+				delay = 1;
 
-			$el.appear(function () {
+			$el.appear(function() {
 
-				delay = $el.attr('data-appear-animation-delay') ? $el.attr('data-appear-animation-delay') : self.options.delay;
+				delay = ($el.attr('data-appear-animation-delay') ? $el.attr('data-appear-animation-delay') : self.options.delay);
 
 				$el.addClass($el.attr('data-appear-animation'));
 
-				setTimeout(function () {
+				setTimeout(function() {
 
 					$el.animate({
 						width: $el.attr('data-appear-progress-animation')
-					}, 1500, 'easeOutQuad', function () {
+					}, 1500, 'easeOutQuad', function() {
 						$el.find('.progress-bar-tooltip').animate({
 							opacity: 1
 						}, 500, 'easeOutQuad');
 					});
+
 				}, delay);
+
 			}, {
 				accX: self.options.accX,
 				accY: self.options.accY
@@ -1524,12 +1723,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginProgressBar: PluginProgressBar
 	});
 
-	$.fn.themePluginProgressBar = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginProgressBar = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -1537,17 +1738,20 @@ window.theme.fn = {
 			} else {
 				return new PluginProgressBar($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Revolution Slider
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__revolution';
 
-	var PluginRevolutionSlider = function PluginRevolutionSlider($el, opts) {
+	var PluginRevolutionSlider = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -1597,84 +1801,85 @@ window.theme.fn = {
 			}
 		},
 
-		addOnTypewriter: {
+		/* ADDONS */
+	    addOnTypewriter: {
 			enable: false
 		},
 		addOnWhiteboard: {
-			enable: false
+			enable: false,
 
 		},
-		whiteboard: {
-			movehand: {
-				src: '../vendor/rs-plugin/revolution-addons/whiteboard/assets/images/hand_point_right.png',
-				width: 400,
-				height: 1000,
-				handtype: 'right',
-				transform: {
-					transformX: 50,
-					transformY: 50
-				},
-				jittering: {
-					distance: '80',
-					distance_horizontal: '100',
-					repeat: '5',
-					offset: '10',
-					offset_horizontal: '0'
-				},
-				rotation: {
-					angle: '10',
-					repeat: '3'
-				}
-			},
-			writehand: {
-				src: '../vendor/rs-plugin/revolution-addons/whiteboard/assets/images/write_right_angle.png',
-				width: 572,
-				height: 691,
-				handtype: 'right',
-				transform: {
-					transformX: 50,
-					transformY: 50
-				},
-				jittering: {
-					distance: '80',
-					distance_horizontal: '100',
-					repeat: '5',
-					offset: '10',
-					offset_horizontal: '0'
-				},
-				rotation: {
-					angle: '10',
-					repeat: '3'
-				}
-			}
-		},
-		addOnParticles: {
-			enable: false
-		},
-		particles: {
-			startSlide: "first",
-			endSlide: "last",
+	    whiteboard: {
+	        movehand: {
+	            src: '../vendor/rs-plugin/revolution-addons/whiteboard/assets/images/hand_point_right.png',
+	            width: 400,
+	            height: 1000,
+	            handtype: 'right',
+	            transform: {
+	                transformX: 50,
+	                transformY: 50
+	            },
+	            jittering: {
+	                distance: '80',
+	                distance_horizontal: '100',
+	                repeat: '5',
+	                offset: '10',
+	                offset_horizontal: '0'
+	            },
+	            rotation: {
+	                angle: '10',
+	                repeat: '3'
+	            }
+	        },
+	        writehand: {
+	            src: '../vendor/rs-plugin/revolution-addons/whiteboard/assets/images/write_right_angle.png',
+	            width: 572,
+	            height: 691,
+	            handtype: 'right',
+	            transform: {
+	                transformX: 50,
+	                transformY: 50
+	            },
+	            jittering: {
+	                distance: '80',
+	                distance_horizontal: '100',
+	                repeat: '5',
+	                offset: '10',
+	                offset_horizontal: '0'
+	            },
+	            rotation:{
+	                angle: '10',
+	                repeat: '3'
+	            }
+	        }
+	    },
+	    addOnParticles: {
+	    	enable: false
+	    },
+	    particles: {
+			startSlide: "first", 
+			endSlide: "last", 
 			zIndex: "1",
 			particles: {
-				number: { value: 80 }, color: { value: "#ffffff" },
+				number: {value: 80}, color: {value: "#ffffff"},
 				shape: {
-					type: "circle", stroke: { width: 0, color: "#ffffff", opacity: 1 },
-					image: { src: "" }
+					type: "circle", stroke: {width: 0, color: "#ffffff", opacity: 1},
+					image: {src: ""}
 				},
-				opacity: { value: 0.5, random: true, min: 0.25, anim: { enable: false, speed: 3, opacity_min: 0, sync: false } },
-				size: { value: 2, random: false, min: 30, anim: { enable: false, speed: 40, size_min: 1, sync: false } },
-				line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
-				move: { enable: true, speed: 6, direction: "none", random: true, min_speed: 6, straight: false, out_mode: "out" }
+				opacity: {value: 0.5, random: true, min: 0.25, anim: {enable: false, speed: 3, opacity_min: 0, sync: false}},
+				size: {value: 2, random: false, min: 30, anim: {enable: false, speed: 40, size_min: 1, sync: false}},
+				line_linked: {enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1},
+				move: {enable: true, speed: 6, direction: "none", random: true, min_speed: 6, straight: false, out_mode: "out"}
 			},
 			interactivity: {
-				events: { onhover: { enable: false, mode: "repulse" }, onclick: { enable: false, mode: "repulse" } },
-				modes: { grab: { distance: 400, line_linked: { opacity: 0.5 } }, bubble: { distance: 400, size: 40, opacity: 0.4 }, repulse: { distance: 200 } }
+				events: {onhover: {enable: false, mode: "repulse"}, onclick: {enable: false, mode: "repulse"}},
+				modes: {grab: {distance: 400, line_linked: {opacity: 0.5}}, bubble: {distance: 400, size: 40, opacity: 0.4}, repulse: {distance: 200}}
 			}
 		},
 		addOnCountdown: {
 			enable: false,
-			targetdate: new Date().getTime() + 864000000,
-			slidechanges: [{ days: 0, hours: 0, minutes: 0, seconds: 0, slide: 2 }]
+			targetdate: new Date().getTime() + 864000000, // http://www.freeformatter.com/epoch-timestamp-to-date-converter.html
+			slidechanges: [{days: 0, hours: 0, minutes: 0, seconds: 0, slide: 2}]
 		},
 		addOnSlicey: {
 			enable: false
@@ -1682,34 +1887,34 @@ window.theme.fn = {
 		addOnFilmstrip: {
 			enable: false
 		},
-		addOnBeforeAfter: {
+		addOnBeforeAfter : {
 			enable: false,
 			options: {
 				cursor: "move",
-				carousel: false,
-				arrowStyles: {
-					leftIcon: "fa-icon-caret-left",
-					rightIcon: "fa-icon-caret-right",
-					topIcon: "fa-icon-caret-up",
-					bottomIcon: "fa-icon-caret-down",
-					size: "35",
-					color: "#ffffff",
-					spacing: "10",
-					bgColor: "transparent",
-					padding: "0",
-					borderRadius: "0"
-				},
-				dividerStyles: {
-					width: "1",
-					color: "rgba(255, 255, 255, 0.5)"
-				}
+			    carousel: false,
+			    arrowStyles: {
+			        leftIcon: "fa-icon-caret-left",
+			        rightIcon: "fa-icon-caret-right",
+			        topIcon: "fa-icon-caret-up",
+			        bottomIcon: "fa-icon-caret-down",
+			        size: "35",
+			        color: "#ffffff",
+			        spacing: "10",
+			        bgColor: "transparent",
+			        padding: "0",
+			        borderRadius: "0"
+			    },
+			    dividerStyles: {
+			        width: "1",
+			        color: "rgba(255, 255, 255, 0.5)"
+			    }
 			}
 		},
 		addOnPanorama: {
 			enable: false
 		},
 		addOnRevealer: {
-			enable: false
+			enable: false,
 		},
 		revealer: {
 			direction: "open_horizontal",
@@ -1735,29 +1940,33 @@ window.theme.fn = {
 		addOnDistortion: {
 			enable: false
 		}
-
+		
 	};
 
 	PluginRevolutionSlider.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build().events();
+			this
+				.setData()
+				.setOptions(opts)
+				.build()
+				.events();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginRevolutionSlider.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -1765,90 +1974,110 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.revolution)) {
+		build: function() {
+			if (!($.isFunction($.fn.revolution))) {
 				return this;
 			}
 
-			if (this.options.wrapper.find('> ul > li').length == 1) {
+			// Single Slider Class
+			if(this.options.wrapper.find('> ul > li').length == 1) {
 				this.options.wrapper.addClass('slider-single-slide');
 
+				// Remove Bullets
+				// this.options.navigation.bullets.enable = false;
 				$.extend(this.options.navigation, {
 					bullets: {
 						enable: false
 					}
 				});
+
 			}
 
-			if (this.options.sliderLayout == 'fullscreen') {
+			// Full Screen Class
+			if(this.options.sliderLayout == 'fullscreen') {
 				this.options.wrapper.closest('.slider-container').addClass('fullscreen-slider');
 			}
-
+			
+			// Initialize Revolution Slider
 			this.options.wrapper.revolution(this.options);
 
-			if (this.options.addOnTypewriter.enable) {
+			// Addon Init - Typewriter
+			if(this.options.addOnTypewriter.enable) {
 				RsTypewriterAddOn($, this.options.wrapper);
 			}
 
-			if (this.options.addOnWhiteboard.enable) {
+			// Addon Init - Whiteboard
+			if(this.options.addOnWhiteboard.enable) {
 				this.options.wrapper.rsWhiteBoard();
 			}
 
-			if (this.options.addOnParticles.enable) {
+			// Addon Init - Particles
+			if(this.options.addOnParticles.enable) {
 				RsParticlesAddOn(this.options.wrapper);
 			}
 
-			if (this.options.addOnCountdown.enable) {
+			// Addon Init - Countdown
+			if(this.options.addOnCountdown.enable) {
 				tp_countdown(this.options.wrapper, this.options.addOnCountdown.targetdate, this.options.addOnCountdown.slidechanges);
 			}
 
-			if (this.options.addOnSlicey.enable) {
+			// Addon Init - Slicey
+			if(this.options.addOnSlicey.enable) {
 				this.options.wrapper.revSliderSlicey();
 			}
 
-			if (this.options.addOnFilmstrip.enable) {
+			// Addon Init - Filmstrip
+			if(this.options.addOnFilmstrip.enable) {
 				RsFilmstripAddOn($, this.options.wrapper, '../vendor/rs-plugin/revolution-addons/filmstrip/', false);
 			}
 
-			if (this.options.addOnBeforeAfter.enable) {
+			// Addon Init - Before After
+			if(this.options.addOnBeforeAfter.enable) {
 				RevSliderBeforeAfter($, this.options.wrapper, this.options.addOnBeforeAfter.options);
 			}
 
-			if (this.options.addOnPanorama.enable) {
+			// Addon Init - Panorama
+			if(this.options.addOnPanorama.enable) {
 				RsAddonPanorama($, this.options.wrapper);
 			}
 
-			if (this.options.addOnRevealer.enable) {
+			// Addon Init - Revealer
+			if(this.options.addOnRevealer.enable) {
 				RsRevealerAddOn($, this.options.wrapper, this.options.revealer.spinnerHtml);
 			}
 
-			if (this.options.addOnDuotone.enable) {
+			// Addon Init - Duotone
+			if(this.options.addOnDuotone.enable) {
 				RsAddonDuotone($, this.options.wrapper, true, "cubic-bezier(0.645, 0.045, 0.355, 1.000)", "1000");
 			}
 
-			if (this.options.addOnBubblemorph.enable) {
+			// Addon Init - Bubblemorph
+			if(this.options.addOnBubblemorph.enable) {
 				BubbleMorphAddOn($, this.options.wrapper, false);
 			}
 
-			if (this.options.addOnDistortion.enable) {
+			// Addon Init - Distortion
+			if(this.options.addOnDistortion.enable) {
 				RsLiquideffectAddOn($, this.options.wrapper);
 			}
 
 			return this;
 		},
 
-		events: function events() {
+		events: function() {
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginRevolutionSlider: PluginRevolutionSlider
 	});
 
-	$.fn.themePluginRevolutionSlider = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginRevolutionSlider = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -1856,11 +2085,14 @@ window.theme.fn = {
 			} else {
 				return new PluginRevolutionSlider($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Scroll to Top
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -1879,38 +2111,53 @@ window.theme.fn = {
 				easing: 'easeOutBack'
 			},
 
-			initialize: function initialize(opts) {
+			initialize: function(opts) {
 				initialized = true;
 
-				if ($('body[data-plugin-section-scroll]').get(0)) {
+				// Don't initialize if the page has Section Scroll
+				if( $('body[data-plugin-section-scroll]').get(0) ) {
 					return;
 				}
 
-				this.setOptions(opts).build().events();
+				this
+					.setOptions(opts)
+					.build()
+					.events();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts);
 
 				return this;
 			},
 
-			build: function build() {
+			build: function() {
 				var self = this,
-				    $el;
+					$el;
 
-				$el = $('<a />').addClass(self.options.buttonClass).attr({
-					'href': '#'
-				}).append($('<i />').addClass(self.options.iconClass));
+				// Base HTML Markup
+				$el = $('<a />')
+					.addClass(self.options.buttonClass)
+					.attr({
+						'href': '#',
+					})
+					.append(
+						$('<i />')
+						.addClass(self.options.iconClass)
+				);
 
+				// Visible Mobile
 				if (!self.options.visibleMobile) {
 					$el.addClass('hidden-mobile');
 				}
 
+				// Label
 				if (self.options.label) {
-					$el.append($('<span />').html(self.options.label));
+					$el.append(
+						$('<span />').html(self.options.label)
+					);
 				}
 
 				this.options.wrapper.append($el);
@@ -1920,11 +2167,12 @@ window.theme.fn = {
 				return this;
 			},
 
-			events: function events() {
+			events: function() {
 				var self = this,
-				    _isScrolling = false;
+					_isScrolling = false;
 
-				self.$el.on('click', function (e) {
+				// Click Element Action
+				self.$el.on('click', function(e) {
 					e.preventDefault();
 					$('body, html').animate({
 						scrollTop: 0
@@ -1932,7 +2180,8 @@ window.theme.fn = {
 					return false;
 				});
 
-				$(window).scroll(function () {
+				// Show/Hide Button on Window Scroll event.
+				$(window).scroll(function() {
 
 					if (!_isScrolling) {
 
@@ -1942,12 +2191,16 @@ window.theme.fn = {
 
 							self.$el.stop(true, true).addClass('visible');
 							_isScrolling = false;
+
 						} else {
 
 							self.$el.stop(true, true).removeClass('visible');
 							_isScrolling = false;
+
 						}
+
 					}
+
 				});
 
 				return this;
@@ -1956,23 +2209,25 @@ window.theme.fn = {
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Scrollable
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__scrollable';
 
-	var PluginScrollable = function PluginScrollable($el, opts) {
+	var PluginScrollable = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
-	PluginScrollable.updateModals = function () {
+	PluginScrollable.updateModals = function() {
 		PluginScrollable.updateBootstrapModal();
 	};
 
-	PluginScrollable.updateBootstrapModal = function () {
+	PluginScrollable.updateBootstrapModal = function() {
 		var updateBoostrapModal;
 
 		updateBoostrapModal = typeof $.fn.modal !== 'undefined';
@@ -1980,21 +2235,21 @@ window.theme.fn = {
 		updateBoostrapModal = updateBoostrapModal && typeof $.fn.modal.Constructor.prototype !== 'undefined';
 		updateBoostrapModal = updateBoostrapModal && typeof $.fn.modal.Constructor.prototype.enforceFocus !== 'undefined';
 
-		if (!updateBoostrapModal) {
+		if ( !updateBoostrapModal ) {
 			return false;
 		}
 
 		var originalFocus = $.fn.modal.Constructor.prototype.enforceFocus;
-		$.fn.modal.Constructor.prototype.enforceFocus = function () {
-			originalFocus.apply(this);
+		$.fn.modal.Constructor.prototype.enforceFocus = function() {
+			originalFocus.apply( this );
 
 			var $scrollable = this.$element.find('.scrollable');
-			if ($scrollable) {
-				if ($.isFunction($.fn['themePluginScrollable'])) {
+			if ( $scrollable ) {
+				if ( $.isFunction($.fn['themePluginScrollable'])  ) {
 					$scrollable.themePluginScrollable();
 				}
 
-				if ($.isFunction($.fn['nanoScroller'])) {
+				if ( $.isFunction($.fn['nanoScroller']) ) {
 					$scrollable.nanoScroller();
 				}
 			}
@@ -2010,25 +2265,28 @@ window.theme.fn = {
 	};
 
 	PluginScrollable.prototype = {
-		initialize: function initialize($el, opts) {
-			if ($el.data(instanceName)) {
+		initialize: function($el, opts) {
+			if ( $el.data( instanceName ) ) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginScrollable.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -2036,19 +2294,21 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			this.options.wrapper.nanoScroller(this.options);
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginScrollable: PluginScrollable
 	});
 
-	$.fn.themePluginScrollable = function (opts) {
-		return this.each(function () {
+	// jquery plugin
+	$.fn.themePluginScrollable = function(opts) {
+		return this.each(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -2056,21 +2316,24 @@ window.theme.fn = {
 			} else {
 				return new PluginScrollable($this, opts);
 			}
+
 		});
 	};
 
-	$(function () {
+	$(function() {
 		PluginScrollable.updateModals();
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Section Scroll
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__sectionScroll';
 
-	var PluginSectionScroll = function PluginSectionScroll($el, opts) {
+	var PluginSectionScroll = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -2083,25 +2346,29 @@ window.theme.fn = {
 	};
 
 	PluginSectionScroll.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build().events();
+			this
+				.setData()
+				.setOptions(opts)
+				.build()
+				.events();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginSectionScroll.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -2109,273 +2376,304 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			var self = this,
-			    $el = this.options.wrapper;
+				$el = this.options.wrapper;
 
-			if ($('html').hasClass('side-header-overlay-full-screen')) {
+			// Check type of header and change the target for header (by change header color purpose)
+			if( $('html').hasClass('side-header-overlay-full-screen') ) {
 				self.$header = $('.sticky-wrapper');
 			} else {
 				self.$header = $('#header');
 			}
 
+			// Turn the section full height or not depeding on the content size
 			self.updateSectionsHeight();
 
-			$(this.options.targetClass).wrap('<div class="section-wrapper"></div>');
+			// Wrap all sections in a section wrapper
+			$( this.options.targetClass ).wrap('<div class="section-wrapper"></div>');
 
-			$('.section-wrapper').each(function () {
-				$(this).height($(this).find('.section-scroll').outerHeight());
+			// Set the section wrapper height
+	  		$('.section-wrapper').each(function(){
+	  			$(this).height( $(this).find('.section-scroll').outerHeight() );
+	  		});
+
+	  		// Add active class to the first section on page load
+	  		$('.section-wrapper').first().addClass('active');
+			
+	        var	flag = false,
+	            scrollableFlag = false,
+	        	touchDirection = '',
+	        	touchstartY = 0,
+	        	touchendY = 0;
+
+	        $(window).on('touchstart', function(event) {
+			    touchstartY = event.changedTouches[0].screenY;
 			});
 
-			$('.section-wrapper').first().addClass('active');
+	        var wheelEvent = 'onwheel' in document ? 'wheel' : document.onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
+	        if( $(window).width() < 992 ) {
+	        	wheelEvent = 'onwheel' in document ? 'wheel touchend' : document.onmousewheel !== undefined ? 'mousewheel touchend' : 'DOMMouseScroll touchend';
+	        }
 
-			var flag = false,
-			    scrollableFlag = false,
-			    touchDirection = '',
-			    touchstartY = 0,
-			    touchendY = 0;
+	        $(window).on(wheelEvent, function(e){
+	        	if( $(window).width() < 992 ) {
+		        	if( $(e.target).closest('.section-scroll-dots-navigation').get(0) || $(e.target).closest('.header-body').get(0) || $(e.target).closest('.owl-carousel').get(0) ) {
+		        		return;
+		        	}
+		        }
 
-			$(window).on('touchstart', function (event) {
-				touchstartY = event.changedTouches[0].screenY;
-			});
+		        // Side Header Overlay Full Screen
+		        if( $('html.side-header-overlay-full-screen.side-header-hide').get(0) ) {
+		        	return;
+		        }
 
-			var wheelEvent = 'onwheel' in document ? 'wheel' : document.onmousewheel !== undefined ? 'mousewheel' : 'DOMMouseScroll';
-			if ($(window).width() < 992) {
-				wheelEvent = 'onwheel' in document ? 'wheel touchend' : document.onmousewheel !== undefined ? 'mousewheel touchend' : 'DOMMouseScroll touchend';
-			}
+	        	var wheelDirection = e.originalEvent.wheelDelta == undefined ? e.originalEvent.deltaY > 0 : e.originalEvent.wheelDelta < 0;
+	        	if( $(window).width() < 992 ) {
+		        	touchendY = event.changedTouches[0].screenY;
+	        		
+				    if( touchendY <= touchstartY ) {
+				    	touchDirection = 'up';
+				    }
 
-			$(window).on(wheelEvent, function (e) {
-				if ($(window).width() < 992) {
-					if ($(e.target).closest('.section-scroll-dots-navigation').get(0) || $(e.target).closest('.header-body').get(0) || $(e.target).closest('.owl-carousel').get(0)) {
-						return;
-					}
+				    if( touchendY >= touchstartY ) {
+				    	touchDirection = 'down';
+				    }
+
+				    if( touchendY == touchstartY ) {
+				    	return;
+				    }
+	        	}
+
+	        	var $currentSection = $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll'),
+            		$nextSection = self.getNextSection(wheelDirection, touchDirection);
+
+			    if( $(window).width() < 992 ) {
+				    setTimeout(function(){
+					    if( $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll').hasClass('section-scroll-scrollable') ) {
+					    	$('html').removeClass('overflow-hidden');
+					    } else {
+					    	$('html').addClass('overflow-hidden');
+					    }
+				    }, 1200);
 				}
 
-				if ($('html.side-header-overlay-full-screen.side-header-hide').get(0)) {
-					return;
-				}
+	        	// For non full height sections
+	        	if( $currentSection.hasClass('section-scroll-scrollable') ) {
+	        		
+	        		if( !flag && !scrollableFlag ) {
 
-				var wheelDirection = e.originalEvent.wheelDelta == undefined ? e.originalEvent.deltaY > 0 : e.originalEvent.wheelDelta < 0;
-				if ($(window).width() < 992) {
-					touchendY = event.changedTouches[0].screenY;
-
-					if (touchendY <= touchstartY) {
-						touchDirection = 'up';
-					}
-
-					if (touchendY >= touchstartY) {
-						touchDirection = 'down';
-					}
-
-					if (touchendY == touchstartY) {
-						return;
-					}
-				}
-
-				var $currentSection = $('.section-wrapper').eq(self.getCurrentIndex()).find('.section-scroll'),
-				    $nextSection = self.getNextSection(wheelDirection, touchDirection);
-
-				if ($(window).width() < 992) {
-					setTimeout(function () {
-						if ($('.section-wrapper').eq(self.getCurrentIndex()).find('.section-scroll').hasClass('section-scroll-scrollable')) {
-							$('html').removeClass('overflow-hidden');
-						} else {
-							$('html').addClass('overflow-hidden');
-						}
-					}, 1200);
-				}
-
-				if ($currentSection.hasClass('section-scroll-scrollable')) {
-
-					if (!flag && !scrollableFlag) {
-						if (wheelDirection || touchDirection == 'up') {
-							if ($(window).scrollTop() + $(window).height() >= $nextSection.offset().top) {
-								flag = true;
-								setTimeout(function () {
+		        		// Scroll Direction
+		        		if(wheelDirection || touchDirection == 'up') {
+		        			if( ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
+		        				flag = true;
+								setTimeout(function(){
 									$(window).trigger('section.scroll.change.header.color');
 
-									setTimeout(function () {
+					            	setTimeout(function(){
 										flag = false;
 									}, 500);
 								}, 1000);
 
-								if (self.getCurrentIndex() == $('.section-wrapper').length - 1) {
-									return false;
-								}
+		        				if( self.getCurrentIndex() == ( $('.section-wrapper').length - 1 )  ) {
+						    		return false;
+						    	}
 
-								self.moveTo($currentSection.offset().top + $currentSection.outerHeight());
+		        				// Move to the next section
+		        				self.moveTo( $currentSection.offset().top + $currentSection.outerHeight() );
 
-								self.changeSectionActiveState($nextSection);
+		        				// Change Section Active Class
+					   			self.changeSectionActiveState( $nextSection );
 
-								self.$header.css({
-									opacity: 0,
-									transition: 'ease opacity 500ms'
-								});
-							}
+					   			self.$header.css({
+							    	opacity: 0,
+							    	transition: 'ease opacity 500ms'
+							    });
+					        }
 
-							if ($(window).width() > 991) {
-								for (var i = 1; i < 100; i++) {
-									$('body, html').scrollTop($(window).scrollTop() + 1);
+			        		if( $(window).width() > 991 ) {
+				        		for( var i = 1; i < 100; i++ ) {
+					        		$('body, html').scrollTop( $(window).scrollTop() + 1 );
 
-									if ($(window).scrollTop() + $(window).height() >= $nextSection.offset().top) {
-										scrollableFlag = true;
-										setTimeout(function () {
+					        		if( ( $(window).scrollTop() + $(window).height() ) >= $nextSection.offset().top ) {
+					        			scrollableFlag = true;
+										setTimeout(function(){
 											$(window).trigger('section.scroll.change.header.color');
-											scrollableFlag = false;
+							            	scrollableFlag = false;
 										}, 500);
-										break;
-									}
-								}
-							}
-						} else {
-							if ($(window).scrollTop() <= $currentSection.offset().top) {
-								flag = true;
-								setTimeout(function () {
+					        			break;
+					        		}
+				        		}
+				        	}
+					    } else {
+					    	if( $(window).scrollTop() <= $currentSection.offset().top ) {
+					    		flag = true;
+								setTimeout(function(){
 									$(window).trigger('section.scroll.change.header.color');
 
-									setTimeout(function () {
+					            	setTimeout(function(){
 										flag = false;
 									}, 500);
 								}, 1000);
 
-								if (self.getCurrentIndex() == 0) {
-									return false;
-								}
+					    		if( self.getCurrentIndex() == 0  ) {
+						    		return false;
+						    	}
 
-								self.moveTo($currentSection.offset().top - $(window).height());
+					   			// Move to the next section
+		        				self.moveTo( $currentSection.offset().top - $(window).height() );
 
-								self.changeSectionActiveState($nextSection);
+		        				// Change Section Active Class
+					   			self.changeSectionActiveState( $nextSection );
 
-								self.$header.css({
-									opacity: 0,
-									transition: 'ease opacity 500ms'
-								});
-							}
+					   			self.$header.css({
+							    	opacity: 0,
+							    	transition: 'ease opacity 500ms'
+							    });
+					        }
 
-							if ($(window).width() > 991) {
-								for (var i = 1; i < 100; i++) {
-									$('body, html').scrollTop($(window).scrollTop() - 1);
+					    	if( $(window).width() > 991 ) {
+				        		for( var i = 1; i < 100; i++ ) {
+					        		$('body, html').scrollTop( $(window).scrollTop() - 1 );
 
-									if ($(window).scrollTop() <= $currentSection.offset().top) {
-										scrollableFlag = true;
-										setTimeout(function () {
+					        		if( $(window).scrollTop() <= $currentSection.offset().top ) {
+					        			scrollableFlag = true;
+										setTimeout(function(){
 											$(window).trigger('section.scroll.change.header.color');
-											scrollableFlag = false;
+							            	scrollableFlag = false;
 										}, 500);
-										break;
-									}
-								}
-							}
-						}
+					        			break;
+					        		}
+				        		}
+				        	}
+					    }
 
-						self.changeDotsActiveState();
+			   			// Change Dots Active Class
+				        self.changeDotsActiveState();
 
-						return;
-					}
-				}
+		        		return;
 
-				if (!flag && !scrollableFlag) {
+		        	}
+	        	}
 
-					if (wheelDirection || touchDirection == 'up') {
-						if (self.getCurrentIndex() == $('.section-wrapper').length - 1) {
-							return false;
-						}
+	        	// For full height sections
+	        	if( !flag && !scrollableFlag ) {
 
-						self.changeSectionActiveState($nextSection);
+				    if(wheelDirection || touchDirection == 'up') {
+				    	if( self.getCurrentIndex() == ( $('.section-wrapper').length - 1 )  ) {
+				    		return false;
+				    	}
 
-						setTimeout(function () {
-							self.moveTo($nextSection.offset().top);
-						}, 150);
-					} else {
-						if (self.getCurrentIndex() == 0) {
-							return false;
-						}
+				   		// Change Section Active Class
+			   			self.changeSectionActiveState( $nextSection );
 
-						self.changeSectionActiveState($nextSection);
+				   		setTimeout(function(){
+				   			// Move to the next section
+	        				self.moveTo( $nextSection.offset().top );
 
-						if ($nextSection.height() > $(window).height()) {
-							self.moveTo($currentSection.offset().top - $(window).height());
-						} else {
-							setTimeout(function () {
-								self.moveTo($nextSection.offset().top);
-							}, 150);
-						}
-					}
+				   		}, 150);
+				    } else {
+				    	if( self.getCurrentIndex() == 0  ) {
+				    		return false;
+				    	}
 
-					self.changeDotsActiveState();
+				   		// Change Section Active Class
+			   			self.changeSectionActiveState( $nextSection );
 
-					self.$header.css({
-						opacity: 0,
-						transition: 'ease opacity 500ms'
-					});
+				   		if( $nextSection.height() > $(window).height() ) {
+				   			// Move to the next section
+	        				self.moveTo( $currentSection.offset().top - $(window).height() );
+				   		} else {
+					        setTimeout(function(){
+					   			// Move to the next section
+		        				self.moveTo( $nextSection.offset().top );
 
-					$nextSection.css({
-						position: 'relative',
-						opacity: 1,
-						'z-index': 1,
-						transform: 'translate3d(0,0,0) scale(1)'
-					});
+					   		}, 150);
+				   		}
+				    }
 
-					$currentSection.css({
-						position: 'fixed',
-						width: '100%',
-						top: 0,
-						left: 0,
-						opacity: 0,
-						'z-index': 0,
-						transform: 'translate3d(0,0,-10px) scale(0.7)',
-						transition: 'ease transform 600ms, ease opacity 600ms'
-					});
+				    // Change Dots Active Class
+			        self.changeDotsActiveState();
 
-					setTimeout(function () {
+				    self.$header.css({
+				    	opacity: 0,
+				    	transition: 'ease opacity 500ms'
+				    });
+
+				    // Style next section
+	            	$nextSection.css({
+	            		position: 'relative',
+	            		opacity: 1,
+	            		'z-index': 1,
+	            		transform: 'translate3d(0,0,0) scale(1)'
+	            	});
+
+	            	// Style previous section
+	            	$currentSection.css({
+	            		position: 'fixed',
+	            		width: '100%',
+	            		top: 0,
+	            		left: 0,
+	            		opacity: 0,
+	            		'z-index': 0,
+	            		transform: 'translate3d(0,0,-10px) scale(0.7)',
+	            		transition: 'ease transform 600ms, ease opacity 600ms',
+	            	});
+
+					setTimeout(function(){
 						$currentSection.css({
-							position: 'relative',
-							opacity: 1,
-							transform: 'translate3d(0,0,-10px) scale(1)'
-						});
+		            		position: 'relative',
+		            		opacity: 1,
+		            		transform: 'translate3d(0,0,-10px) scale(1)'
+		            	});
 
 						$(window).trigger('section.scroll.change.header.color');
 
-						setTimeout(function () {
+		            	setTimeout(function(){
 							flag = false;
 						}, 500);
 					}, 1000);
 
 					flag = true;
+
 				}
 
 				return;
-			});
+	        });
 
-			if (this.options.dotsNav) {
-				self.dotsNavigation();
-			}
+	        // Dots Navigation
+	        if( this.options.dotsNav ) {
+	        	self.dotsNavigation();
+	        }
 
-			setTimeout(function () {
-				if ($(window.location.hash).get(0)) {
-					self.moveTo($(window.location.hash).parent().offset().top);
+	        // First Load
+	        setTimeout(function(){
+		        if( $(window.location.hash).get(0) ) {
+		        	self.moveTo( $(window.location.hash).parent().offset().top );
 
-					self.changeSectionActiveState($(window.location.hash));
+		        	self.changeSectionActiveState( $(window.location.hash) );
 
-					self.changeDotsActiveState();
+		        	// Change Dots Active Class
+			        self.changeDotsActiveState();
 
-					self.updateHash(true);
-				} else {
-					var hash = window.location.hash,
-					    index = hash.replace('#', '');
+		        	self.updateHash( true );
+		        } else {
+		        	var hash  = window.location.hash,
+		        		index = hash.replace('#','');
 
-					if (!hash) {
-						index = 1;
-					}
+		        	if( !hash ) {
+		        		index = 1;
+		        	}
 
-					self.moveTo($('.section-wrapper').eq(index - 1).offset().top);
+		        	self.moveTo( $('.section-wrapper').eq( index - 1 ).offset().top );
 
-					self.changeSectionActiveState($('.section-wrapper').eq(index - 1).find('.section-scroll'));
+		        	self.changeSectionActiveState( $('.section-wrapper').eq( index - 1 ).find('.section-scroll') );
 
-					self.changeDotsActiveState();
+		        	// Change Dots Active Class
+			        self.changeDotsActiveState();
 
-					self.updateHash(true);
-				}
+		        	self.updateHash( true );
+		        }
 
 				$(window).trigger('section.scroll.ready');
 			}, 500);
@@ -2383,12 +2681,12 @@ window.theme.fn = {
 			return this;
 		},
 
-		updateSectionsHeight: function updateSectionsHeight() {
+		updateSectionsHeight: function() {
 			var self = this;
 
-			$('.section-scroll').each(function () {
-				if ($(this).outerHeight() < $(window).height() + 3) {
-					$(this).css({ height: '100vh' });
+			$('.section-scroll').each(function(){
+				if( $(this).outerHeight() < ( $(window).height() + 3 ) ) {
+					$(this).css({ height: '100vh' });		
 				} else {
 					$(this).addClass('section-scroll-scrollable');
 				}
@@ -2397,15 +2695,15 @@ window.theme.fn = {
 			return this;
 		},
 
-		updateHash: function updateHash(first_load) {
+		updateHash: function( first_load ){
 			var self = this;
 
-			if (!window.location.hash) {
+			if( !window.location.hash ) {
 				window.location.hash = 1;
 			} else {
-				if (!first_load) {
-					var $section = $('.section-wrapper').eq(self.getCurrentIndex()).find('.section-scroll'),
-					    section_id = $section.attr('id') ? $section.attr('id') : $section.parent().index() + 1;
+				if(!first_load) {
+					var $section = $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll'),
+						section_id = $section.attr('id') ? $section.attr('id') : $section.parent().index() + 1;
 
 					window.location.hash = section_id;
 				}
@@ -2414,158 +2712,162 @@ window.theme.fn = {
 			return this;
 		},
 
-		getCurrentIndex: function getCurrentIndex() {
+		getCurrentIndex: function() {
 			var self = this,
-			    currentIndex = 0;
+				currentIndex = 0;
 
 			currentIndex = $('.section-wrapper.active').index();
 
 			return currentIndex;
 		},
 
-		moveTo: function moveTo($scrollTopValue, first_load) {
+		moveTo: function( $scrollTopValue, first_load ) {
 			var self = this;
 
 			$('body, html').animate({
-				scrollTop: $scrollTopValue
-			}, 1000, 'easeOutQuint');
+   				scrollTop: $scrollTopValue
+   			}, 1000, 'easeOutQuint');
 
-			setTimeout(function () {
-				self.updateHash();
-			}, 500);
+   			setTimeout(function(){
+	   			self.updateHash();
+   			}, 500);
 
 			return this;
 		},
 
-		getNextSection: function getNextSection(wheelDirection, touchDirection) {
+		getNextSection: function(wheelDirection, touchDirection) {
 			var self = this,
-			    $nextSection = '';
+				$nextSection = '';
 
-			if (wheelDirection || touchDirection == 'up') {
-				$nextSection = $('.section-wrapper').eq(self.getCurrentIndex() + 1).find('.section-scroll');
-			} else {
-				$nextSection = $('.section-wrapper').eq(self.getCurrentIndex() - 1).find('.section-scroll');
-			}
+			// Scroll Direction
+        	if(wheelDirection || touchDirection == 'up') {
+				$nextSection = $('.section-wrapper').eq( self.getCurrentIndex() + 1 ).find('.section-scroll');
+        	} else {
+        		$nextSection = $('.section-wrapper').eq( self.getCurrentIndex() - 1 ).find('.section-scroll');
+        	}
 
 			return $nextSection;
 		},
 
-		changeSectionActiveState: function changeSectionActiveState($nextSection) {
+		changeSectionActiveState: function( $nextSection ) {
 			var self = this;
 
 			$('.section-wrapper').removeClass('active');
-			$nextSection.parent().addClass('active');
+	   		$nextSection.parent().addClass('active');
 
 			return this;
 		},
 
-		changeDotsActiveState: function changeDotsActiveState() {
+		changeDotsActiveState: function() {
 			var self = this;
 
 			$('.section-scroll-dots-navigation > ul > li').removeClass('active');
-			$('.section-scroll-dots-navigation > ul > li').eq(self.getCurrentIndex()).addClass('active');
+			$('.section-scroll-dots-navigation > ul > li').eq( self.getCurrentIndex() ).addClass('active');
 
 			return this;
 		},
 
-		dotsNavigation: function dotsNavigation() {
+		dotsNavigation: function() {
 			var self = this;
 
 			var dotsNav = $('<div class="section-scroll-dots-navigation"><ul class="list list-unstyled"></ul></div>'),
-			    currentSectionIndex = self.getCurrentIndex();
+        		currentSectionIndex = self.getCurrentIndex();
 
-			if (self.options.dotsClass) {
-				dotsNav.addClass(self.options.dotsClass);
-			}
+        	if( self.options.dotsClass ) {
+        		dotsNav.addClass( self.options.dotsClass );
+        	}
 
-			for (var i = 0; i < $('.section-scroll').length; i++) {
-				var title = $('.section-wrapper').eq(i).find('.section-scroll').data('section-scroll-title');
+        	for( var i = 0; i < $('.section-scroll').length; i++ ) {
+        		var title = $('.section-wrapper').eq( i ).find('.section-scroll').data('section-scroll-title');
 
-				dotsNav.find('> ul').append('<li' + (currentSectionIndex == i ? ' class="active"' : '') + '><a href="#' + i + '" data-nav-id="' + i + '"><span>' + title + '</span></a></li>');
-			}
+        		dotsNav.find('> ul').append( '<li'+ ( ( currentSectionIndex == i ) ? ' class="active"' : '' ) +'><a href="#'+ i +'" data-nav-id="'+ i +'"><span>'+ title +'</span></a></li>' );
+        	}
 
-			$('.body').append(dotsNav);
+        	$('.body').append( dotsNav );
 
-			dotsNav.find('a[data-nav-id]').on('click touchstart', function (e) {
-				e.preventDefault();
-				var $this = $(this);
+        	dotsNav.find('a[data-nav-id]').on('click touchstart', function(e){
+        		e.preventDefault();
+        		var $this = $(this);
 
-				$('.section-scroll').css({
-					opacity: 0,
-					transition: 'ease opacity 300ms'
-				});
+        		$('.section-scroll').css({
+        			opacity: 0,
+        			transition: 'ease opacity 300ms'
+        		});
 
-				self.$header.css({
-					opacity: 0,
-					transition: 'ease opacity 500ms'
-				});
+        		self.$header.css({
+			    	opacity: 0,
+			    	transition: 'ease opacity 500ms'
+			    });
 
-				setTimeout(function () {
-					self.moveTo($('.section-wrapper').eq($this.data('nav-id')).offset().top);
+        		setTimeout(function(){
+	        		self.moveTo( $('.section-wrapper').eq( $this.data('nav-id') ).offset().top )
 
-					$('.section-wrapper').removeClass('active');
-					$('.section-wrapper').eq($this.data('nav-id')).addClass('active');
+		   			$('.section-wrapper').removeClass('active');
+			   		$('.section-wrapper').eq( $this.data('nav-id') ).addClass('active');
 
-					$('.section-wrapper').eq(self.getCurrentIndex()).find('.section-scroll').css({
-						opacity: 1
-					});
+	        		$('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll').css({
+	        			opacity: 1
+	        		});
 
-					setTimeout(function () {
-						$('.section-scroll').css({ opacity: 1 });
+	        		setTimeout(function(){
+		        		$('.section-scroll').css({ opacity: 1 });
 
-						$(window).trigger('section.scroll.change.header.color');
-					}, 500);
+		        		$(window).trigger('section.scroll.change.header.color');
+	        		}, 500);
 
-					self.changeDotsActiveState();
-				}, 500);
-			});
+	        		self.changeDotsActiveState();
+        		}, 500);
+        	});
 
 			return this;
 		},
 
-		events: function events() {
+		events: function() {
 			var self = this;
 
-			$(window).on('section.scroll.ready', function () {
+			$(window).on('section.scroll.ready', function(){
 				$(window).scrollTop(0);
 			});
 
-			$(window).on('section.scroll.change.header.color', function () {
-				var headerColor = $('.section-wrapper').eq(self.getCurrentIndex()).find('.section-scroll').data('section-scroll-header-color');
+			$(window).on('section.scroll.change.header.color', function(){
+		    	var headerColor = $('.section-wrapper').eq( self.getCurrentIndex() ).find('.section-scroll').data('section-scroll-header-color');
+		    	
+		    	$('#header .header-nav').removeClass('header-nav-light-text header-nav-dark-text').addClass('header-nav-' + headerColor + '-text');
+		    	$('#header .header-nav-features').removeClass('header-nav-features-dark header-nav-features-light').addClass('header-nav-features-' + headerColor);
+		    	$('#header .header-social-icons').removeClass('social-icons-icon-dark social-icons-icon-light').addClass('social-icons-icon-' + headerColor);
 
-				$('#header .header-nav').removeClass('header-nav-light-text header-nav-dark-text').addClass('header-nav-' + headerColor + '-text');
-				$('#header .header-nav-features').removeClass('header-nav-features-dark header-nav-features-light').addClass('header-nav-features-' + headerColor);
-				$('#header .header-social-icons').removeClass('social-icons-icon-dark social-icons-icon-light').addClass('social-icons-icon-' + headerColor);
+		    	// Change Logo
+		    	if( self.options.changeHeaderLogo && headerColor != undefined ) {
+			    	if( headerColor == 'light' ) {
+			    		$('#header .header-logo img').attr('src', self.options.headerLogoLight);
+			    	} else if( headerColor == 'dark' ) {
+			    		$('#header .header-logo img').attr('src', self.options.headerLogoDark);
+			    	}
+		    	}
 
-				if (self.options.changeHeaderLogo && headerColor != undefined) {
-					if (headerColor == 'light') {
-						$('#header .header-logo img').attr('src', self.options.headerLogoLight);
-					} else if (headerColor == 'dark') {
-						$('#header .header-logo img').attr('src', self.options.headerLogoDark);
-					}
-				}
+		    	self.$header.css({
+		    		opacity: 1
+		    	});
+		    });
 
-				self.$header.css({
-					opacity: 1
-				});
+			$(document).ready(function(){
+			    $(window).afterResize(function(){
+			    	self.updateSectionsHeight();
+			    });
 			});
 
-			$(document).ready(function () {
-				$(window).afterResize(function () {
-					self.updateSectionsHeight();
-				});
-			});
-
-			return this;
+		    return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginSectionScroll: PluginSectionScroll
 	});
 
-	$.fn.themePluginSectionScroll = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginSectionScroll = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -2573,17 +2875,20 @@ window.theme.fn = {
 			} else {
 				return new PluginSectionScroll($this, opts);
 			}
+
 		});
 	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Sort
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__sort';
 
-	var PluginSort = function PluginSort($el, opts) {
+	var PluginSort = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -2599,29 +2904,32 @@ window.theme.fn = {
 			opacity: 1
 		},
 		stagger: 30,
-		isOriginLeft: $('html').attr('dir') == 'rtl' ? false : true
+		isOriginLeft: ($('html').attr('dir') == 'rtl' ? false : true)
 	};
 
 	PluginSort.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginSort.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -2629,15 +2937,15 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.isotope)) {
+		build: function() {
+			if (!($.isFunction($.fn.isotope))) {
 				return this;
 			}
 
 			var self = this,
-			    $source = this.options.wrapper,
-			    $destination = $('.sort-destination[data-sort-id="' + $source.attr('data-sort-id') + '"]'),
-			    $window = $(window);
+				$source = this.options.wrapper,
+				$destination = $('.sort-destination[data-sort-id="' + $source.attr('data-sort-id') + '"]'),
+				$window = $(window);
 
 			if ($destination.get(0)) {
 
@@ -2654,33 +2962,36 @@ window.theme.fn = {
 
 				$destination.attr('data-filter', '*');
 
-				$destination.one('layoutComplete', function (event, laidOutItems) {
+				$destination.one('layoutComplete', function(event, laidOutItems) {
 					self.removeLoader();
 				});
 
-				if ($('html').hasClass('ie10') || $('html').hasClass('ie11')) {
-					var padding = parseInt(self.options.wrapper.children().css('padding-left')) + parseInt(self.options.wrapper.children().css('padding-right'));
+				// IE10/11 fix
+				if( $('html').hasClass('ie10') || $('html').hasClass('ie11') ) {
+					var padding = parseInt( self.options.wrapper.children().css('padding-left') ) + parseInt( self.options.wrapper.children().css('padding-right') );
 				}
 
-				$destination.waitForImages(function () {
+				$destination.waitForImages(function() {
 					$destination.isotope(self.options);
 					self.events();
 				});
 
-				setTimeout(function () {
+
+				setTimeout(function() {
 					self.removeLoader();
 				}, 3000);
+
 			}
 
 			return this;
 		},
 
-		events: function events() {
+		events: function() {
 			var self = this,
-			    filter = null,
-			    $window = $(window);
+				filter = null,
+				$window = $(window);
 
-			self.$source.find('a').click(function (e) {
+			self.$source.find('a').click(function(e) {
 				e.preventDefault();
 
 				filter = $(this).parent().data('option-value');
@@ -2701,23 +3012,23 @@ window.theme.fn = {
 				self.hashEvents();
 			}
 
-			$window.on('resize', function () {
-				setTimeout(function () {
+			$window.on('resize', function() {
+				setTimeout(function() {
 					self.$destination.isotope('layout');
 				}, 300);
 			});
 
-			setTimeout(function () {
+			setTimeout(function() {
 				$window.trigger('resize');
 			}, 300);
 
 			return this;
 		},
 
-		setFilter: function setFilter(filter) {
+		setFilter: function(filter) {
 			var self = this,
-			    page = false,
-			    currentFilter = filter;
+				page = false,
+				currentFilter = filter;
 
 			self.$source.find('.active').removeClass('active');
 			self.$source.find('li[data-option-value="' + filter + '"], li[data-option-value="' + filter + '"] > a').addClass('active');
@@ -2730,49 +3041,51 @@ window.theme.fn = {
 
 			self.$destination.attr('data-filter', filter).isotope({
 				filter: currentFilter
-			}).one('arrangeComplete', function (event, filteredItems) {
-
+			}).one('arrangeComplete', function( event, filteredItems ) {
+				
 				if (self.options.useHash) {
 					if (window.location.hash != '' || self.options.filter.replace('.', '') != '*') {
 						window.location.hash = self.options.filter.replace('.', '');
 					}
 				}
-
+				
 				$(window).trigger('scroll');
+
 			}).trigger('filtered');
 
 			return this;
 		},
 
-		hashEvents: function hashEvents() {
+		hashEvents: function() {
 			var self = this,
-			    hash = null,
-			    hashFilter = null,
-			    initHashFilter = '.' + location.hash.replace('#', '');
+				hash = null,
+				hashFilter = null,
+				initHashFilter = '.' + location.hash.replace('#', '');
 
 			if (initHashFilter != '.' && initHashFilter != '.*') {
 				self.setFilter(initHashFilter);
 			}
 
-			$(window).on('hashchange', function (e) {
+			$(window).on('hashchange', function(e) {
 
 				hashFilter = '.' + location.hash.replace('#', '');
-				hash = hashFilter == '.' || hashFilter == '.*' ? '*' : hashFilter;
+				hash = (hashFilter == '.' || hashFilter == '.*' ? '*' : hashFilter);
 
 				self.setFilter(hash);
+
 			});
 
 			return this;
 		},
 
-		setParagraphHeight: function setParagraphHeight() {
+		setParagraphHeight: function() {
 			var self = this,
-			    minParagraphHeight = 0,
-			    paragraphs = $('span.thumb-info-caption p', self.$destination);
+				minParagraphHeight = 0,
+				paragraphs = $('span.thumb-info-caption p', self.$destination);
 
-			paragraphs.each(function () {
+			paragraphs.each(function() {
 				if ($(this).height() > minParagraphHeight) {
-					minParagraphHeight = $(this).height() + 10;
+					minParagraphHeight = ($(this).height() + 10);
 				}
 			});
 
@@ -2781,17 +3094,23 @@ window.theme.fn = {
 			return this;
 		},
 
-		createLoader: function createLoader() {
+		createLoader: function() {
 			var self = this;
 
-			var loaderTemplate = ['<div class="bounce-loader">', '<div class="bounce1"></div>', '<div class="bounce2"></div>', '<div class="bounce3"></div>', '</div>'].join('');
+			var loaderTemplate = [
+				'<div class="bounce-loader">',
+					'<div class="bounce1"></div>',
+					'<div class="bounce2"></div>',
+					'<div class="bounce3"></div>',
+				'</div>'
+			].join('');
 
 			self.$loader.append(loaderTemplate);
 
 			return this;
 		},
 
-		removeLoader: function removeLoader() {
+		removeLoader: function() {
 
 			var self = this;
 
@@ -2799,20 +3118,24 @@ window.theme.fn = {
 
 				self.$loader.removeClass('sort-destination-loader-showing');
 
-				setTimeout(function () {
+				setTimeout(function() {
 					self.$loader.addClass('sort-destination-loader-loaded');
 				}, 300);
+
 			}
+
 		}
 
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginSort: PluginSort
 	});
 
-	$.fn.themePluginSort = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginSort = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -2820,17 +3143,20 @@ window.theme.fn = {
 			} else {
 				return new PluginSort($this, opts);
 			}
+
 		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
+	}
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
 
+// Sticky
+(function(theme, $) {
+	
 	theme = theme || {};
-
+	
 	var instanceName = '__sticky';
 
-	var PluginSticky = function PluginSticky($el, opts) {
+	var PluginSticky = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -2840,25 +3166,29 @@ window.theme.fn = {
 	};
 
 	PluginSticky.prototype = {
-		initialize: function initialize($el, opts) {
-			if ($el.data(instanceName)) {
+		initialize: function($el, opts) {
+			if ( $el.data( instanceName ) ) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build().events();
+			this
+				.setData()
+				.setOptions(opts)
+				.build()
+				.events();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginSticky.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -2866,64 +3196,65 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
-			if (!$.isFunction($.fn.pin)) {
+		build: function() {
+			if (!($.isFunction($.fn.pin))) {
 				return this;
 			}
 
 			var self = this,
-			    $window = $(window);
-
+				$window = $(window);
+			
 			self.options.wrapper.pin(self.options);
 
-			if (self.options.wrapper.hasClass('sticky-wrapper-transparent')) {
+			if( self.options.wrapper.hasClass('sticky-wrapper-transparent') ) {
 				self.options.wrapper.parent().addClass('position-absolute w-100');
 			}
 
-			$window.afterResize(function () {
+			$window.afterResize(function() {
 				self.options.wrapper.removeAttr('style').removeData('pin');
 				self.options.wrapper.pin(self.options);
 				$window.trigger('scroll');
 			});
 
-			if (self.options.wrapper.find('img').attr('data-change-src')) {
-				var $logo = self.options.wrapper.find('img'),
-				    logoSrc = $logo.attr('src'),
-				    logoNewSrc = $logo.attr('data-change-src');
+			// Change Logo Src
+			if( self.options.wrapper.find('img').attr('data-change-src') ) {
+				var $logo      = self.options.wrapper.find('img'),
+					logoSrc    = $logo.attr('src'),
+					logoNewSrc = $logo.attr('data-change-src');
 
-				self.changeLogoSrc = function (activate) {
-					if (activate) {
+				self.changeLogoSrc = function(activate) {
+					if(activate) {
 						$logo.attr('src', logoNewSrc);
 					} else {
 						$logo.attr('src', logoSrc);
 					}
-				};
+				}
 			}
-
+			
 			return this;
 		},
 
-		events: function events() {
+		events: function() {
 			var self = this,
-			    $window = $(window),
-			    $logo = self.options.wrapper.find('img'),
-			    sticky_activate_flag = true,
-			    sticky_deactivate_flag = false,
-			    class_to_check = self.options.wrapper.hasClass('sticky-wrapper-effect-1') ? 'sticky-effect-active' : 'sticky-active';
+				$window = $(window),
+				$logo = self.options.wrapper.find('img'),
+				sticky_activate_flag = true,
+				sticky_deactivate_flag = false,
+				class_to_check = ( self.options.wrapper.hasClass('sticky-wrapper-effect-1') ) ? 'sticky-effect-active' : 'sticky-active';
 
-			$window.on('scroll sticky.effect.active', function () {
-				if (self.options.wrapper.hasClass(class_to_check)) {
-					if (sticky_activate_flag) {
-						if ($logo.attr('data-change-src')) {
+			$window.on('scroll sticky.effect.active', function(){
+				if( self.options.wrapper.hasClass( class_to_check ) ) {		
+					if( sticky_activate_flag ) {			
+						if( $logo.attr('data-change-src') ) {
 							self.changeLogoSrc(true);
 						}
 
 						sticky_activate_flag = false;
 						sticky_deactivate_flag = true;
 					}
-				} else {
-					if (sticky_deactivate_flag) {
-						if ($logo.attr('data-change-src')) {
+				} else {	
+					if( sticky_deactivate_flag ) {				
+						if( $logo.attr('data-change-src') ) {
 							self.changeLogoSrc(false);
 						}
 
@@ -2934,26 +3265,28 @@ window.theme.fn = {
 			});
 
 			var is_backing = false;
-			if (self.options.stickyStartEffectAt) {
-				if (self.options.stickyStartEffectAt < $window.scrollTop()) {
+			if( self.options.stickyStartEffectAt ) {
+
+				// First Load
+				if( self.options.stickyStartEffectAt < $window.scrollTop() ) {
 					self.options.wrapper.addClass('sticky-effect-active');
 
 					$window.trigger('sticky.effect.active');
 				}
 
-				$window.on('scroll', function () {
-					if (self.options.stickyStartEffectAt < $window.scrollTop()) {
+				$window.on('scroll', function(){
+					if( self.options.stickyStartEffectAt < $window.scrollTop() ) {	
 						self.options.wrapper.addClass('sticky-effect-active');
 						is_backing = true;
 
 						$window.trigger('sticky.effect.active');
-					} else {
-						if (is_backing) {
+					} else {	
+						if( is_backing ) {
 							self.options.wrapper.find('.sticky-body').addClass('position-fixed');
 							is_backing = false;
 						}
 
-						if ($window.scrollTop() == 0) {
+						if( $window.scrollTop() == 0 ) {
 							self.options.wrapper.find('.sticky-body').removeClass('position-fixed');
 						}
 
@@ -2964,12 +3297,14 @@ window.theme.fn = {
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginSticky: PluginSticky
 	});
 
-	$.fn.themePluginSticky = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginSticky = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -2977,17 +3312,20 @@ window.theme.fn = {
 			} else {
 				return new PluginSticky($this, opts);
 			}
+			
 		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
+	}
 
-(function (theme, $) {
+}).apply(this, [ window.theme, jQuery ]);
+
+// Toggle
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__toggle';
 
-	var PluginToggle = function PluginToggle($el, opts) {
+	var PluginToggle = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -2997,25 +3335,28 @@ window.theme.fn = {
 	};
 
 	PluginToggle.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginToggle.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -3023,13 +3364,13 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			var self = this,
-			    $wrapper = this.options.wrapper,
-			    $items = $wrapper.find('> .toggle'),
-			    $el = null;
+				$wrapper = this.options.wrapper,
+				$items = $wrapper.find('> .toggle'),
+				$el = null;
 
-			$items.each(function () {
+			$items.each(function() {
 				$el = $(this);
 
 				if ($el.hasClass('active')) {
@@ -3047,21 +3388,21 @@ window.theme.fn = {
 			return this;
 		},
 
-		events: function events($el) {
+		events: function($el) {
 			var self = this,
-			    previewParCurrentHeight = 0,
-			    previewParAnimateHeight = 0,
-			    toggleContent = null;
+				previewParCurrentHeight = 0,
+				previewParAnimateHeight = 0,
+				toggleContent = null;
 
-			$el.find('> label').click(function (e) {
+			$el.find('> label').click(function(e) {
 
 				var $this = $(this),
-				    parentSection = $this.parent(),
-				    parentWrapper = $this.parents('.toggle'),
-				    previewPar = null,
-				    closeElement = null;
+					parentSection = $this.parent(),
+					parentWrapper = $this.parents('.toggle'),
+					previewPar = null,
+					closeElement = null;
 
-				if (self.options.isAccordion && typeof e.originalEvent != 'undefined') {
+				if (self.options.isAccordion && typeof(e.originalEvent) != 'undefined') {
 					closeElement = parentWrapper.find('.toggle.active > label');
 
 					if (closeElement[0] == $this[0]) {
@@ -3071,6 +3412,7 @@ window.theme.fn = {
 
 				parentSection.toggleClass('active');
 
+				// Preview Paragraph
 				if (parentSection.find('> p').get(0)) {
 
 					previewPar = parentSection.find('> p');
@@ -3078,43 +3420,50 @@ window.theme.fn = {
 					previewPar.css('height', 'auto');
 					previewParAnimateHeight = previewPar.css('height');
 					previewPar.css('height', previewParCurrentHeight);
+
 				}
 
+				// Content
 				toggleContent = parentSection.find('> .toggle-content');
 
 				if (parentSection.hasClass('active')) {
 
 					$(previewPar).animate({
 						height: previewParAnimateHeight
-					}, self.options.duration, function () {
+					}, self.options.duration, function() {
 						$(this).addClass('preview-active');
 					});
 
-					toggleContent.slideDown(self.options.duration, function () {
+					toggleContent.slideDown(self.options.duration, function() {
 						if (closeElement) {
 							closeElement.trigger('click');
 						}
 					});
+
 				} else {
 
 					$(previewPar).animate({
 						height: 0
-					}, self.options.duration, function () {
+					}, self.options.duration, function() {
 						$(this).removeClass('preview-active');
 					});
 
 					toggleContent.slideUp(self.options.duration);
+
 				}
+
 			});
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginToggle: PluginToggle
 	});
 
-	$.fn.themePluginToggle = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginToggle = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -3122,17 +3471,20 @@ window.theme.fn = {
 			} else {
 				return new PluginToggle($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Tweets
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__tweets';
 
-	var PluginTweets = function PluginTweets($el, opts) {
+	var PluginTweets = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -3143,25 +3495,28 @@ window.theme.fn = {
 	};
 
 	PluginTweets.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			if ($el.data(instanceName)) {
 				return this;
 			}
 
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginTweets.defaults, opts, {
 				wrapper: this.$el
 			});
@@ -3169,13 +3524,13 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 			if (this.options.username == null || this.options.username == '') {
 				return this;
 			}
 
 			var self = this,
-			    $wrapper = this.options.wrapper;
+				$wrapper = this.options.wrapper;
 
 			$.ajax({
 				type: 'GET',
@@ -3183,21 +3538,23 @@ window.theme.fn = {
 					twitter_screen_name: self.options.username,
 					tweets_to_display: self.options.count
 				},
-				url: self.options.URL
-			}).done(function (html) {
-				$wrapper.html(html).find('a').attr('target', '_blank');
+				url: self.options.URL,
+			}).done(function(html) {
+				$wrapper.html(html).find('a').attr('target','_blank');
 			});
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginTweets: PluginTweets
 	});
 
-	$.fn.themePluginTweets = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginTweets = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -3205,11 +3562,14 @@ window.theme.fn = {
 			} else {
 				return new PluginTweets($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Validation
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -3219,13 +3579,21 @@ window.theme.fn = {
 
 			defaults: {
 				validator: {
-					highlight: function highlight(element) {
-						$(element).parent().removeClass('has-success').addClass('has-danger');
+					highlight: function(element) {
+						$(element)
+							.parent()
+							.removeClass('has-success')
+							.addClass('has-danger');
 					},
-					success: function success(element) {
-						$(element).parent().removeClass('has-danger').addClass('has-success').find('label.error').remove();
+					success: function(element) {
+						$(element)
+							.parent()
+							.removeClass('has-danger')
+							.addClass('has-success')
+							.find('label.error')
+							.remove();
 					},
-					errorPlacement: function errorPlacement(error, element) {
+					errorPlacement: function(error, element) {
 						if (element.attr('type') == 'radio' || element.attr('type') == 'checkbox') {
 							error.appendTo(element.parent().parent());
 						} else {
@@ -3237,24 +3605,26 @@ window.theme.fn = {
 				refreshCaptchaURL: 'php/contact-form-refresh-captcha.php'
 			},
 
-			initialize: function initialize(opts) {
+			initialize: function(opts) {
 				initialized = true;
 
-				this.setOptions(opts).build();
+				this
+					.setOptions(opts)
+					.build();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts);
 
 				return this;
 			},
 
-			build: function build() {
+			build: function() {
 				var self = this;
 
-				if (!$.isFunction($.validator)) {
+				if (!($.isFunction($.validator))) {
 					return this;
 				}
 
@@ -3266,10 +3636,10 @@ window.theme.fn = {
 				return this;
 			},
 
-			addMethods: function addMethods() {
+			addMethods: function() {
 				var self = this;
 
-				$.validator.addMethod('captcha', function (value, element, params) {
+				$.validator.addMethod('captcha', function(value, element, params) {
 					var captchaValid = false;
 
 					$.ajax({
@@ -3280,7 +3650,7 @@ window.theme.fn = {
 						data: {
 							captcha: $.trim(value)
 						},
-						success: function success(data) {
+						success: function(data) {
 							if (data.response == 'success') {
 								captchaValid = true;
 							}
@@ -3290,36 +3660,42 @@ window.theme.fn = {
 					if (captchaValid) {
 						return true;
 					}
+
 				}, '');
 
-				$('#refreshCaptcha').on('click', function (e) {
+				// Refresh Captcha
+				$('#refreshCaptcha').on('click', function(e) {
 					e.preventDefault();
-					$.get(self.options.refreshCaptchaURL, function (url) {
+					$.get(self.options.refreshCaptchaURL, function(url) {
 						$('#captcha-image').attr('src', url);
-					});
+					});					
 				});
+
 			},
 
-			setMessageGroups: function setMessageGroups() {
+			setMessageGroups: function() {
 
-				$('.checkbox-group[data-msg-required], .radio-group[data-msg-required]').each(function () {
+				$('.checkbox-group[data-msg-required], .radio-group[data-msg-required]').each(function() {
 					var message = $(this).data('msg-required');
 					$(this).find('input').attr('data-msg-required', message);
 				});
+
 			}
 
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Video Background
+(function(theme, $) {
 
 	theme = theme || {};
 
 	var instanceName = '__videobackground';
 
-	var PluginVideoBackground = function PluginVideoBackground($el, opts) {
+	var PluginVideoBackground = function($el, opts) {
 		return this.initialize($el, opts);
 	};
 
@@ -3335,21 +3711,24 @@ window.theme.fn = {
 	};
 
 	PluginVideoBackground.prototype = {
-		initialize: function initialize($el, opts) {
+		initialize: function($el, opts) {
 			this.$el = $el;
 
-			this.setData().setOptions(opts).build();
+			this
+				.setData()
+				.setOptions(opts)
+				.build();
 
 			return this;
 		},
 
-		setData: function setData() {
+		setData: function() {
 			this.$el.data(instanceName, this);
 
 			return this;
 		},
 
-		setOptions: function setOptions(opts) {
+		setOptions: function(opts) {
 			this.options = $.extend(true, {}, PluginVideoBackground.defaults, opts, {
 				path: this.$el.data('video-path'),
 				wrapper: this.$el
@@ -3358,9 +3737,9 @@ window.theme.fn = {
 			return this;
 		},
 
-		build: function build() {
+		build: function() {
 
-			if (!$.isFunction($.fn.vide) || !this.options.path) {
+			if (!($.isFunction($.fn.vide)) || (!this.options.path)) {
 				return this;
 			}
 
@@ -3368,21 +3747,27 @@ window.theme.fn = {
 
 				var overlayClass = this.options.overlayClass;
 
-				this.options.wrapper.prepend($('<div />').addClass(overlayClass));
+				this.options.wrapper.prepend(
+					$('<div />').addClass(overlayClass)
+				);
 			}
 
-			this.options.wrapper.vide(this.options.path, this.options).first().css('z-index', 0);
+			this.options.wrapper
+				.vide(this.options.path, this.options)
+				.first().css('z-index', 0);
 
 			return this;
 		}
 	};
 
+	// expose to scope
 	$.extend(theme, {
 		PluginVideoBackground: PluginVideoBackground
 	});
 
-	$.fn.themePluginVideoBackground = function (opts) {
-		return this.map(function () {
+	// jquery plugin
+	$.fn.themePluginVideoBackground = function(opts) {
+		return this.map(function() {
 			var $this = $(this);
 
 			if ($this.data(instanceName)) {
@@ -3390,11 +3775,14 @@ window.theme.fn = {
 			} else {
 				return new PluginVideoBackground($this, opts);
 			}
-		});
-	};
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+		});
+	}
+
+}).apply(this, [window.theme, jQuery]);
+
+// Account
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -3408,64 +3796,67 @@ window.theme.fn = {
 				wrapper: $('#headerAccount')
 			},
 
-			initialize: function initialize($wrapper, opts) {
+			initialize: function($wrapper, opts) {
 				if (initialized) {
 					return this;
 				}
 
 				initialized = true;
-				this.$wrapper = $wrapper || this.defaults.wrapper;
+				this.$wrapper = ($wrapper || this.defaults.wrapper);
 
-				this.setOptions(opts).events();
+				this
+					.setOptions(opts)
+					.events();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
 
 				return this;
 			},
 
-			events: function events() {
+			events: function() {
 				var self = this;
 
-				$(window).on('load', function () {
-					$(document).ready(function () {
-						setTimeout(function () {
+				$(window).on('load', function(){
+					$(document).ready(function(){
+						setTimeout(function(){
 
-							self.$wrapper.find('input').on('focus', function () {
+							self.$wrapper.find('input').on('focus', function() {
 								self.$wrapper.addClass('open');
 
-								$(document).mouseup(function (e) {
+								$(document).mouseup(function(e) {
 									if (!self.$wrapper.is(e.target) && self.$wrapper.has(e.target).length === 0) {
 										self.$wrapper.removeClass('open');
 									}
 								});
 							});
+
 						}, 1500);
 					});
 				});
 
-				$('#headerSignUp').on('click', function (e) {
+				$('#headerSignUp').on('click', function(e) {
 					e.preventDefault();
 					self.$wrapper.addClass('signup').removeClass('signin').removeClass('recover');
 					self.$wrapper.find('.signup-form input:first').focus();
 				});
 
-				$('#headerSignIn').on('click', function (e) {
+				$('#headerSignIn').on('click', function(e) {
 					e.preventDefault();
 					self.$wrapper.addClass('signin').removeClass('signup').removeClass('recover');
 					self.$wrapper.find('.signin-form input:first').focus();
 				});
 
-				$('#headerRecover').on('click', function (e) {
+				$('#headerRecover').on('click', function(e) {
 					e.preventDefault();
 					self.$wrapper.addClass('recover').removeClass('signup').removeClass('signin');
 					self.$wrapper.find('.recover-form input:first').focus();
 				});
 
-				$('#headerRecoverCancel').on('click', function (e) {
+				$('#headerRecoverCancel').on('click', function(e) {
 					e.preventDefault();
 					self.$wrapper.addClass('signin').removeClass('signup').removeClass('recover');
 					self.$wrapper.find('.signin-form input:first').focus();
@@ -3475,9 +3866,11 @@ window.theme.fn = {
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Nav
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -3493,148 +3886,170 @@ window.theme.fn = {
 				scrollAnimation: 'easeOutQuad'
 			},
 
-			initialize: function initialize($wrapper, opts) {
+			initialize: function($wrapper, opts) {
 				if (initialized) {
 					return this;
 				}
 
 				initialized = true;
-				this.$wrapper = $wrapper || this.defaults.wrapper;
+				this.$wrapper = ($wrapper || this.defaults.wrapper);
 
-				this.setOptions(opts).build().events();
+				this
+					.setOptions(opts)
+					.build()
+					.events();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
 
 				return this;
 			},
 
-			build: function build() {
+			build: function() {
 				var self = this,
-				    $html = $('html'),
-				    $header = $('#header'),
-				    $headerNavMain = $('#header .header-nav-main'),
-				    thumbInfoPreview;
+					$html = $('html'),
+					$header = $('#header'),
+					$headerNavMain = $('#header .header-nav-main'),
+					thumbInfoPreview;
 
-				self.$wrapper.find('a[data-thumb-preview]').each(function () {
-					thumbInfoPreview = $('<span />').addClass('thumb-info thumb-info-preview').append($('<span />').addClass('thumb-info-wrapper').append($('<span />').addClass('thumb-info-image').css('background-image', 'url(' + $(this).data('thumb-preview') + ')')));
+				// Preview Thumbs
+				self.$wrapper.find('a[data-thumb-preview]').each(function() {
+					thumbInfoPreview = $('<span />').addClass('thumb-info thumb-info-preview')
+											.append($('<span />').addClass('thumb-info-wrapper')
+												.append($('<span />').addClass('thumb-info-image').css('background-image', 'url(' + $(this).data('thumb-preview') + ')')
+										   )
+									   );
 
 					$(this).append(thumbInfoPreview);
 				});
 
-				if ($html.hasClass('side-header') || $html.hasClass('side-header-hamburguer-sidebar')) {
-					if ($html.hasClass('side-header-right') || $html.hasClass('side-header-hamburguer-sidebar-right')) {
-						if (!$html.hasClass('side-header-right-no-reverse')) {
+				// Side Header / Side Header Hamburguer Sidebar (Reverse Dropdown)
+				if($html.hasClass('side-header') || $html.hasClass('side-header-hamburguer-sidebar')) {
+					
+					// Side Header Right / Side Header Hamburguer Sidebar Right
+					if($html.hasClass('side-header-right') || $html.hasClass('side-header-hamburguer-sidebar-right')) {
+						if(!$html.hasClass('side-header-right-no-reverse')) {
 							$header.find('.dropdown-submenu').addClass('dropdown-reverse');
 						}
 					}
+
 				} else {
-					self.checkReverse = function () {
+					
+					// Reverse
+					self.checkReverse = function() {
 						self.$wrapper.find('.dropdown, .dropdown-submenu').removeClass('dropdown-reverse');
 
-						self.$wrapper.find('.dropdown:not(.manual):not(.dropdown-mega), .dropdown-submenu:not(.manual)').each(function () {
-							if (!$(this).find('.dropdown-menu').visible(false, true, 'horizontal')) {
+						self.$wrapper.find('.dropdown:not(.manual):not(.dropdown-mega), .dropdown-submenu:not(.manual)').each(function() {
+							if(!$(this).find('.dropdown-menu').visible( false, true, 'horizontal' )  ) {
 								$(this).addClass('dropdown-reverse');
 							}
 						});
-					};
+					}
 
 					self.checkReverse();
 
-					$(window).on('resize', function () {
+	 				$(window).on('resize', function() {
 						self.checkReverse();
-					});
+	 				});
+
 				}
 
-				if ($headerNavMain.hasClass('header-nav-main-clone-items')) {
+				// Clone Items
+				if($headerNavMain.hasClass('header-nav-main-clone-items')) {
 
-					$headerNavMain.find('nav > ul > li > a').each(function () {
-						var parent = $(this).parent(),
-						    clone = $(this).clone(),
-						    clone2 = $(this).clone(),
-						    wrapper = $('<span class="wrapper-items-cloned"></span>');
+			    	$headerNavMain.find('nav > ul > li > a').each(function(){
+				    	var parent = $(this).parent(),
+				    		clone  = $(this).clone(),
+				    		clone2 = $(this).clone(),
+				    		wrapper = $('<span class="wrapper-items-cloned"></span>');
 
-						$(this).addClass('item-original');
-						clone2.addClass('item-two');
+				    	// Config Classes
+				    	$(this).addClass('item-original');
+				    	clone2.addClass('item-two');
 
-						parent.prepend(wrapper);
-						wrapper.append(clone).append(clone2);
-					});
+				    	// Insert on DOM
+				    	parent.prepend(wrapper);
+				    	wrapper.append(clone).append(clone2);
+				    });
+
 				}
 
-				if ($('#header.header-floating-icons').get(0) && $(window).width() > 991) {
+				// Floating
+				if($('#header.header-floating-icons').get(0) && $(window).width() > 991) {
 
 					var menuFloatingAnim = {
 						$menuFloating: $('#header.header-floating-icons .header-container > .header-row'),
 
-						build: function build() {
+						build: function() {
 							var self = this;
 
 							self.init();
 						},
-						init: function init() {
-							var self = this,
-							    divisor = 0;
+						init: function(){
+							var self  = this,
+								divisor = 0;
 
-							$(window).scroll(function () {
-								var scrollPercent = 100 * $(window).scrollTop() / ($(document).height() - $(window).height()),
-								    st = $(this).scrollTop();
+							$(window).scroll(function() {
+							    var scrollPercent = 100 * $(window).scrollTop() / ($(document).height() - $(window).height()),
+							    	st = $(this).scrollTop();
 
 								divisor = $(document).height() / $(window).height();
 
-								self.$menuFloating.find('.header-column > .header-row').css({
-									transform: 'translateY( calc(' + scrollPercent + 'vh - ' + st / divisor + 'px) )'
-								});
+							    self.$menuFloating.find('.header-column > .header-row').css({
+							    	transform : 'translateY( calc('+ scrollPercent +'vh - '+ st / divisor +'px) )' 
+							    });
 							});
 						}
-					};
+					}
 
 					menuFloatingAnim.build();
+
 				}
 
-				if ($('.header-nav-links-vertical-slide').get(0)) {
+				// Slide
+				if($('.header-nav-links-vertical-slide').get(0)) {
 					var slideNavigation = {
 						$mainNav: $('#mainNav'),
 						$mainNavItem: $('#mainNav li'),
 
-						build: function build() {
+						build: function(){
 							var self = this;
 
 							self.menuNav();
 						},
-						menuNav: function menuNav() {
+						menuNav: function(){
 							var self = this;
 
-							self.$mainNavItem.on('click', function (e) {
-								var currentMenuItem = $(this),
-								    currentMenu = $(this).parent(),
-								    nextMenu = $(this).find('ul').first(),
-								    prevMenu = $(this).closest('.next-menu'),
-								    isSubMenu = currentMenuItem.hasClass('dropdown') || currentMenuItem.hasClass('dropdown-submenu'),
-								    isBack = currentMenuItem.hasClass('back-button'),
-								    nextMenuHeightDiff = nextMenu.find('> li').length * nextMenu.find('> li').outerHeight() - nextMenu.outerHeight(),
-								    prevMenuHeightDiff = prevMenu.find('> li').length * prevMenu.find('> li').outerHeight() - prevMenu.outerHeight();
+							self.$mainNavItem.on('click', function(e){
+								var currentMenuItem 	= $(this),
+									currentMenu 		= $(this).parent(),
+									nextMenu        	= $(this).find('ul').first(),
+									prevMenu        	= $(this).closest('.next-menu'),
+									isSubMenu       	= currentMenuItem.hasClass('dropdown') || currentMenuItem.hasClass('dropdown-submenu'),
+									isBack          	= currentMenuItem.hasClass('back-button'),
+									nextMenuHeightDiff  = ( ( nextMenu.find('> li').length * nextMenu.find('> li').outerHeight() ) - nextMenu.outerHeight() ),
+									prevMenuHeightDiff  = ( ( prevMenu.find('> li').length * prevMenu.find('> li').outerHeight() ) - prevMenu.outerHeight() );
 
-								if (isSubMenu) {
+								if( isSubMenu ) {
 									currentMenu.addClass('next-menu');
 									nextMenu.addClass('visible');
 									currentMenu.css({
 										overflow: 'visible',
 										'overflow-y': 'visible'
 									});
-
-									if (nextMenuHeightDiff > 0) {
+									
+									if( nextMenuHeightDiff > 0 ) {
 										nextMenu.css({
 											overflow: 'hidden',
 											'overflow-y': 'scroll'
 										});
 									}
 
-									for (i = 0; i < nextMenu.find('> li').length; i++) {
-										if (nextMenu.outerHeight() < $('.header-row-side-header').outerHeight() - 100) {
+									for( i = 0; i < nextMenu.find('> li').length; i++ ) {
+										if( nextMenu.outerHeight() < ($('.header-row-side-header').outerHeight() - 100) ) {
 											nextMenu.css({
 												height: nextMenu.outerHeight() + nextMenu.find('> li').outerHeight()
 											});
@@ -3646,11 +4061,11 @@ window.theme.fn = {
 									});
 								}
 
-								if (isBack) {
+								if( isBack ) {
 									currentMenu.parent().parent().removeClass('next-menu');
 									currentMenu.removeClass('visible');
 
-									if (prevMenuHeightDiff > 0) {
+									if( prevMenuHeightDiff > 0 ) {
 										prevMenu.css({
 											overflow: 'hidden',
 											'overflow-y': 'scroll'
@@ -3661,65 +4076,70 @@ window.theme.fn = {
 								e.stopPropagation();
 							});
 						}
-					};
+					}
 
 					$(window).trigger('resize');
-
-					if ($(window).width() > 991) {
+					
+					if( $(window).width() > 991 ) {
 						slideNavigation.build();
 					}
 
-					$(document).ready(function () {
-						$(window).afterResize(function () {
-							if ($(window).width() > 991) {
+					$(document).ready(function(){
+						$(window).afterResize(function(){
+							if( $(window).width() > 991 ) {
 								slideNavigation.build();
 							}
 						});
 					});
 				}
 
-				if ($('.header-nav-main-mobile-dark').get(0)) {
+				// Header Nav Main Mobile Dark
+				if($('.header-nav-main-mobile-dark').get(0)) {
 					$('#header:not(.header-transparent-dark-bottom-border):not(.header-transparent-light-bottom-border)').addClass('header-no-border-bottom');
 				}
-
+				
 				return this;
 			},
 
-			events: function events() {
-				var self = this,
-				    $html = $('html'),
-				    $header = $('#header'),
-				    $window = $(window),
-				    headerBodyHeight = $('.header-body').outerHeight();
+			events: function() {
+				var self    = this,
+					$html   = $('html'),
+					$header = $('#header'),
+					$window = $(window),
+					headerBodyHeight = $('.header-body').outerHeight();
 
-				$header.find('a[href="#"]').on('click', function (e) {
+				$header.find('a[href="#"]').on('click', function(e) {
 					e.preventDefault();
 				});
 
-				$header.find('.dropdown-toggle, .dropdown-submenu > a').append('<i class="fas fa-chevron-down"></i>');
-
-				$header.find('.dropdown-toggle[href="#"], .dropdown-submenu a[href="#"], .dropdown-toggle[href!="#"] .fa-chevron-down, .dropdown-submenu a[href!="#"] .fa-chevron-down').on('click', function (e) {
+				// Mobile Arrows
+				$header.find('.dropdown-toggle, .dropdown-submenu > a')
+					.append('<i class="fas fa-chevron-down"></i>');
+				
+				$header.find('.dropdown-toggle[href="#"], .dropdown-submenu a[href="#"], .dropdown-toggle[href!="#"] .fa-chevron-down, .dropdown-submenu a[href!="#"] .fa-chevron-down').on('click', function(e) {
 					e.preventDefault();
 					if ($window.width() < 992) {
 						$(this).closest('li').toggleClass('open');
 
-						var height = $header.hasClass('header-effect-shrink') && $html.hasClass('sticky-header-active') ? theme.StickyHeader.options.stickyHeaderContainerHeight : headerBodyHeight;
+						// Adjust Header Body Height
+						var height = ( $header.hasClass('header-effect-shrink') && $html.hasClass('sticky-header-active') ) ? theme.StickyHeader.options.stickyHeaderContainerHeight : headerBodyHeight;
 						$('.header-body').animate({
-							height: $('.header-nav-main nav').outerHeight(true) + height + 10
-						}, 0);
+					 		height: ($('.header-nav-main nav').outerHeight(true) + height) + 10
+					 	}, 0);
 					}
 				});
 
-				$header.find('.header-nav-click-to-open .dropdown-toggle[href="#"], .header-nav-click-to-open .dropdown-submenu a[href="#"]').on('click', function (e) {
+				// Add Open Class
+				$header.find('.header-nav-click-to-open .dropdown-toggle[href="#"], .header-nav-click-to-open .dropdown-submenu a[href="#"]').on('click', function(e) {
 					e.preventDefault();
 					if ($window.width() > 991) {
 
 						if (!$(this).closest('li').hasClass('open')) {
 
 							var $li = $(this).closest('li'),
-							    isSub = false;
+								isSub = false;
 
-							if ($(this).parent().hasClass('dropdown-submenu')) {
+							if ( $(this).parent().hasClass('dropdown-submenu') ) {
 								isSub = true;
 							}
 
@@ -3738,6 +4158,7 @@ window.theme.fn = {
 									$li.parents('.open').removeClass('open');
 								}
 							});
+
 						} else {
 							$(this).closest('li').removeClass('open');
 						}
@@ -3746,11 +4167,13 @@ window.theme.fn = {
 					}
 				});
 
-				$header.find('[data-collapse-nav]').on('click', function (e) {
+				// Collapse Nav
+				$header.find('[data-collapse-nav]').on('click', function(e) {
 					$(this).parents('.collapse').removeClass('show');
 				});
 
-				$header.find('.header-nav-features-toggle').on('click', function (e) {
+				// Top Features
+				$header.find('.header-nav-features-toggle').on('click', function(e) {
 					e.preventDefault();
 
 					var $toggleParent = $(this).parent();
@@ -3772,16 +4195,18 @@ window.theme.fn = {
 						if ($(this).attr('data-focus')) {
 							$('#' + $(this).attr('data-focus')).focus();
 						}
+
 					} else {
 						$(this).siblings('.header-nav-features-dropdown').removeClass('show');
 					}
 				});
 
+				// Hamburguer Menu
 				var hamburguerMenuBtn = $('.hamburguer-btn'),
-				    hamburguerSideHeader = $('#header.side-header, #header.side-header-overlay-full-screen');
-
-				hamburguerMenuBtn.on('click', function () {
-					if ($(this).attr('data-set-active') != 'false') {
+					hamburguerSideHeader = $('#header.side-header, #header.side-header-overlay-full-screen');
+				
+				hamburguerMenuBtn.on('click', function(){
+					if($(this).attr('data-set-active') != 'false') {
 						$(this).toggleClass('active');
 					}
 					hamburguerSideHeader.toggleClass('side-header-hide');
@@ -3790,66 +4215,73 @@ window.theme.fn = {
 					$window.trigger('resize');
 				});
 
-				$('.hamburguer-close').on('click', function () {
+				$('.hamburguer-close').on('click', function(){
 					$('.hamburguer-btn:not(.hamburguer-btn-side-header-mobile-show)').trigger('click');
-				});
-
+				});				
+				
+				// Set Header Body Height when open mobile menu
 				$('.header-nav-main nav').on('show.bs.collapse', function () {
-					$(this).removeClass('closed');
+				 	$(this).removeClass('closed');
 
-					$('html').addClass('mobile-menu-opened');
+				 	// Add Mobile Menu Opened Class
+				 	$('html').addClass('mobile-menu-opened');
 
-					$('.header-body').animate({
-						height: $('.header-body').outerHeight() + $('.header-nav-main nav').outerHeight(true) + 10
-					});
+			 		$('.header-body').animate({
+				 		height: ($('.header-body').outerHeight() + $('.header-nav-main nav').outerHeight(true)) + 10
+				 	});
 
-					if ($('#header').is('.header-bottom-slider, .header-below-slider') && !$('html').hasClass('sticky-header-active')) {
-						self.scrollToTarget($('#header'), 0);
-					}
+				 	// Header Below Slider / Header Bottom Slider - Scroll to menu position
+				 	if( $('#header').is('.header-bottom-slider, .header-below-slider') && !$('html').hasClass('sticky-header-active') ) {
+				 		self.scrollToTarget( $('#header'), 0 );
+				 	}
 				});
 
+				// Set Header Body Height when collapse mobile menu
 				$('.header-nav-main nav').on('hide.bs.collapse', function () {
-					$(this).addClass('closed');
+				 	$(this).addClass('closed');
 
-					$('html').removeClass('mobile-menu-opened');
+				 	// Remove Mobile Menu Opened Class
+				 	$('html').removeClass('mobile-menu-opened');
 
-					$('.header-body').animate({
-						height: $('.header-body').outerHeight() - $('.header-nav-main nav').outerHeight(true)
-					}, function () {
-						$(this).height('auto');
-					});
+			 		$('.header-body').animate({
+				 		height: ($('.header-body').outerHeight() - $('.header-nav-main nav').outerHeight(true))
+				 	}, function(){
+				 		$(this).height('auto');
+				 	});
 				});
 
-				$window.on('stickyHeader.activate', function () {
-					if ($window.width() < 992 && $header.hasClass('header-effect-shrink')) {
-						if ($('.header-btn-collapse-nav').attr('aria-expanded') == 'true') {
+				// Header Effect Shrink - Adjust header body height on mobile
+				$window.on('stickyHeader.activate', function(){
+					if( $window.width() < 992 && $header.hasClass('header-effect-shrink') ) {
+						if( $('.header-btn-collapse-nav').attr('aria-expanded') == 'true' ) {
 							$('.header-body').animate({
-								height: $('.header-nav-main nav').outerHeight(true) + theme.StickyHeader.options.stickyHeaderContainerHeight + ($('.header-nav-bar').get(0) ? $('.header-nav-bar').outerHeight() : 0)
-							});
+						 		height: ( $('.header-nav-main nav').outerHeight(true) + theme.StickyHeader.options.stickyHeaderContainerHeight ) + ( ($('.header-nav-bar').get(0)) ? $('.header-nav-bar').outerHeight() : 0 ) 
+						 	});
 						}
 					}
 				});
 
-				$window.on('stickyHeader.deactivate', function () {
-					if ($window.width() < 992 && $header.hasClass('header-effect-shrink')) {
-						if ($('.header-btn-collapse-nav').attr('aria-expanded') == 'true') {
+				$window.on('stickyHeader.deactivate', function(){
+					if( $window.width() < 992 && $header.hasClass('header-effect-shrink') ) {
+						if( $('.header-btn-collapse-nav').attr('aria-expanded') == 'true' ) {
 							$('.header-body').animate({
-								height: headerBodyHeight + $('.header-nav-main nav').outerHeight(true) + 10
-							});
+						 		height: headerBodyHeight + $('.header-nav-main nav').outerHeight(true) + 10
+						 	});
 						}
 					}
 				});
 
-				$(document).ready(function () {
-					if ($window.width() > 991) {
+				// Side Header - Change value of initial header body height
+				$(document).ready(function(){
+					if( $window.width() > 991 ) {
 						var flag = false;
-
-						$window.on('resize', function () {
-							if ($window.width() < 992 && flag == false) {
+						
+						$window.on('resize', function(){
+							if( $window.width() < 992 && flag == false ) {
 								headerBodyHeight = $('.header-body').outerHeight();
 								flag = true;
 
-								setTimeout(function () {
+								setTimeout(function(){
 									flag = false;
 								}, 500);
 							}
@@ -3857,18 +4289,19 @@ window.theme.fn = {
 					}
 				});
 
-				if ($html.hasClass('side-header')) {
-					if ($window.width() < 992) {
+				// Side Header - Set header height on mobile
+				if( $html.hasClass('side-header') ) {
+					if( $window.width() < 992 ) {
 						$header.css({
-							height: $('.header-body .header-container').outerHeight() + (parseInt($('.header-body').css('border-top-width')) + parseInt($('.header-body').css('border-bottom-width')))
+							height: $('.header-body .header-container').outerHeight() + (parseInt( $('.header-body').css('border-top-width') ) + parseInt( $('.header-body').css('border-bottom-width') ))
 						});
 					}
 
-					$(document).ready(function () {
-						$window.afterResize(function () {
-							if ($window.width() < 992) {
+					$(document).ready(function(){
+						$window.afterResize(function(){
+							if( $window.width() < 992 ) {
 								$header.css({
-									height: $('.header-body .header-container').outerHeight() + (parseInt($('.header-body').css('border-top-width')) + parseInt($('.header-body').css('border-bottom-width')))
+									height: $('.header-body .header-container').outerHeight() + (parseInt( $('.header-body').css('border-top-width') ) + parseInt( $('.header-body').css('border-bottom-width') ))
 								});
 							} else {
 								$header.css({
@@ -3879,70 +4312,84 @@ window.theme.fn = {
 					});
 				}
 
-				$('[data-hash]').each(function () {
+				// Anchors Position
+				$('[data-hash]').each(function() {
 
 					var target = $(this).attr('href'),
-					    offset = $(this).is("[data-hash-offset]") ? $(this).data('hash-offset') : 0;
+						offset = ($(this).is("[data-hash-offset]") ? $(this).data('hash-offset') : 0);
 
-					if ($(target).get(0)) {
-						$(this).on('click', function (e) {
+					if($(target).get(0)) {
+						$(this).on('click', function(e) {
 							e.preventDefault();
 
-							if (!$(e.target).is('i')) {
+							if( !$(e.target).is('i') ) {
+
+								// Close Collapse if open
 								$(this).parents('.collapse.show').collapse('hide');
 
 								self.scrollToTarget(target, offset);
+								
 							}
 
 							return;
 						});
 					}
+
 				});
 
-				if ($('#header.header-floating-icons').get(0)) {
+				// Floating
+				if($('#header.header-floating-icons').get(0)) {
 
-					$('#header.header-floating-icons [data-hash]').off().each(function () {
+					$('#header.header-floating-icons [data-hash]').off().each(function() {
 
 						var target = $(this).attr('href'),
-						    offset = $(this).is("[data-hash-offset]") ? $(this).data('hash-offset') : 0;
+							offset = ($(this).is("[data-hash-offset]") ? $(this).data('hash-offset') : 0);
 
-						if ($(target).get(0)) {
-							$(this).on('click', function (e) {
+						if($(target).get(0)) {
+							$(this).on('click', function(e) {
 								e.preventDefault();
 
-								$('html, body').animate({
-									scrollTop: $(target).offset().top - offset
-								}, 600, 'easeOutQuad', function () {});
+									$('html, body').animate({
+										scrollTop: $(target).offset().top - offset
+									}, 600, 'easeOutQuad', function() {
+
+									});
 
 								return;
 							});
 						}
+
 					});
+
 				}
 
 				return this;
 			},
 
-			scrollToTarget: function scrollToTarget(target, offset) {
+			scrollToTarget: function(target, offset) {
 				var self = this;
 
 				$('body').addClass('scrolling');
 
 				$('html, body').animate({
 					scrollTop: $(target).offset().top - offset
-				}, self.options.scrollDelay, self.options.scrollAnimation, function () {
+				}, self.options.scrollDelay, self.options.scrollAnimation, function() {
 					$('body').removeClass('scrolling');
 				});
 
 				return this;
+
 			}
 
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+
+// Newsletter
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -3956,37 +4403,39 @@ window.theme.fn = {
 				wrapper: $('#newsletterForm')
 			},
 
-			initialize: function initialize($wrapper, opts) {
+			initialize: function($wrapper, opts) {
 				if (initialized) {
 					return this;
 				}
 
 				initialized = true;
-				this.$wrapper = $wrapper || this.defaults.wrapper;
+				this.$wrapper = ($wrapper || this.defaults.wrapper);
 
-				this.setOptions(opts).build();
+				this
+					.setOptions(opts)
+					.build();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
 
 				return this;
 			},
 
-			build: function build() {
-				if (!$.isFunction($.fn.validate)) {
+			build: function() {
+				if (!($.isFunction($.fn.validate))) {
 					return this;
 				}
 
 				var self = this,
-				    $email = self.$wrapper.find('#newsletterEmail'),
-				    $success = $('#newsletterSuccess'),
-				    $error = $('#newsletterError');
+					$email = self.$wrapper.find('#newsletterEmail'),
+					$success = $('#newsletterSuccess'),
+					$error = $('#newsletterError');
 
 				self.$wrapper.validate({
-					submitHandler: function submitHandler(form) {
+					submitHandler: function(form) {
 
 						$.ajax({
 							type: 'POST',
@@ -3995,23 +4444,35 @@ window.theme.fn = {
 								'email': $email.val()
 							},
 							dataType: 'json',
-							success: function success(data) {
+							success: function(data) {
 								if (data.response == 'success') {
 
 									$success.removeClass('d-none');
 									$error.addClass('d-none');
 
-									$email.val('').blur().closest('.control-group').removeClass('success').removeClass('error');
+									$email
+										.val('')
+										.blur()
+										.closest('.control-group')
+										.removeClass('success')
+										.removeClass('error');
+
 								} else {
 
 									$error.html(data.message);
 									$error.removeClass('d-none');
 									$success.addClass('d-none');
 
-									$email.blur().closest('.control-group').removeClass('success').addClass('error');
+									$email
+										.blur()
+										.closest('.control-group')
+										.removeClass('success')
+										.addClass('error');
+
 								}
 							}
 						});
+
 					},
 					rules: {
 						newsletterEmail: {
@@ -4019,7 +4480,9 @@ window.theme.fn = {
 							email: true
 						}
 					},
-					errorPlacement: function errorPlacement(error, element) {}
+					errorPlacement: function(error, element) {
+
+					}
 				});
 
 				return this;
@@ -4028,9 +4491,11 @@ window.theme.fn = {
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Search
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -4044,51 +4509,56 @@ window.theme.fn = {
 				wrapper: $('#searchForm')
 			},
 
-			initialize: function initialize($wrapper, opts) {
+			initialize: function($wrapper, opts) {
 				if (initialized) {
 					return this;
 				}
 
 				initialized = true;
-				this.$wrapper = $wrapper || this.defaults.wrapper;
+				this.$wrapper = ($wrapper || this.defaults.wrapper);
 
-				this.setOptions(opts).build();
+				this
+					.setOptions(opts)
+					.build();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
 
 				return this;
 			},
 
-			build: function build() {
-				if (!$.isFunction($.fn.validate)) {
+			build: function() {
+				if (!($.isFunction($.fn.validate))) {
 					return this;
 				}
 
 				this.$wrapper.validate({
-					errorPlacement: function errorPlacement(error, element) {}
+					errorPlacement: function(error, element) {}
 				});
 
-				$('.header-nav-features-search-reveal').each(function () {
+				// Search Reveal
+				$('.header-nav-features-search-reveal').each(function() {
 
-					var $el = $(this);
-					$header = $('#header'), $html = $('htmnl');
+					var $el = $(this)
+						$header = $('#header'),
+						$html = $('htmnl');
 
-					$el.find('.header-nav-features-search-show-icon').on('click', function () {
+					$el.find('.header-nav-features-search-show-icon').on('click', function() {
 						$el.addClass('show');
 						$header.addClass('search-show');
 						$html.addClass('search-show');
 						$('#headerSearch').focus();
 					});
 
-					$el.find('.header-nav-features-search-hide-icon').on('click', function () {
+					$el.find('.header-nav-features-search-hide-icon').on('click', function() {
 						$el.removeClass('show');
 						$header.removeClass('search-show');
 						$html.removeClass('search-show');
 					});
+
 				});
 
 				return this;
@@ -4097,9 +4567,11 @@ window.theme.fn = {
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);
 
-(function (theme, $) {
+}).apply(this, [window.theme, jQuery]);
+
+// Sticky Header
+(function(theme, $) {
 
 	theme = theme || {};
 
@@ -4124,74 +4596,83 @@ window.theme.fn = {
 				stickyChangeLogoWrapper: true
 			},
 
-			initialize: function initialize($wrapper, opts) {
+			initialize: function($wrapper, opts) {
 				if (initialized) {
 					return this;
 				}
 
 				initialized = true;
-				this.$wrapper = $wrapper || this.defaults.wrapper;
+				this.$wrapper = ($wrapper || this.defaults.wrapper);
 
-				this.setOptions(opts).build().events();
+				this
+					.setOptions(opts)
+					.build()
+					.events();
 
 				return this;
 			},
 
-			setOptions: function setOptions(opts) {
+			setOptions: function(opts) {
 				this.options = $.extend(true, {}, this.defaults, opts, theme.fn.getOptions(this.$wrapper.data('plugin-options')));
 
 				return this;
 			},
 
-			build: function build() {
+			build: function() {
 				if (!this.options.stickyEnableOnBoxed && $('html').hasClass('boxed') || $('html').hasClass('side-header-hamburguer-sidebar') || !this.options.stickyEnabled) {
 					return this;
 				}
 
 				var self = this,
-				    $html = $('html'),
-				    $window = $(window),
-				    sideHeader = $html.hasClass('side-header'),
-				    initialHeaderTopHeight = self.options.wrapper.find('.header-top').outerHeight(),
-				    initialHeaderContainerHeight = self.options.wrapper.find('.header-container').outerHeight(),
-				    minHeight;
+					$html = $('html'),
+					$window = $(window),
+					sideHeader = $html.hasClass('side-header'),
+					initialHeaderTopHeight = self.options.wrapper.find('.header-top').outerHeight(),
+					initialHeaderContainerHeight = self.options.wrapper.find('.header-container').outerHeight(),
+					minHeight;
 
+				// HTML Classes
 				$html.addClass('sticky-header-enabled');
 
 				if (parseInt(self.options.stickySetTop) < 0) {
 					$html.addClass('sticky-header-negative');
 				}
 
-				if (self.options.stickyStartAtElement) {
+				// Set Start At
+				if(self.options.stickyStartAtElement) {
 
 					var $stickyStartAtElement = $(self.options.stickyStartAtElement);
 
-					$(window).on('scroll resize', function () {
+					$(window).on('scroll resize', function() {
 						self.options.stickyStartAt = $stickyStartAtElement.offset().top;
 					});
 
 					$(window).trigger('resize');
 				}
 
-				if (self.options.wrapper.find('.header-top').get(0)) {
-					minHeight = initialHeaderTopHeight + initialHeaderContainerHeight;
+				// Define Min Height value
+				if( self.options.wrapper.find('.header-top').get(0) ) {
+					minHeight = ( initialHeaderTopHeight + initialHeaderContainerHeight );
 				} else {
 					minHeight = initialHeaderContainerHeight;
 				}
 
-				if (!sideHeader) {
-					if (!$('.header-logo-sticky-change').get(0)) {
+				// Set Wrapper Min-Height
+				if( !sideHeader ) {
+					if( !$('.header-logo-sticky-change').get(0) ) {
 						self.options.wrapper.css('height', self.options.headerBody.outerHeight());
 					} else {
-						$window.on('stickyChangeLogo.loaded', function () {
+						$window.on('stickyChangeLogo.loaded', function(){
 							self.options.wrapper.css('height', self.options.headerBody.outerHeight());
 						});
 					}
 
-					if (self.options.stickyEffect == 'shrink') {
-						$(document).ready(function () {
-							if ($window.scrollTop() >= self.options.stickyStartAt) {
-								self.options.wrapper.find('.header-container').on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+					if( self.options.stickyEffect == 'shrink' ) {
+						
+						// Prevent wrong visualization of header when reload on middle of page
+						$(document).ready(function(){
+							if( $window.scrollTop() >= self.options.stickyStartAt ) {
+								self.options.wrapper.find('.header-container').on('transitionend webkitTransitionEnd oTransitionEnd', function(){
 									self.options.headerBody.css('position', 'fixed');
 								});
 							} else {
@@ -4204,58 +4685,64 @@ window.theme.fn = {
 					}
 				}
 
-				if (self.options.stickyHeaderContainerHeight) {
+				// Sticky Header Container Height
+				if( self.options.stickyHeaderContainerHeight ) {
 					self.options.wrapper.find('.header-container').css('height', self.options.wrapper.find('.header-container').outerHeight());
 				}
 
-				if ($html.hasClass('boxed') && self.options.stickyEffect == 'shrink') {
-					if (parseInt(self.options.stickyStartAt) == 0 && $window.width() > 991) {
+				// Boxed
+				if($html.hasClass('boxed') && self.options.stickyEffect == 'shrink') {
+					if( (parseInt(self.options.stickyStartAt) == 0) && $window.width() > 991) {
 						self.options.stickyStartAt = 30;
 					}
 
-					self.options.headerBody.css('position', 'absolute');
+					// Set Header Body Position Absolute
+					self.options.headerBody.css('position','absolute');
 
-					$window.on('scroll', function () {
-						if ($window.scrollTop() > $('.body').offset().top) {
+					// Set position absolute because top margin from boxed layout
+					$window.on('scroll', function(){
+						if( $window.scrollTop() > $('.body').offset().top ) {
 							self.options.headerBody.css({
-								'position': 'fixed',
-								'top': 0
-							});
+								'position' : 'fixed',
+								'top' : 0
+							});								
 						} else {
 							self.options.headerBody.css({
-								'position': 'absolute',
-								'top': 0
+								'position' : 'absolute',
+								'top' : 0
 							});
 						}
 					});
 				}
 
-				var activate_flag = true,
-				    deactivate_flag = false;
+				// Check Sticky Header / Flags prevent multiple runs at same time
+				var activate_flag   = true,
+					deactivate_flag = false;
 
-				self.checkStickyHeader = function () {
-					if ($window.width() > 991 && $html.hasClass('side-header')) {
+				self.checkStickyHeader = function() {
+					if( $window.width() > 991 && $html.hasClass('side-header') ) {
 						$html.removeClass('sticky-header-active');
 						activate_flag = true;
 						return;
 					}
 
 					if ($window.scrollTop() >= parseInt(self.options.stickyStartAt)) {
-						if (activate_flag) {
+						if( activate_flag ) {
 							self.activateStickyHeader();
 							activate_flag = false;
 							deactivate_flag = true;
 						}
 					} else {
-						if (deactivate_flag) {
+						if( deactivate_flag ) {
 							self.deactivateStickyHeader();
 							deactivate_flag = false;
 							activate_flag = true;
 						}
 					}
 				};
-
-				self.activateStickyHeader = function () {
+				
+				// Activate Sticky Header
+				self.activateStickyHeader = function() {
 
 					if ($window.width() < 992) {
 						if (!self.options.stickyEnableOnMobile) {
@@ -4271,17 +4758,22 @@ window.theme.fn = {
 
 					$html.addClass('sticky-header-active');
 
-					if (self.options.stickyEffect == 'reveal') {
+					// Sticky Effect - Reveal
+					if( self.options.stickyEffect == 'reveal' ) {
 
-						self.options.headerBody.css('top', '-' + self.options.stickyStartAt + 'px');
+						self.options.headerBody.css('top','-' + self.options.stickyStartAt + 'px');
 
 						self.options.headerBody.animate({
 							top: self.options.stickySetTop
-						}, 400, function () {});
+						}, 400, function() {});
+
 					}
 
-					if (self.options.stickyEffect == 'shrink') {
-						if (self.options.wrapper.find('.header-top').get(0)) {
+					// Sticky Effect - Shrink
+					if( self.options.stickyEffect == 'shrink' ) {
+
+						// If Header Top
+						if( self.options.wrapper.find('.header-top').get(0) ) {
 							self.options.wrapper.find('.header-top').css({
 								height: 0,
 								'min-height': 0,
@@ -4289,27 +4781,29 @@ window.theme.fn = {
 							});
 						}
 
-						if (self.options.stickyHeaderContainerHeight) {
+						// Header Container
+						if( self.options.stickyHeaderContainerHeight ) {
 							self.options.wrapper.find('.header-container').css({
 								height: self.options.stickyHeaderContainerHeight,
 								'min-height': 0
 							});
 						} else {
 							self.options.wrapper.find('.header-container').css({
-								height: initialHeaderContainerHeight / 3 * 2,
+								height: (initialHeaderContainerHeight / 3) * 2, // two third of container height
 								'min-height': 0
 							});
 
-							var y = initialHeaderContainerHeight - initialHeaderContainerHeight / 3 * 2;
+							var y = initialHeaderContainerHeight - ((initialHeaderContainerHeight / 3) * 2);
 							$('.main').css({
-								transform: 'translate3d(0, -' + y + 'px, 0)',
+								transform: 'translate3d(0, -'+ y +'px, 0)',
 								transition: 'ease transform 300ms'
 							});
 
-							if ($html.hasClass('boxed')) {
-								self.options.headerBody.css('position', 'fixed');
+							if($html.hasClass('boxed')) {
+								self.options.headerBody.css('position','fixed');
 							}
 						}
+
 					}
 
 					self.options.headerBody.css('top', self.options.stickySetTop);
@@ -4318,12 +4812,13 @@ window.theme.fn = {
 						self.changeLogo(true);
 					}
 
-					$('[data-sticky-header-style]').each(function () {
+					// Set Elements Style
+					$('[data-sticky-header-style]').each(function() {
 						var $el = $(this),
-						    css = theme.fn.getOptions($el.data('sticky-header-style-active')),
-						    opts = theme.fn.getOptions($el.data('sticky-header-style'));
+							css = theme.fn.getOptions($el.data('sticky-header-style-active')),
+							opts = theme.fn.getOptions($el.data('sticky-header-style'));
 
-						if ($window.width() > opts.minResolution) {
+						if( $window.width() > opts.minResolution ) {
 							$el.css(css);
 						}
 					});
@@ -4333,31 +4828,43 @@ window.theme.fn = {
 					});
 				};
 
-				self.deactivateStickyHeader = function () {
+				// Deactivate Sticky Header
+				self.deactivateStickyHeader = function() {
 
 					$html.removeClass('sticky-header-active');
 
-					if (self.options.stickyEffect == 'shrink') {
-						if ($html.hasClass('boxed')) {
-							self.options.headerBody.css('position', 'absolute');
+					// Sticky Effect - Shrink
+					if( self.options.stickyEffect == 'shrink' ) {
 
-							if ($window.scrollTop() > $('.body').offset().top) {
-								self.options.headerBody.css('position', 'fixed');
+						// Boxed Layout
+						if( $html.hasClass('boxed') ) {
+
+							// Set Header Body Position Absolute
+							self.options.headerBody.css('position','absolute');
+
+							if( $window.scrollTop() > $('.body').offset().top ) {
+								// Set Header Body Position Fixed
+								self.options.headerBody.css('position','fixed');								
 							}
+
 						} else {
-							self.options.headerBody.css('position', 'fixed');
+							// Set Header Body Position Fixed
+							self.options.headerBody.css('position','fixed');
 						}
 
-						if (self.options.wrapper.find('.header-top').get(0)) {
+						// If Header Top
+						if( self.options.wrapper.find('.header-top').get(0) ) {
 							self.options.wrapper.find('.header-top').css({
 								height: initialHeaderTopHeight,
 								overflow: 'visible'
 							});
 						}
 
+						// Header Container
 						self.options.wrapper.find('.header-container').css({
 							height: initialHeaderContainerHeight
 						});
+
 					}
 
 					self.options.headerBody.css('top', 0);
@@ -4366,12 +4873,13 @@ window.theme.fn = {
 						self.changeLogo(false);
 					}
 
-					$('[data-sticky-header-style]').each(function () {
+					// Set Elements Style
+					$('[data-sticky-header-style]').each(function() {
 						var $el = $(this),
-						    css = theme.fn.getOptions($el.data('sticky-header-style-deactive')),
-						    opts = theme.fn.getOptions($el.data('sticky-header-style'));
+							css = theme.fn.getOptions($el.data('sticky-header-style-deactive')),
+							opts = theme.fn.getOptions($el.data('sticky-header-style'));
 
-						if ($window.width() > opts.minResolution) {
+						if( $window.width() > opts.minResolution ) {
 							$el.css(css);
 						}
 					});
@@ -4381,23 +4889,26 @@ window.theme.fn = {
 					});
 				};
 
+				// Always Sticky
 				if (parseInt(self.options.stickyStartAt) <= 0) {
 					self.activateStickyHeader();
 				}
 
+				// Notice Top Bar
 				if ($('.notice-top-bar').get(0)) {
 					self.options.stickyStartAt = $('.notice-top-bar').outerHeight();
 				}
 
+				// Set Logo
 				if (self.options.stickyChangeLogo) {
 
 					var $logoWrapper = self.options.wrapper.find('.header-logo'),
-					    $logo = $logoWrapper.find('img'),
-					    logoWidth = $logo.attr('width'),
-					    logoHeight = $logo.attr('height'),
-					    logoSmallTop = parseInt($logo.attr('data-sticky-top') ? $logo.attr('data-sticky-top') : 0),
-					    logoSmallWidth = parseInt($logo.attr('data-sticky-width') ? $logo.attr('data-sticky-width') : 'auto'),
-					    logoSmallHeight = parseInt($logo.attr('data-sticky-height') ? $logo.attr('data-sticky-height') : 'auto');
+						$logo = $logoWrapper.find('img'),
+						logoWidth = $logo.attr('width'),
+						logoHeight = $logo.attr('height'),
+						logoSmallTop = parseInt($logo.attr('data-sticky-top') ? $logo.attr('data-sticky-top') : 0),
+						logoSmallWidth = parseInt($logo.attr('data-sticky-width') ? $logo.attr('data-sticky-width') : 'auto'),
+						logoSmallHeight = parseInt($logo.attr('data-sticky-height') ? $logo.attr('data-sticky-height') : 'auto');
 
 					if (self.options.stickyChangeLogoWrapper) {
 						$logoWrapper.css({
@@ -4406,51 +4917,55 @@ window.theme.fn = {
 						});
 					}
 
-					self.changeLogo = function (activate) {
-						if (activate) {
-
+					self.changeLogo = function(activate) {
+						if(activate) {
+							
 							$logo.css({
 								'top': logoSmallTop,
 								'width': logoSmallWidth,
 								'height': logoSmallHeight
 							});
-						} else {
 
+						} else {
+							
 							$logo.css({
 								'top': 0,
 								'width': logoWidth,
 								'height': logoHeight
 							});
+
 						}
-					};
+					}
 
 					$.event.trigger({
 						type: 'stickyChangeLogo.loaded'
 					});
+
 				}
 
+				// Side Header
 				var headerBodyHeight,
-				    flag = false;
+					flag = false;
 
-				self.checkSideHeader = function () {
-					if ($window.width() < 992 && flag == false) {
+				self.checkSideHeader = function() {
+					if($window.width() < 992 && flag == false) {
 						headerBodyHeight = self.options.headerBody.height();
 						flag = true;
 					}
 
-					if (self.options.stickyStartAt == 0 && sideHeader) {
+					if(self.options.stickyStartAt == 0 && sideHeader) {
 						self.options.wrapper.css('min-height', 0);
 					}
 
-					if (self.options.stickyStartAt > 0 && sideHeader && $window.width() < 992) {
+					if(self.options.stickyStartAt > 0 && sideHeader && $window.width() < 992) {
 						self.options.wrapper.css('min-height', headerBodyHeight);
 					}
-				};
+				}
 
 				return this;
 			},
 
-			events: function events() {
+			events: function() {
 				var self = this;
 
 				if (!this.options.stickyEnableOnBoxed && $('body').hasClass('boxed') || $('html').hasClass('side-header-hamburguer-sidebar') || !this.options.stickyEnabled) {
@@ -4458,14 +4973,14 @@ window.theme.fn = {
 				}
 
 				if (!self.options.alwaysStickyEnabled) {
-					$(window).on('scroll resize', function () {
+					$(window).on('scroll resize', function() {
 						self.checkStickyHeader();
 					});
 				} else {
 					self.activateStickyHeader();
 				}
 
-				$(window).on('load resize', function () {
+				$(window).on('load resize', function(){
 					self.checkSideHeader();
 				});
 
@@ -4475,321 +4990,388 @@ window.theme.fn = {
 		}
 
 	});
-}).apply(undefined, [window.theme, jQuery]);'use strict';
 
-(function ($) {
+}).apply(this, [window.theme, jQuery]);
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/js/theme.init.js
+ */
+// Commom Plugins
+(function($) {
 
 	'use strict';
 
+	// Scroll to Top Button.
 	if (typeof theme.PluginScrollToTop !== 'undefined') {
 		theme.PluginScrollToTop.initialize();
 	}
 
+	// Tooltips
 	if ($.isFunction($.fn['tooltip'])) {
 		$('[data-tooltip]:not(.manual), [data-plugin-tooltip]:not(.manual)').tooltip();
 	}
 
+	// Popover
 	if ($.isFunction($.fn['popover'])) {
-		$(function () {
-			$('[data-plugin-popover]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-popover]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.popover(opts);
 			});
 		});
 	}
 
+	// Validations
 	if (typeof theme.PluginValidation !== 'undefined') {
 		theme.PluginValidation.initialize();
 	}
 
+	// Match Height
 	if ($.isFunction($.fn['matchHeight'])) {
 
 		$('.match-height').matchHeight();
 
+		// Featured Boxes
 		$('.featured-boxes .featured-box').matchHeight();
 
+		// Featured Box Full
 		$('.featured-box-full').matchHeight();
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Animate
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginAnimate'])) {
 
-		$(function () {
-			$('[data-appear-animation]').each(function () {
+		$(function() {
+			$('[data-appear-animation]').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginAnimate(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Carousel
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginCarousel'])) {
 
-		$(function () {
-			$('[data-plugin-carousel]:not(.manual), .owl-carousel:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-carousel]:not(.manual), .owl-carousel:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginCarousel(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Chart.Circular
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginChartCircular'])) {
 
-		$(function () {
-			$('[data-plugin-chart-circular]:not(.manual), .circular-bar-chart:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-chart-circular]:not(.manual), .circular-bar-chart:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginChartCircular(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Countdown
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginCountdown'])) {
 
-		$(function () {
-			$('[data-plugin-countdown]:not(.manual), .countdown').each(function () {
+		$(function() {
+			$('[data-plugin-countdown]:not(.manual), .countdown').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginCountdown(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Counter
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginCounter'])) {
 
-		$(function () {
-			$('[data-plugin-counter]:not(.manual), .counters [data-to]').each(function () {
+		$(function() {
+			$('[data-plugin-counter]:not(.manual), .counters [data-to]').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginCounter(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Animated Icon
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginIcon'])) {
 
-		$(document).ready(function () {
-			$(function () {
+		$(document).ready(function(){
+			$(function() {
 
-				$('[data-icon]').each(function () {
+				$('[data-icon]').each(function() {
 					var $this = $(this),
-					    opts;
+						opts;
 
 					var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-					if (pluginOptions) opts = pluginOptions;
+					if (pluginOptions)
+						opts = pluginOptions;
 
 					$this.themePluginIcon(opts);
 				});
+				
 			});
 		});
 	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+}).apply(this, [jQuery]);
+
+// Lazy Load
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginLazyLoad'])) {
 
-		$(function () {
-			$('[data-plugin-lazyload]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-lazyload]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginLazyLoad(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Lightbox
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginLightbox'])) {
 
-		$(function () {
-			$('[data-plugin-lightbox]:not(.manual), .lightbox:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-lightbox]:not(.manual), .lightbox:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginLightbox(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Masonry
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginMasonry'])) {
 
-		$(function () {
-			$('[data-plugin-masonry]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-masonry]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginMasonry(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Match Height
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginMatchHeight'])) {
 
-		$(function () {
-			$('[data-plugin-match-height]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-match-height]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginMatchHeight(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Parallax
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginParallax'])) {
 
-		$(function () {
-			$('[data-plugin-parallax]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-parallax]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginParallax(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Progress Bar
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginProgressBar'])) {
 
-		$(function () {
-			$('[data-plugin-progress-bar]:not(.manual), [data-appear-progress-animation]').each(function () {
+		$(function() {
+			$('[data-plugin-progress-bar]:not(.manual), [data-appear-progress-animation]').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginProgressBar(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Revolution Slider
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginRevolutionSlider'])) {
 
-		$(function () {
-			$('[data-plugin-revolution-slider]:not(.manual), .slider-container .slider:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-revolution-slider]:not(.manual), .slider-container .slider:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginRevolutionSlider(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Scrollable
+(function($) {
 
 	'use strict';
 
-	if ($.isFunction($.fn['nanoScroller'])) {
+	if ( $.isFunction($.fn[ 'nanoScroller' ]) ) {
 
-		$(function () {
-			$('[data-plugin-scrollable]').each(function () {
-				var $this = $(this),
-				    opts = {};
+		$(function() {
+			$('[data-plugin-scrollable]').each(function() {
+				var $this = $( this ),
+					opts = {};
 
 				var pluginOptions = $this.data('plugin-options');
 				if (pluginOptions) {
@@ -4799,150 +5381,183 @@ window.theme.fn = {
 				$this.themePluginScrollable(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Section Scroll
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginSectionScroll'])) {
 
-		$(function () {
-			$('[data-plugin-section-scroll]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-section-scroll]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginSectionScroll(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Sort
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginSort'])) {
 
-		$(function () {
-			$('[data-plugin-sort]:not(.manual), .sort-source:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-sort]:not(.manual), .sort-source:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginSort(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Sticky
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginSticky'])) {
 
-		$(function () {
-			$('[data-plugin-sticky]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-sticky]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginSticky(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Toggle
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginToggle'])) {
 
-		$(function () {
-			$('[data-plugin-toggle]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-toggle]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginToggle(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Tweets
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginTweets'])) {
 
-		$(function () {
-			$('[data-plugin-tweets]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-tweets]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginTweets(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Video Background
+(function($) {
 
 	'use strict';
 
 	if ($.isFunction($.fn['themePluginVideoBackground'])) {
 
-		$(function () {
-			$('[data-plugin-video-background]:not(.manual)').each(function () {
+		$(function() {
+			$('[data-plugin-video-background]:not(.manual)').each(function() {
 				var $this = $(this),
-				    opts;
+					opts;
 
 				var pluginOptions = theme.fn.getOptions($this.data('plugin-options'));
-				if (pluginOptions) opts = pluginOptions;
+				if (pluginOptions)
+					opts = pluginOptions;
 
 				$this.themePluginVideoBackground(opts);
 			});
 		});
-	}
-}).apply(undefined, [jQuery]);
 
-(function ($) {
+	}
+
+}).apply(this, [jQuery]);
+
+// Commom Partials
+(function($) {
 
 	'use strict';
 
+	// Sticky Header
 	if (typeof theme.StickyHeader !== 'undefined') {
 		theme.StickyHeader.initialize();
 	}
 
+	// Nav Menu
 	if (typeof theme.Nav !== 'undefined') {
 		theme.Nav.initialize();
 	}
 
+	// Search
 	if (typeof theme.Search !== 'undefined') {
 		theme.Search.initialize();
 	}
 
+	// Newsletter
 	if (typeof theme.Newsletter !== 'undefined') {
 		theme.Newsletter.initialize();
 	}
 
+	// Account
 	if (typeof theme.Account !== 'undefined') {
 		theme.Account.initialize();
 	}
-}).apply(undefined, [jQuery]);
+
+}).apply(this, [jQuery]);

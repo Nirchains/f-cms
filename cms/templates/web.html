@@ -1,5 +1,6 @@
 {% extends base_template_path %}
-{{base_template_path}}
+
+{%- block header -%} {{ header or "" }} {%- endblock -%}
 
 {% block hero %}{% endblock %}
 {% block content %}

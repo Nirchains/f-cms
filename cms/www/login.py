@@ -19,7 +19,8 @@ def get_context(context):
 		raise frappe.Redirect
 
 	# get settings from site config
-	context.no_header = True
+	context.no_header = False
+	context.header = "<h1>Formulario de <b>acceso</b></h1>"
 	context.for_test = 'login.html'
 	context["title"] = "Login"
 	context["disable_signup"] = frappe.utils.cint(frappe.db.get_value("Website Settings", "Website Settings", "disable_signup"))

@@ -21,7 +21,7 @@ def load_module_positions(page_modules):
                                 filters={'parent': 'Layout',
                                         'parenttype': 'Layout',
                                         'parentfield': 'positions_layout' },
-                                fields="name,css_class")
+                                fields="name,type,css_class")
 
     for position in layout_positions:
         layout[position.name] = position

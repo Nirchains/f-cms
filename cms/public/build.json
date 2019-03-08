@@ -6,7 +6,7 @@
         "public/css/custom.css"
     ],
     "cms/css/build/skin.css": [
-        "public/css/skins/default.css"
+        "public/css/skin.css"
     ],
     "cms/css/build/vendor.css": [
         "public/vendor/fontawesome-free/css/all.min.css",

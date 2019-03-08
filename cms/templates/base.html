@@ -1,17 +1,27 @@
 {% macro render_position(position) %}
-	{%if layout_positions and layout_positions[position]|length > 0 %}
-	<!--TODO		{{ layout_positions[position] }}-->
-	{% endif%}
+
 	{% if module_positions and module_positions[position]|length > 0 %}
+
+		{% if layout_positions and layout_positions[position]|length > 0 %}
+			{% if layout_positions[position].type == "container" %}
 	<div class="container py-2">
 		<div class="row {{pos|lower}}-content">
-				{% for module in module_positions[position] %}
-				<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
-				{% include 'templates/includes/modules/index.html' %}
-				</div>
-				{% endfor %}		
+			{% endif %}
+		{% endif%}
+
+		{% for module in module_positions[position] %}
+			<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
+			{% include 'templates/includes/modules/index.html' %}
+			</div>
+		{% endfor %}	
+
+		{% if layout_positions and layout_positions[position]|length > 0 %}
+			{% if layout_positions[position].type == "container" %}
 		</div>
 	</div>
+			{% endif %}
+		{% endif %}
+
 	{% endif %}
 {% endmacro %}
 
@@ -69,15 +79,17 @@
 </div>
 <div class="body">
 	<header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 45, 'stickySetTop': '-45px', 'stickyChangeLogo': true}">
-		<div class="header-body">
+		<div class="header-body border-color-primary header-body-bottom-border">
 			{%- block navbar2 -%}
-		        {% include "templates/includes/navbar/navbar-2.html" %}
+		        {% include "templates/includes/header.html" %}
 	        {%- endblock -%}
 		</div>
 	</header>
 
 	<div role="main" class="main">
-		<section class="page-header page-header-modern page-header-background page-header-background-sm overlay overlay-color-primary overlay-show overlay-op-8 mb-5" style="background-image: url(img/page-header/page-header-elements.jpg);">
+		{{ render_position('header-1') }}
+		{% if not no_header %}
+		<section class="page-header page-header-modern page-header-background page-header-background-sm overlay overlay-color-primary overlay-show overlay-op-8 mb-5" style="background-image: url(/files/corpus-oleo-1.jpg);">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12 align-self-center p-static order-2 text-center">
@@ -93,21 +105,14 @@
 				</div>
 			</div>
 		</section>
+		{% endif %}
 		{{ render_position('top-1') }}
 
-	</div>
-            <div class="hero-and-content">
-                <div data-html-block="hero">
-				{%- block hero -%}{%- endblock -%}
-                </div>
-                
-                <div class="container">
-                {% block content %}{% endblock %}
-                </div>
-            </div>
-		<div>
-		</div>
+		<div class="container">
+        {% block content %}{% endblock %}
+        </div>
 
+	</div>
 
 	<footer id="footer">
 		<div class="container">

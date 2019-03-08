@@ -1,3 +1,7 @@
+
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/css/theme.css
+ */
 /*
 Name: 			theme.css
 Written by: 	Okler Themes - (http://www.okler.net)
@@ -7768,6 +7772,10 @@ html.gap-outside .pin-wrapper .sticky-wrapper.sticky-effect-active .sticky-body 
 	padding-left: 25px;
 	padding-right: 25px;
 }
+
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/css/theme-elements.css
+ */
 @charset "UTF-8";
 /*
 Name: 			theme-elements.css
@@ -22210,6 +22218,10 @@ ul.team-list .team-item .thumb-info-social-icons {
 		line-height: 100px;
 	}
 }
+
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/css/theme-blog.css
+ */
 /*
 Name: 			theme-blog.css
 Written by: 	Okler Themes - (http://www.okler.net)
@@ -22585,6 +22597,10 @@ ul.simple-post-list .post-info {
 		display: none;
 	}
 }
+
+/*
+ *	/home/frappe/frappe-agilex/apps/cms/cms/public/css/custom.css
+ */
 .avatar {
   display: inline-block;
   vertical-align: middle;
