@@ -63,7 +63,11 @@ def __prepare_module(module):
     if module.module_type == "Menu":
         module.menu_items = __get_menu_items(module.parent_label)
     if module.module_type == "Module HTML":
-		module.context = frappe.get_doc(module.module_type, module.module_name)
+        try:
+            module.context = frappe.get_doc(module.module_type, module.module_name)
+        except Exception as e:
+            frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
+		
     return module
 
 def __get_menu_items(parent_label):
