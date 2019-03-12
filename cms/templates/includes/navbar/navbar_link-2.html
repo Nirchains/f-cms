@@ -1,6 +1,5 @@
-<li class="dropdown">
-{{pathname}} -- {{page.url}}
-	<a class="dropdown-item dropdown-toggle {{ 'active' if (page.url in (pathname,'/')) else '' }}" href="{{ (page.url or '')|abs_url }}">
+<li>
+	<a class="nav-link {{ 'active' if (page.url in (pathname,'/')) else '' }}" href="{{ (page.url or '')|abs_url }}">
 		{{ page.label or '' }}
 	</a>
 	{%- if page.child_items -%}

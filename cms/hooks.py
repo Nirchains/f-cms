@@ -19,7 +19,7 @@ app_license = "MIT"
 app_include_js = ["assets/cms/desk/build/custom.min.js"]
 
 # include js, css files in header of web template
-web_include_css = ["assets/cms/css/build/vendor.css", "assets/cms/css/build/theme.css", "assets/cms/css/build/current.css", "assets/cms/css/build/skin.css"]
+web_include_css = ["assets/cms/css/build/vendor.css", "assets/cms/css/build/theme.css", "assets/cms/css/build/skin.css"]
 web_include_js =  ["assets/cms/js/build/theme.js"]
 
 doctype_js = {

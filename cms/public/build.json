@@ -1,13 +1,4 @@
 {
-    "cms/css/build/theme.css": [
-        "public/css/theme.css",
-        "public/css/theme-elements.css",
-        "public/css/theme-blog.css",
-        "public/css/custom.css"
-    ],
-    "cms/css/build/skin.css": [
-        "public/css/skin.css"
-    ],
     "cms/css/build/vendor.css": [
         "public/vendor/fontawesome-free/css/all.min.css",
         "public/vendor/animate/animate.min.css",
@@ -16,27 +7,20 @@
         "public/vendor/owl.carousel/assets/owl.theme.default.min.css",
         "public/vendor/magnific-popup/magnific-popup.min.css"
     ],
+    "cms/css/build/theme.css": [
+        "public/css/theme.css",
+        "public/css/theme-elements.css",
+        "public/css/theme-blog.css",
+        "public/css/custom.css"
+    ],
+    "cms/css/build/skin.css": [
+        "public/css/skins/demo-digital-agency.css",
+        "public/css/skins/skin-digital-agency.css"
+    ],
     "cms/js/build/theme.js": [
         "public/js/theme.js",
         "public/js/theme.init.js"
     ],
-    "cms/js/build/frappe-web.min.js": [
-        "public/js/frappe/class.js",
-        "public/js/lib/md5.min.js",
-        "public/js/frappe/provide.js",
-        "public/js/frappe/format.js",
-        "public/js/frappe/misc/number_format.js",
-        "public/js/frappe/misc/common.js",
-        "public/js/frappe/translate.js",
-        "public/js/frappe/misc/pretty_date.js",
-        "public/js/lib/moment/moment.min.js",
-        "public/js/lib/highlight.pack.js",
-        "public/js/lib/microtemplate.js",
-        "public/js/frappe/query_string.js",
-        "public/js/frappe/website.js",
-        "public/js/frappe/misc/rating_icons.html"
-    ],
-
     "cms/desk/build/custom.min.js": [
         "public/desk/js/module_common.js"
     ]

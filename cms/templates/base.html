@@ -78,8 +78,8 @@
 	</div>
 </div>
 <div class="body">
-	<header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 45, 'stickySetTop': '-45px', 'stickyChangeLogo': true}">
-		<div class="header-body border-color-primary header-body-bottom-border">
+	<header id="header" class="header-transparent header-semi-transparent header-semi-transparent-dark header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
+		<div class="header-body border-top-0 bg-dark box-shadow-none">
 			{%- block navbar2 -%}
 		        {% include "templates/includes/header.html" %}
 	        {%- endblock -%}
@@ -153,13 +153,14 @@
 <script src="/assets/cms/vendor/vide/jquery.vide.min.js"></script>
 <script src="/assets/cms/vendor/vivus/vivus.min.js"></script>
 
-<script type="text/javascript" src="/assets/cms/js/build/frappe-web.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script type="text/javascript" src="/assets/js/frappe-web.min.js"></script>
 {% endblock %}
 {%- if js_globals is defined %}
 <script>
-{%- for key, value in js_globals.iteritems() %}
-window.{{ key }} = "{{ value[0] }}";
-{%- endfor -%}
+    {%- for key, value in js_globals.iteritems() %}
+    window.{{ key }} = "{{ value[0] }}";
+    {%- endfor -%}
 </script>
 {% endif -%}
 
