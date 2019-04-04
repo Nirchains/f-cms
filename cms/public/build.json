@@ -7,11 +7,18 @@
         "public/vendor/owl.carousel/assets/owl.theme.default.min.css",
         "public/vendor/magnific-popup/magnific-popup.min.css"
     ],
+    "cms/css/build/rs-plugin.css": [
+        "public/vendor/rs-plugin/css/settings.css",
+        "public/vendor/rs-plugin/css/layers.css",
+        "public/vendor/rs-plugin/css/navigation.css"
+    ],
     "cms/css/build/theme.css": [
         "public/css/theme.css",
         "public/css/theme-elements.css",
-        "public/css/theme-blog.css",
-        "public/css/custom.css"
+        "public/css/theme-blog.css"
+    ],
+    "cms/css/build/custom.css": [
+        "public/less/custom.less"
     ],
     "cms/css/build/skin.css": [
         "public/css/skins/demo-digital-agency.css",
@@ -21,7 +28,7 @@
         "public/js/theme.js",
         "public/js/theme.init.js"
     ],
-    "cms/desk/build/custom.min.js": [
-        "public/desk/js/module_common.js"
+    "cms/js/build/custom.min.js": [
+        "public/js/desk/module_common.js"
     ]
 }

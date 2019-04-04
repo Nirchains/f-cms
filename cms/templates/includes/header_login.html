@@ -1,0 +1,51 @@
+<div class="header-top header-top-default border-bottom-0">
+	<div class="container">
+		<div class="header-row py-0">
+			<div class="header-column justify-content-end">
+				<div class="header-row">
+					<nav class="header-nav-top">
+						{%- block banner -%}
+							{% include "templates/includes/banner_extension.html" ignore missing %}
+							{% if banner_html -%}
+								<div class='banner'>
+									<ul class="nav nav-pills">
+									{% include "templates/includes/navbar/navbar_search.html" %}
+									{% include "templates/includes/navbar/navbar_login.html" %}
+									{{ banner_html or "" }}
+									</ul>
+								</div>
+							{%- endif %}
+						{%- endblock -%}
+						<div class="header-nav-features">
+							<div class="header-nav-feature header-nav-features-search d-inline-flex">
+								<a href="#" class="header-nav-features-toggle" data-focus="headerSearch"><i class="fas fa-search header-nav-top-icon"></i></a>
+								<div class="header-nav-features-dropdown" id="headerTopSearchDropdown">
+									<form role="search" action="page-search-results.html" method="get">
+										<div class="simple-search input-group">
+											<input class="form-control text-1" id="headerSearch" name="q" type="search" value="" placeholder="{{ _('Search...')}}">
+											<span class="input-group-append">
+												<button class="btn" type="submit">
+													<i class="fa fa-search header-nav-top-icon"></i>
+												</button>
+											</span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if top_bar_items -%}
+<ul class="nav navbar-nav navbar-left">
+	{%- for page in top_bar_items -%}
+		{% if not page.parent_label and not page.right -%}
+			{% include "templates/includes/navbar/navbar_link.html" %}
+		{%- endif -%}
+	{%- endfor %}
+</ul>
+{%- endif %}

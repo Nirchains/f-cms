@@ -11500,7 +11500,7 @@ html.boxed .slider-container {
 }
 
 .testimonial.testimonial-with-quotes blockquote p {
-	padding: 0 40px;
+	padding: 20px 40px;
 }
 
 .testimonial.testimonial-with-quotes.testimonial-remove-left-quote blockquote:before {

@@ -3,35 +3,56 @@
 	{% if module_positions and module_positions[position]|length > 0 %}
 
 		{% if layout_positions and layout_positions[position]|length > 0 %}
-			{% if layout_positions[position].type == "container" %}
-	<div class="container py-2">
-		<div class="row {{pos|lower}}-content">
-			{% endif %}
-		{% endif%}
 
-		{% for module in module_positions[position] %}
-			<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
-			{% include 'templates/includes/modules/index.html' %}
-			</div>
-		{% endfor %}	
-
-		{% if layout_positions and layout_positions[position]|length > 0 %}
-			{% if layout_positions[position].type == "container" %}
-		</div>
-	</div>
+			{% if layout_positions[position].type in ["section"] %}
+				{% if layout_positions[position].data_appear_animation %}
+					<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}} appear-animation"
+					data-appear-animation="{{layout_positions[position].data_appear_animation}}"
+					{{ 'data-appear-animation-delay=' + layout_positions[position].data_appear_animation_delay if (layout_positions[position].data_appear_animation_delay) else '' }}>
+				{% else %}
+					<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}}">
+				{% endif %}
+				
 			{% endif %}
+
+			{% if layout_positions[position].type in ["container", "section"] %}
+					<div class="container {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
+			{% endif %}
+		
+			{{ render_module(module_positions[position]) }}
+
+			{% if layout_positions[position].type in ["container", "section"] %}
+					</div>
+			{% endif %}
+
+			{% if layout_positions[position].type in ["section"] %}
+				</section>
+			{% endif %}
+
 		{% endif %}
 
 	{% endif %}
+{% endmacro %}
+
+{% macro render_module(module_positions) %}
+
+	{% for module in module_positions %}
+		<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
+		{% include 'templates/includes/modules/index.html' %}
+		</div>
+	{% endfor %}
+
 {% endmacro %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400" rel="stylesheet" type="text/css">
 	<meta name="generator" content="frappe">
 
     {% block favicon %}
@@ -87,13 +108,17 @@
 	</header>
 
 	<div role="main" class="main">
+		{{ render_position('banner') }}
 		{{ render_position('header-1') }}
+		{{ render_position('header-2') }}
+		{{ render_position('header-3') }}
+
 		{% if not no_header %}
-		<section class="page-header page-header-modern page-header-background page-header-background-sm overlay overlay-color-primary overlay-show overlay-op-8 mb-5" style="background-image: url(/files/corpus-oleo-1.jpg);">
+		<section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-7" style="background-image: url(/files/corpus-oleo-1.jpg);">
 			<div class="container">
-				<div class="row">
+				<div class="row mt-5">
 					<div class="col-md-12 align-self-center p-static order-2 text-center">
-						{% block header %}{% endblock %}
+						<h1>{% block header %}{% endblock %}</h1>
 					</div>
 					<div class="col-md-12 align-self-center order-1">
 						{% if not no_breadcrumbs and parents %}
@@ -106,11 +131,25 @@
 			</div>
 		</section>
 		{% endif %}
+				
 		{{ render_position('top-1') }}
+		{{ render_position('top-2') }}
+		{{ render_position('top-3') }}
+		{{ render_position('top-4') }}
+		{{ render_position('top-5') }}
 
 		<div class="container">
         {% block content %}{% endblock %}
         </div>
+
+		{{ render_position('content-testimonios') }}
+
+        {{ render_position('bottom-1') }}
+		{{ render_position('bottom-2') }}
+		{{ render_position('bottom-3') }}
+		{{ render_position('bottom-4') }}
+		{{ render_position('bottom-5') }}
+
 
 	</div>
 
@@ -153,7 +192,14 @@
 <script src="/assets/cms/vendor/vide/jquery.vide.min.js"></script>
 <script src="/assets/cms/vendor/vivus/vivus.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script src="/assets/cms/js/theme.js"></script>
+
+<script src="/assets/cms/vendor/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/assets/cms/vendor/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<script src="/assets/cms/js/theme.init.js"></script>
+
+<<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
 <script type="text/javascript" src="/assets/js/frappe-web.min.js"></script>
 {% endblock %}
 {%- if js_globals is defined %}

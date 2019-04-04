@@ -230,7 +230,7 @@ li {
 	-ms-flex-align: center;
 	align-items: center;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.06);
-	min-height: 47px;
+	/*min-height: 47px;*/
 }
 
 #header .header-top.header-top-light-border-bottom {
