@@ -1,36 +1,40 @@
 {% macro render_position(position) %}
+	{% if layout %}
+		{% set module_positions = layout['module_positions'] or [] %}
+		{% set layout_positions = layout['layout_positions'] or [] %}
 
-	{% if module_positions and module_positions[position]|length > 0 %}
+		{% if module_positions and module_positions[position]|length > 0 %}
 
-		{% if layout_positions and layout_positions[position]|length > 0 %}
+			{% if layout_positions and layout_positions[position]|length > 0 %}
 
-			{% if layout_positions[position].type in ["section"] %}
-				{% if layout_positions[position].data_appear_animation %}
-					<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}} appear-animation"
-					data-appear-animation="{{layout_positions[position].data_appear_animation}}"
-					{{ 'data-appear-animation-delay=' + layout_positions[position].data_appear_animation_delay if (layout_positions[position].data_appear_animation_delay) else '' }}>
-				{% else %}
-					<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}}">
+				{% if layout_positions[position].type in ["section"] %}
+					{% if layout_positions[position].data_appear_animation %}
+						<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}} appear-animation"
+						data-appear-animation="{{layout_positions[position].data_appear_animation}}"
+						{{ 'data-appear-animation-delay=' + layout_positions[position].data_appear_animation_delay if (layout_positions[position].data_appear_animation_delay) else '' }}>
+					{% else %}
+						<section class="section {{ layout_positions[position].css_section or '' }} section-{{position|lower}}">
+					{% endif %}
+					
 				{% endif %}
-				
-			{% endif %}
 
-			{% if layout_positions[position].type in ["container", "section"] %}
-					<div class="container {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
-			{% endif %}
-		
-			{{ render_module(module_positions[position]) }}
+				{% if layout_positions[position].type in ["container", "section"] %}
+						<div class="container {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
+				{% endif %}
+			
+				{{ render_module(module_positions[position]) }}
 
-			{% if layout_positions[position].type in ["container", "section"] %}
-					</div>
-			{% endif %}
+				{% if layout_positions[position].type in ["container", "section"] %}
+						</div>
+				{% endif %}
 
-			{% if layout_positions[position].type in ["section"] %}
-				</section>
+				{% if layout_positions[position].type in ["section"] %}
+					</section>
+				{% endif %}
+
 			{% endif %}
 
 		{% endif %}
-
 	{% endif %}
 {% endmacro %}
 
@@ -199,7 +203,7 @@
 
 <script src="/assets/cms/js/theme.init.js"></script>
 
-<<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
 <script type="text/javascript" src="/assets/js/frappe-web.min.js"></script>
 {% endblock %}
 {%- if js_globals is defined %}

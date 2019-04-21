@@ -16,7 +16,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/cms/css/cms.css"
-app_include_js = ["assets/cms/js/build/custom.min.js"]
+app_include_js = ["assets/cms/js/build/custom.min.js", "/assets/cms/vendor/autoresize/autoresize.jquery.min.js"]
 
 # include js, css files in header of web template
 web_include_css = ["assets/cms/css/build/vendor.css", "assets/cms/css/build/theme.css", "assets/cms/css/build/rs-plugin.css", "assets/cms/css/build/custom.css", "assets/cms/css/build/skin.css"]
@@ -30,6 +30,12 @@ doctype_js = {
 
 fixtures=['Custom Field', 'Property Setter','Print Format','Custom Script', 'Domain', 'Module Def']
 
+
+update_website_context_all = 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
+
+#website_context = {
+#	'layout': 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
+#}
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}

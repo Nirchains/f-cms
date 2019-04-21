@@ -204,3 +204,9 @@
   color: #FFFFFF;
   padding-top: 20px;
 }
+.tooltip-inner {
+  max-width: 450px;
+}
+.doc-title {
+  display: block;
+}

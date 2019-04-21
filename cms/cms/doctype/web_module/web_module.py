@@ -45,6 +45,48 @@ def load_module_positions(page_modules):
 
     return module_position, layout
 
+"""Return array module_position
+Carga los modulos adicionales de "Page Modules" en las posiciones correspondientes
+"""
+def load_module_positions_context(context):
+    #module_position = {"Left": [], "Right": [], "Top": [], "Bottom": []}
+    layout = {}
+    layout['layout_positions'] = {}
+    layout['module_positions'] = {}
+    
+    
+    layout_positions = frappe.get_list("Layout posiciones", 
+                                filters={'parent': 'Layout',
+                                        'parenttype': 'Layout',
+                                        'parentfield': 'positions_layout' },
+                                fields="name,type,css_class,css_section,data_appear_animation,data_appear_animation_delay")
+
+    for position in layout_positions:
+        layout['layout_positions'][position.name] = position
+        layout['module_positions'][position.name] = []
+
+    #frappe.throw("{0}".format(context))
+
+    for module in context.modules or []:
+        module = __prepare_module(module)
+        #frappe.throw("{0}".format(module))
+        layout['module_positions'][module.position].append(module)
+
+    common_modules = frappe.get_list("Web module", 
+                                filters={'parent': 'Common modules',
+                                        'parenttype': 'Common modules',
+                                        'parentfield': 'modules' },
+                                fields="*")
+
+    for module in common_modules:
+        module = __prepare_module(module)
+        #frappe.throw("{0}".format(module))
+        layout['module_positions'][module.position].append(module)
+
+    context.layout = layout
+
+    return context
+
 """Actualiza las posiciones bootstrap
 """
 def update_positions_size(module_positions, left_size = 0, right_size = 0):
