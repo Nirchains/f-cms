@@ -142,5 +142,14 @@
   "module_name": "Jodit",
   "name": "Jodit",
   "restrict_to_domain": null
+ },
+ {
+  "app_name": "frappe_backend",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2019-03-29 15:50:55.204275",
+  "module_name": "Frappe Backend",
+  "name": "Frappe Backend",
+  "restrict_to_domain": null
  }
 ]

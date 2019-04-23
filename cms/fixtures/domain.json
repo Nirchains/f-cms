@@ -12,5 +12,12 @@
   "domain": "CONFIGURACION AGILEX",
   "modified": "2019-03-07 14:00:42.650400",
   "name": "CONFIGURACION AGILEX"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Domain",
+  "domain": "AGILEX",
+  "modified": "2019-04-11 12:06:18.825233",
+  "name": "AGILEX"
  }
 ]

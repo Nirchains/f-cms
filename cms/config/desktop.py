@@ -6,8 +6,8 @@ def get_data():
 	return [
 		{
 			"module_name": "CMS",
-			"color": "grey",
-			"icon": "octicon octicon-file-directory",
+			"color": "#16a085",
+			"icon": "octicon octicon-browser",
 			"type": "module",
 			"label": _("CMS")
 		}
