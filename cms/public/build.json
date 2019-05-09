@@ -30,5 +30,8 @@
     ],
     "cms/js/build/custom.min.js": [
         "public/js/desk/module_common.js"
+    ],
+    "cms/js/build/custom-web.min.js": [
+        "public/js/web/custom-web.js"
     ]
 }

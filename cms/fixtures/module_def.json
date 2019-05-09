@@ -6,6 +6,9 @@
   "modified": "2019-01-22 17:46:34.357378",
   "module_name": "Core",
   "name": "Core",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -15,6 +18,9 @@
   "modified": "2019-01-22 17:46:37.404301",
   "module_name": "Website",
   "name": "Website",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -24,6 +30,9 @@
   "modified": "2019-01-22 17:46:39.612904",
   "module_name": "Workflow",
   "name": "Workflow",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -33,6 +42,9 @@
   "modified": "2019-01-22 17:46:40.016696",
   "module_name": "Email",
   "name": "Email",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -42,6 +54,9 @@
   "modified": "2019-01-22 17:46:42.655462",
   "module_name": "Custom",
   "name": "Custom",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -51,6 +66,9 @@
   "modified": "2019-01-22 17:46:42.952616",
   "module_name": "Geo",
   "name": "Geo",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -60,6 +78,9 @@
   "modified": "2019-01-22 17:46:43.169024",
   "module_name": "Desk",
   "name": "Desk",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -69,6 +90,9 @@
   "modified": "2019-01-22 17:46:44.192970",
   "module_name": "Integrations",
   "name": "Integrations",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -78,6 +102,9 @@
   "modified": "2019-01-22 17:46:47.612262",
   "module_name": "Printing",
   "name": "Printing",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -87,6 +114,9 @@
   "modified": "2019-01-22 17:46:48.201680",
   "module_name": "Contacts",
   "name": "Contacts",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -96,6 +126,9 @@
   "modified": "2019-01-22 17:46:48.884702",
   "module_name": "Data Migration",
   "name": "Data Migration",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -105,6 +138,9 @@
   "modified": "2019-01-25 12:21:35.335113",
   "module_name": "CMS",
   "name": "CMS",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": "CMS"
  },
  {
@@ -114,6 +150,9 @@
   "modified": "2019-03-08 10:56:14.144350",
   "module_name": "AGILEX",
   "name": "AGILEX",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -123,6 +162,9 @@
   "modified": "2019-03-09 07:47:04.322269",
   "module_name": "Configuracion Agilex",
   "name": "Configuracion Agilex",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": "CONFIGURACION AGILEX"
  },
  {
@@ -132,6 +174,9 @@
   "modified": "2019-03-08 13:02:25.870539",
   "module_name": "Chat",
   "name": "Chat",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -141,6 +186,9 @@
   "modified": "2019-03-13 15:28:08.123424",
   "module_name": "Jodit",
   "name": "Jodit",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  },
  {
@@ -150,6 +198,9 @@
   "modified": "2019-03-29 15:50:55.204275",
   "module_name": "Frappe Backend",
   "name": "Frappe Backend",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
   "restrict_to_domain": null
  }
 ]
