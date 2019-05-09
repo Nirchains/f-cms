@@ -4,3 +4,5 @@
 *.swp
 tags
 cms/docs/current
+cms/public/css/build
+cms/public/js/build
