@@ -5021,7 +5021,7 @@ html.ie #header .header-column .header-extra-info .feature-box .feature-box-info
 .page-header.page-header-modern h1 {
 	font-size: 20px;
     font-weight: 200;
-    background-color: rgba(0,0,0,0.2);
+    /*background-color: rgba(0,0,0,0.2);*/
     line-height: 32px;
     color: #f1c886;
     letter-spacing: 1px;
