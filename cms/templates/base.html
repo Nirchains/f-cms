@@ -122,7 +122,7 @@
 			<div class="container">
 				<div class="row mt-5">
 					<div class="col-md-12 align-self-center p-static order-2 text-center">
-						<h1>{% block header %}{% endblock %}</h1>
+						{% block header %}{% endblock %}
 					</div>
 					<div class="col-md-12 align-self-center order-1">
 						{% if not no_breadcrumbs and parents %}
