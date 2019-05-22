@@ -75,3 +75,7 @@ section.section-color-custom {
 	padding: 0 20px 3px 0;
 	display: block;
 }
+
+.hide {
+	display: none;
+}
