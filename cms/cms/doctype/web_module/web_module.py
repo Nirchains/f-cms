@@ -102,8 +102,13 @@ def update_positions_size(module_positions, left_size = 0, right_size = 0):
 def __prepare_module(module):
     #if module.module_type == "Noticias":
         #module.news = get_latest_news(module.news_number)
-    if module.module_type == "Menu":
-        module.menu_items = __get_menu_items(module.parent_label)
+    if module.module_type == "Module menu":
+        try:
+            module.context = frappe.get_doc(module.module_type, module.module_name)
+            module.menu_items = __get_menu_items(module.context.parent_label)
+        except Exception as e:
+            frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
+       
     if module.module_type == "Module HTML":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
@@ -113,13 +118,17 @@ def __prepare_module(module):
     return module
 
 def __get_menu_items(parent_label):
+    web_page = frappe.get_doc("Web Page", parent_label)
+
     query = """\
         select url, label, target
         from `tabTop Bar Item`
         where 
         parent_label = '%(parent_label)s'
         order by `idx` asc""" % {
-            "parent_label": parent_label
+            "parent_label": web_page.title
         }
+
+    #frappe.log_error(query)
         
     return frappe.db.sql(query, as_dict=1)

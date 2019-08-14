@@ -3507,6 +3507,12 @@ html[dir="rtl"] #header .tip-light:before {
 		transition: all 0.3s ease;
 	}
 
+	#header .header-nav.header-nav-links nav > ul >li >ul.dropdown-menu > li:hover > a, 
+	#header .header-nav.header-nav-links nav > ul >li >ul.dropdown-menu > ul > li > a {
+		border-top: 0px solid transparent;
+		transition: all 0.3s ease;
+	}
+
 	#header .header-nav.header-nav-links nav > ul > li > a.active {
 		color: #f1c886;
 		border-top: 2px solid #f1c886;
