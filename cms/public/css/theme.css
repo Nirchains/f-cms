@@ -1243,7 +1243,7 @@ html #header.header-bottom-slider .header-body {
 }
 
 html #header.header-bottom-slider.header-transparent-light-top-border .header-body {
-	border-top: 1px solid rgba(68, 68, 68, 0.4);
+	border-top: 1px solid rgba(68, 68, 68, 0.7);
 }
 
 html #header.header-bottom-slider.header-transparent-light-top-border-1 .header-body {
