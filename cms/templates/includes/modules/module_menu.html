@@ -4,7 +4,9 @@
 <aside class="sidebar">
    <ul class="nav nav-list flex-column mb-5">
    {% for menu_item in module.menu_items %}
-      <li class="nav-item"><a class="nav-link" href="{{menu_item.url}}">{{menu_item.label}}</a></li>
+      <li class="nav-item">
+         <a class="nav-link {{ 'active' if ( ('/'+pathname) == (menu_item.url)) else '' }}" href="{{menu_item.url}}">{{menu_item.label}}</a>
+      </li>
    {% endfor%}
    </ul>
 </aside>

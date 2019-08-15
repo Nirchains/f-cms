@@ -18,13 +18,13 @@
 					
 				{% endif %}
 
-				{% if layout_positions[position].type in ["container", "section"] %}
-						<div class="container {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
+				{% if layout_positions[position].type in ["container", "section", "div"] %}
+						<div class="{{ 'container' if (layout_positions[position].type == 'container') else '' }} {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
 				{% endif %}
-			
+
 				{{ render_module(module_positions[position]) }}
 
-				{% if layout_positions[position].type in ["container", "section"] %}
+				{% if layout_positions[position].type in ["container", "section", "div"] %}
 						</div>
 				{% endif %}
 
@@ -141,6 +141,22 @@
 		{{ render_position('top-3') }}
 		{{ render_position('top-4') }}
 		{{ render_position('top-5') }}
+
+		{% set module_positions = layout['module_positions'] or [] %}
+
+		{% if module_positions and (module_positions["sidebar-left"]|length > 0 or module_positions["center-content"]|length > 0)   %}
+					<div class="container">
+						<div class="row">
+		{% endif %}
+		{{ render_position('sidebar-left') }}
+		{{ render_position('center-content') }}
+		{{ render_position('sidebar-right') }}
+
+		{% if module_positions and (module_positions["sidebar-left"]|length > 0 or module_positions["center-content"]|length > 0)   %}
+						</div>
+					</div>
+		{% endif %}
+
 		{% block content_top %}{% endblock %}
 		<div class="container">
         {% block content %}{% endblock %}
