@@ -3505,6 +3505,8 @@ html[dir="rtl"] #header .tip-light:before {
 	#header .header-nav.header-nav-links nav > ul > li > a {
 		border-top: 2px solid transparent;
 		transition: all 0.3s ease;
+		max-width: 150px;
+		text-align: center;
 	}
 
 	#header .header-nav.header-nav-links nav > ul >li >ul.dropdown-menu > li:hover > a, 
