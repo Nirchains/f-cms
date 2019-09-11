@@ -28,15 +28,17 @@ doctype_js = {
     ]
 }
 
+
 #fixtures=['Custom Field', 'Property Setter','Print Format','Custom Script', 'Domain', 'Module Def']
 fixtures=['Print Format','Custom Script', 'Domain', 'Module Def']
 
 
 update_website_context_all = 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
 
-#website_context = {
+website_context = {
 #	'layout': 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
-#}
+	"favicon": "/assets/cms/images/favicon.png"
+}
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
