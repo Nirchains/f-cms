@@ -8282,6 +8282,9 @@ ul.nav-list li a:hover:before {
 
 ul.nav-list li > a.active {
 	font-weight: bold;
+	color: #c28611;
+    border-color: #c28611;
+    border-left: 3px solid #c28611;
 }
 
 ul.nav-list li ul {

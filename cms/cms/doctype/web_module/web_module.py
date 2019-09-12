@@ -87,6 +87,14 @@ def load_module_positions_context(context):
 
     return context
 
+def has_web_edit_permission(context):
+    context.has_web_edit_permission = False
+
+    if ("Website Manager" in frappe.get_roles()):
+        context.has_web_edit_permission = True
+    
+    return context
+
 """Actualiza las posiciones bootstrap
 """
 def update_positions_size(module_positions, left_size = 0, right_size = 0):

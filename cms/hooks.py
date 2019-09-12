@@ -33,7 +33,9 @@ doctype_js = {
 fixtures=['Print Format','Custom Script', 'Domain', 'Module Def']
 
 
-update_website_context_all = 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
+update_website_context_all = ["cms.cms.doctype.web_module.web_module.load_module_positions_context",
+							  "cms.cms.doctype.web_module.web_module.has_web_edit_permission"
+								]
 
 website_context = {
 #	'layout': 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
