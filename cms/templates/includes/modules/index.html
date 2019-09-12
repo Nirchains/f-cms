@@ -1,6 +1,7 @@
-{{has_web_edit_permission}}
-{% if can_edit%}{% endif %}
+
+{% if has_web_edit_permission%}
 	<a href="/desk#Form/{{module.module_type}}/{{module.module_name}}" class="btn btn-light edit-absolute" target="_blank"><i class="fas fa-edit"></i></a>
+{% endif %}
 
 <div class="{{module.context.css_class or ''}}">
 {% if module.context.header != "" %}
