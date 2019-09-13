@@ -50,6 +50,7 @@ Carga los modulos adicionales de "Page Modules" en las posiciones correspondient
 """
 def load_module_positions_context(context):
     #module_position = {"Left": [], "Right": [], "Top": [], "Bottom": []}
+    context.no_cache = True
     layout = {}
     layout['layout_positions'] = {}
     layout['module_positions'] = {}
