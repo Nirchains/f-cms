@@ -1291,7 +1291,7 @@ html:not(.sticky-header-active) #header.header-semi-transparent-light .header-bo
 }
 
 html:not(.sticky-header-active) #header.header-semi-transparent-dark .header-body {
-	background-color: rgba(68, 68, 68, 0.4) !important;
+	background-color: rgba(68, 68, 68, 0.6) !important;
 }
 
 html:not(.sticky-header-active) #header.header-transparent-light-bottom-border .header-body {
@@ -1414,9 +1414,9 @@ html.sticky-header-enabled.sticky-header-active #header .header-logo-sticky-chan
 		color: #CCC;
 		font-size: 12px;
 		font-style: normal;
-		font-weight: 700;
+		font-weight: 400;
 		padding: 0.5rem 1rem;
-		letter-spacing: -0.5px;
+		letter-spacing: 0.5px;
 		text-transform: uppercase;
 	}
 
@@ -2227,7 +2227,7 @@ html.sticky-header-enabled.sticky-header-active #header .header-logo-sticky-chan
 	}
 
 	#header .header-nav.header-nav-divisor nav > ul > li > a {
-		border-right: 1px solid rgba(0, 0, 0, 0.07);
+		border-right: 1px solid rgba(255, 255, 255, 0.07);
 	}
 
 	#header .header-nav.header-nav-divisor nav > ul > li:last-child > a {
