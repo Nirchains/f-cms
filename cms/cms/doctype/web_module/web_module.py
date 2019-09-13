@@ -91,7 +91,7 @@ def load_module_positions_context(context):
 def has_web_edit_permission(context):
     context.has_web_edit_permission = False
 
-    if ("Website Manager" in frappe.get_roles()):
+    if ("Website Manager" in frappe.get_roles() and "Website Manager Frontend" in frappe.get_roles()):
         context.has_web_edit_permission = True
     
     return context
