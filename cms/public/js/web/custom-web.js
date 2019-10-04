@@ -17,16 +17,38 @@ $.extend(cms.utils, {
     },
 
     isElementInView: function (element, fullyInView) {
+
+        if ( !($(element).length )) {
+            return false;
+        }
+      
         var pageTop = $(window).scrollTop();
         var pageBottom = pageTop + $(window).height();
         var elementTop = $(element).offset().top + 150;
-        var elementBottom = elementTop + $(element).height();
+        var elementBottom = elementTop + $(element).height() + 150;
 
         if (fullyInView === true) {
             return ((pageTop < elementTop) && (pageBottom > elementBottom));
         } else {
             return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
         }
+    },
+
+    infiniteScroll: function () {
+        //show more on scroll
+        $(window).scroll(function() {
+            var isElementInView = cms.utils.isElementInView($(".btn-more"), false);
+
+            if (isElementInView) {
+                $('#portfolioLoadMoreLoader').addClass('portfolio-load-more-loader-showing').show();
+
+                setTimeout( function () {
+                    $(".btn-more").click();
+                    $('#portfolioLoadMoreLoader').removeClass('portfolio-load-more-loader-showing').hide();
+                    }, 500);
+
+            } 
+        });
     }
     
 });

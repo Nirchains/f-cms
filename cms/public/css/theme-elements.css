@@ -5956,7 +5956,7 @@ h6.text-shadow {
 }
 
 .heading.heading-bottom-border h4, .heading.heading-bottom-border h5, .heading.heading-bottom-border h6 {
-	border-bottom: 1px solid #eaeaea;
+	border-bottom: 1px solid #f1c886;
 	padding-bottom: 5px;
 }
 
@@ -5975,7 +5975,7 @@ h6.text-shadow {
 }
 
 .heading.heading-middle-border:before {
-	border-top: 1px solid #eaeaea;
+	border-top: 1px solid #f1c886;
 	content: "";
 	height: 0;
 	left: auto;
@@ -10608,11 +10608,12 @@ html.boxed .slider-container {
 }
 
 .tab-content {
-	border-radius: 0 0 4px 4px;
+	/*border-radius: 0 0 4px 4px;
 	-webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.04);
 	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.04);
 	background-color: #FFF;
 	border: 1px solid #EEE;
+	*/
 	border-top: 0;
 	padding: 15px;
 }
