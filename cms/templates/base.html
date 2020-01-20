@@ -54,7 +54,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">	
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
+	<title>{% block title %} {{ title|striptags|title }} {% endblock %}</title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400" rel="stylesheet" type="text/css">
 	<meta name="generator" content="frappe">
@@ -118,7 +118,7 @@
 		{{ render_position('header-3') }}
 
 		{% if not no_header %}
-		<section class="page-header page-header-modern page-header-background page-header-background-md overlay overlay-color-dark overlay-show overlay-op-8" style="background-image: url(/img/banner/agilex_2.jpg);">
+		<section class="page-header page-header-modern page-header-background page-header-background-md-2 overlay overlay-color-dark overlay-show overlay-op-8" style="background-image: url(/img/banner/agilex_2.jpg);">
 			<div class="container">
 				<div class="row mt-5">
 					<div class="col-md-12 align-self-center p-static order-2 text-center">
@@ -212,6 +212,8 @@
 <script src="/assets/cms/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="/assets/cms/vendor/vide/jquery.vide.min.js"></script>
 <script src="/assets/cms/vendor/vivus/vivus.min.js"></script>
+<script src="/assets/cms/vendor/select2/select2.min.js"></script>
+<script src="/assets/cms/vendor/select2/i118n/es.js"></script>
 
 <script src="/assets/cms/js/theme.js"></script>
 

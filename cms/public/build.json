@@ -18,7 +18,8 @@
         "public/css/theme-blog.css"
     ],
     "cms/css/build/custom.css": [
-        "public/less/custom.less"
+        "public/less/custom.less",
+        "public/less/select2.less"
     ],
     "cms/css/build/skin.css": [
         "public/css/skins/demo-digital-agency.css",
@@ -32,6 +33,7 @@
         "public/js/desk/module_common.js"
     ],
     "cms/js/build/custom-web.min.js": [
-        "public/js/web/custom-web.js"
+        "public/js/web/custom-web.js",
+        "public/js/web/custom-select2.js"
     ]
 }

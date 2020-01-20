@@ -659,7 +659,7 @@ html .btn-primary:disabled {
 
 html .btn-primary:active,
 html .btn-primary.active {
-	background-color: #29a667 !important;
+	background-color: #e0a634 !important;
 	background-image: none !important;
 	border-color: #93650c #93650c #1c7347 !important;
 }
@@ -698,7 +698,7 @@ html .btn-primary-scale-2.active {
 
 html .show > .btn-primary.dropdown-toggle,
 html .show > .btn-primary-scale-2.dropdown-toggle {
-	background-color: #29a667 !important;
+	background-color: #e0a634 !important;
 	background-image: none !important;
 	border-color: #93650c #93650c #1c7347 !important;
 }
@@ -1484,7 +1484,7 @@ html .btn-with-arrow.btn-light.btn-outline:hover span {
 
 .btn-gradient:not(.btn-outline):active,
 .btn-gradient:not(.btn-outline).active {
-	background: linear-gradient(135deg, #29a667 0%, #dd4238 80%) !important;
+	background: linear-gradient(135deg, #e0a634 0%, #dd4238 80%) !important;
 	color: #ffffff !important;
 }
 
@@ -1515,9 +1515,9 @@ html .btn-with-arrow.btn-light.btn-outline:hover span {
 
 .btn-gradient.btn-outline:active,
 .btn-gradient.btn-outline.active {
-	-o-border-image: linear-gradient(135deg, #29a667 0%, #dd4238 80%) !important;
-	border-image: linear-gradient(135deg, #29a667 0%, #dd4238 80%) !important;
-	color: #29a667;
+	-o-border-image: linear-gradient(135deg, #e0a634 0%, #dd4238 80%) !important;
+	border-image: linear-gradient(135deg, #e0a634 0%, #dd4238 80%) !important;
+	color: #e0a634;
 }
 
 .pagination > li > a,
@@ -1595,7 +1595,7 @@ body.dark .pagination > .active > a:disabled {
 body.dark .pagination > .active > a:active,
 .pagination > .active > a.active,
 body.dark .pagination > .active > a.active {
-	background-color: #29a667 !important;
+	background-color: #e0a634 !important;
 	background-image: none !important;
 	border-color: #93650c #93650c #1c7347 !important;
 }
@@ -2438,7 +2438,7 @@ html .inverted-light {
 
 .owl-carousel .owl-nav button[class*="owl-"]:active,
 .owl-carousel .owl-nav button[class*="owl-"].active {
-	background-color: #29a667;
+	background-color: #e0a634;
 	background-image: none;
 	border-color: #93650c #93650c #1c7347;
 }
@@ -5480,7 +5480,7 @@ html .slide-overlay.slide-overlay-gradient .slotholder:after {
 .tparrows.tparrows-carousel.tp-rightarrow:active,
 .tparrows.tparrows-carousel.tp-leftarrow.active,
 .tparrows.tparrows-carousel.tp-rightarrow.active {
-	background-color: #29a667 !important;
+	background-color: #e0a634 !important;
 	background-image: none !important;
 	border-color: #93650c #93650c #1c7347 !important;
 }
