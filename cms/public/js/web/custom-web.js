@@ -72,6 +72,10 @@ $.extend(cms.utils, {
 
             } 
         });
+    },
+
+    leerMas: function(etiqueta, texto) {
+        $(etiqueta).html(texto);
     }
     
 });
