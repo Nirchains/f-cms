@@ -144,30 +144,6 @@
   "restrict_to_domain": "CMS"
  },
  {
-  "app_name": "agilex",
-  "docstatus": 0,
-  "doctype": "Module Def",
-  "modified": "2019-03-08 10:56:14.144350",
-  "module_name": "AGILEX",
-  "name": "AGILEX",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "restrict_to_domain": null
- },
- {
-  "app_name": "agilex",
-  "docstatus": 0,
-  "doctype": "Module Def",
-  "modified": "2019-03-09 07:47:04.322269",
-  "module_name": "Configuracion Agilex",
-  "name": "Configuracion Agilex",
-  "parent": null,
-  "parentfield": null,
-  "parenttype": null,
-  "restrict_to_domain": "CONFIGURACION AGILEX"
- },
- {
   "app_name": "frappe",
   "docstatus": 0,
   "doctype": "Module Def",
