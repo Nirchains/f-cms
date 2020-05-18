@@ -4898,7 +4898,7 @@ html.ie #header .header-column .header-extra-info .feature-box .feature-box-info
 }
 /* Page Header */
 .page-header {
-	background-color: #212529;
+	background-color: #008f85;
 	margin: 0 0 35px 0;
 	padding: 30px 0;
 	position: relative;
@@ -5023,7 +5023,7 @@ html.ie #header .header-column .header-extra-info .feature-box .feature-box-info
     font-weight: 200;
     /*background-color: rgba(0,0,0,0.2);*/
     line-height: 32px;
-    color: #f1c886;
+    color: #00ffed;
     letter-spacing: 1px;
     padding-left: 15px;
     padding-right: 15px;
@@ -5046,7 +5046,7 @@ html.ie #header .header-column .header-extra-info .feature-box .feature-box-info
 }
 
 .page-header.page-header-modern.page-header-background {
-	padding: 130px 0;
+	padding: 50px 0;
 	background-size: cover;
 }
 
@@ -6272,7 +6272,7 @@ html.dark .text-muted {
 }
 
 #footer a:not(.btn) {
-	color: #777;
+	color: #00A99D;
 	-webkit-transition: all 0.1s ease-in-out;
 	transition: all 0.1s ease-in-out;
 }

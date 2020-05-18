@@ -12,42 +12,6 @@ class Webmodule(Document):
 """Return array module_position
 Carga los modulos adicionales de "Page Modules" en las posiciones correspondientes
 """
-def load_module_positions(page_modules):
-    #module_position = {"Left": [], "Right": [], "Top": [], "Bottom": []}
-    module_position = {}
-    layout = {}
-    
-    layout_positions = frappe.get_list("Layout posiciones", 
-                                filters={'parent': 'Layout',
-                                        'parenttype': 'Layout',
-                                        'parentfield': 'positions_layout' },
-                                fields="name,type,css_class,css_section,data_appear_animation,data_appear_animation_delay")
-
-    for position in layout_positions:
-        layout[position.name] = position
-        module_position[position.name] = []
-
-    for module in page_modules:
-        module = __prepare_module(module)
-        #frappe.throw("{0}".format(module))
-        module_position[module.position].append(module)
-
-    common_modules = frappe.get_list("Web module", 
-                                filters={'parent': 'Common modules',
-                                        'parenttype': 'Common modules',
-                                        'parentfield': 'modules' },
-                                fields="*")
-
-    for module in common_modules:
-        module = __prepare_module(module)
-        #frappe.throw("{0}".format(module))
-        module_position[module.position].append(module)
-
-    return module_position, layout
-
-"""Return array module_position
-Carga los modulos adicionales de "Page Modules" en las posiciones correspondientes
-"""
 def load_module_positions_context(context):
     #module_position = {"Left": [], "Right": [], "Top": [], "Bottom": []}
     context.no_cache = True
@@ -60,7 +24,7 @@ def load_module_positions_context(context):
                                 filters={'parent': 'Layout',
                                         'parenttype': 'Layout',
                                         'parentfield': 'positions_layout' },
-                                fields="name,type,css_class,css_section,data_appear_animation,data_appear_animation_delay")
+                                fields="name,type,create_row,css_class,css_section,data_appear_animation,data_appear_animation_delay")
 
     for position in layout_positions:
         layout['layout_positions'][position.name] = position
@@ -71,18 +35,24 @@ def load_module_positions_context(context):
     for module in context.modules or []:
         module = __prepare_module(module)
         #frappe.throw("{0}".format(module))
-        layout['module_positions'][module.position].append(module)
+        if module.enabled and module.context.enabled:
+            layout['module_positions'][module.position].append(module)
 
     common_modules = frappe.get_list("Web module", 
                                 filters={'parent': 'Common modules',
                                         'parenttype': 'Common modules',
                                         'parentfield': 'modules' },
-                                fields="*")
+                                order_by="idx asc",
+                                fields="*", debug=False)
+
+    #frappe.log_error("{0}".format(common_modules))
 
     for module in common_modules:
         module = __prepare_module(module)
+        if module.enabled and module.context.enabled:
+            layout['module_positions'][module.position].append(module)
         #frappe.throw("{0}".format(module))
-        layout['module_positions'][module.position].append(module)
+        #layout['module_positions'][module.position].append(module)
 
     context.layout = layout
 
@@ -114,13 +84,25 @@ def __prepare_module(module):
     if module.module_type == "Module menu":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
-            module.menu_items = __get_menu_items(module.context.parent_label)
         except Exception as e:
             frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
+
+        try:
+            module.menu_items = __get_menu_items(module.context.parent_label)
+        except Exception as e:
+            frappe.throw("Module_type: {0} - Module_name: {1} - Parent label: {2} <br>{3}".format(module.module_type, module.module_name, module.context.parent_label, e))
        
     if module.module_type == "Module HTML":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
+        except Exception as e:
+            frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
+
+    if module.module_type == "Module Article List":
+        try:
+            module.context = frappe.get_doc(module.module_type, module.module_name)
+            from cms.cms.doctype.module_article_list.module_article_list import __get_article_list
+            module.article_list = __get_article_list(module.context)
         except Exception as e:
             frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
 		

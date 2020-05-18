@@ -1,7 +1,7 @@
 frappe.provide("modulo");
 
 modulo = {
-	init: function(frm) {
+	init_onload: function(frm) {
 		frm.set_query("css_class", function() {
 			return {
 				"filters": {
@@ -17,5 +17,18 @@ modulo = {
 				}
 			};
 		});
+	},
+	init_refresh: function(frm) {
+		if(!frm.doc.__islocal) {
+			frm.add_custom_button(__("Ver páginas"),
+				function() {
+					frappe.route_options = {
+						"module_type": frm.doctype,
+						"module_name": frm.doc.name
+					};
+					frappe.set_route("List", "Web Page");
+				}
+			);
+		}
 	}
 };

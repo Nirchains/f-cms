@@ -1,0 +1,15 @@
+{% extends "templates/web.html" %}
+
+{% block meta_block %}
+	{% include "templates/includes/meta_block.html" %}
+{% endblock %}
+
+{% block page_content %}
+<div class="heading heading-border heading-middle-border">
+	<h3>{{ title }}</h3>
+</div>
+<div class="content">
+	{{ content }}
+</div>
+
+{% endblock %}

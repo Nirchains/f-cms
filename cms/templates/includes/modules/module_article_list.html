@@ -1,0 +1,45 @@
+{% for category, article_list in module.article_list.items() %}
+	{% if article_list and article_list|length > 0 %}
+		{% if module.context.format == "Listado" %}
+		<aside class="sidebar text-left">
+		   <ul class="nav nav-list flex-column mb-5">
+		   {% for article in article_list %}
+		      <li class="nav-item">
+		         <a class="nav-link {{ 'active' if ( ('/'+pathname) == (article.route)) else '' }}" href="/{{article.route}}">{{article.title}}</a>
+		      </li>
+		   {% endfor%}
+		   </ul>
+		</aside>
+		{% endif%}
+
+		{% if module.context.format == "Categorías" %}
+			<h4>{{ category }}</h4>
+		{% endif %}
+
+		{% if module.context.format == "Blog" or module.context.format == "Categorías" %}
+		<div class="{{ 'blog-post' if ( module.context.format == 'Blog') else 'blog-post-no-margins' }}">
+		   {% for article in article_list %}
+		   	<article class="{{ 'post' if ( module.context.format == 'Blog') else 'list' }}">
+		      <h4>
+		         <a class="" href="/{{article.route}}">{{article.title}}</a>
+		      </h4>
+		      {% if module.context.show_summary and article.article_intro %}
+		      <div class="article_content">
+		      	{{article.article_intro}}
+		      </div>
+		      {% endif %}
+		      <div class="post-meta">
+		      {% if module.context.show_read_more %}
+		      	<a class="btn btn-xs btn-primary text-1" href="{{article.route}}">Leer más</a>
+		      {% endif %}
+		      {% if module.context.show_category %}
+		      <a href="#">{{article.article_category}}</a>
+		      {% endif %}
+		  	  </div>
+		    </article>
+		   {% endfor %}
+		</div>
+		{% endif %}
+
+	{% endif %}
+{% endfor %}

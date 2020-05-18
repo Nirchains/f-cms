@@ -1,6 +1,6 @@
 {
- "autoname": "HTML.#####",
- "creation": "2019-01-25 15:49:41.318844",
+ "autoname": "LIST.#####",
+ "creation": "2020-05-04 19:42:30.699017",
  "doctype": "DocType",
  "document_type": "Document",
  "editable_grid": 1,
@@ -15,11 +15,16 @@
   "header",
   "css_title",
   "section_break_8",
-  "content_type",
-  "content",
-  "main_section_md",
-  "main_section_html",
-  "content_jodit"
+  "format",
+  "categories",
+  "show_date",
+  "show_read_more",
+  "show_category",
+  "show_summary",
+  "column_break_11",
+  "include_subcategories",
+  "category_order",
+  "article_order"
  ],
  "fields": [
   {
@@ -74,44 +79,73 @@
    "fieldtype": "Section Break"
   },
   {
-   "depends_on": "eval:doc.content_type==='Jodit HTML Editor'",
-   "fieldname": "content",
-   "fieldtype": "Text Editor",
-   "hidden": 1,
-   "ignore_xss_filter": 1,
-   "in_standard_filter": 1,
-   "label": "Contenido"
+   "fieldname": "categories",
+   "fieldtype": "Table",
+   "label": "Categor\u00edas",
+   "options": "Module Article List Categories",
+   "reqd": 1
   },
   {
-   "fieldname": "content_jodit",
-   "fieldtype": "HTML",
-   "label": "Contenido"
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
   },
   {
-   "default": "Jodit Html Editor",
-   "fieldname": "content_type",
+   "default": "Listado",
+   "fieldname": "format",
    "fieldtype": "Select",
-   "label": "Tipo de contenido",
-   "options": "Jodit Html Editor\nRich Text\nMarkdown\nHTML"
+   "label": "Formato",
+   "options": "Listado\nBlog\nCategor\u00edas"
   },
   {
-   "depends_on": "eval:doc.content_type==='Markdown'",
-   "fieldname": "main_section_md",
-   "fieldtype": "Markdown Editor",
-   "label": "Main Section (Markdown)"
+   "default": "0",
+   "fieldname": "show_date",
+   "fieldtype": "Check",
+   "label": "Mostrar fecha"
   },
   {
-   "depends_on": "eval:doc.content_type==='HTML'",
-   "fieldname": "main_section_html",
-   "fieldtype": "HTML Editor",
-   "ignore_xss_filter": 1,
-   "label": "Main Section (HTML)"
+   "default": "0",
+   "fieldname": "show_category",
+   "fieldtype": "Check",
+   "label": "Mostrar categor\u00eda"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_summary",
+   "fieldtype": "Check",
+   "label": "Mostrar resumen"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_read_more",
+   "fieldtype": "Check",
+   "label": "Mostrar leer m\u00e1s"
+  },
+  {
+   "fieldname": "category_order",
+   "fieldtype": "Select",
+   "label": "Orden de las categor\u00edas",
+   "options": "title asc\ntitle desc\n`order` asc"
+  },
+  {
+   "default": "`order` asc",
+   "description": "published_on, title, category",
+   "fieldname": "article_order",
+   "fieldtype": "Select",
+   "label": "Orden de los art\u00edculos",
+   "options": "title asc\ntitle desc\npublished_on asc\npublished_on desc\n`order` asc\n`order` desc",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "include_subcategories",
+   "fieldtype": "Check",
+   "label": "Incluir subcategor\u00edas"
   }
  ],
- "modified": "2020-05-18 08:49:51.938721",
+ "modified": "2020-05-18 09:15:30.281050",
  "modified_by": "Administrator",
  "module": "CMS",
- "name": "Module HTML",
+ "name": "Module Article List",
  "owner": "Administrator",
  "permissions": [
   {
