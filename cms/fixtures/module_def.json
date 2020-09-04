@@ -1,5 +1,77 @@
 [
  {
+  "app_name": "alerta_alcohol",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-02-03 10:55:43.760711",
+  "module_name": "Alerta Alcohol",
+  "name": "Alerta Alcohol",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
+  "app_name": "alerta_alcohol",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-02-03 13:08:06.250648",
+  "module_name": "Configuracion Alerta Alcohol",
+  "name": "Configuracion Alerta Alcohol",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
+  "app_name": "frappe",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-02-03 13:00:29.190855",
+  "module_name": "Social",
+  "name": "Social",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
+  "app_name": "frappe",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-02-03 13:00:30.031721",
+  "module_name": "Automation",
+  "name": "Automation",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
+  "app_name": "frappe",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-02-03 13:00:30.949036",
+  "module_name": "Event Streaming",
+  "name": "Event Streaming",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
+  "app_name": "cms",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-04-29 18:41:12.419300",
+  "module_name": "Web module",
+  "name": "Web module",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
   "app_name": "frappe",
   "docstatus": 0,
   "doctype": "Module Def",
