@@ -67,6 +67,9 @@ class Article(WebsiteGenerator):
 		context.category = frappe.db.get_value("Article Category", context.doc.article_category, ["title", "route", "parent_article_category"], as_dict=1)
 		context.parents = [{"name": _("Home"), "route":"/"}]
 
+		context.doctype = self.doctype
+		context.name = self.name
+
 		get_parent_category(context, context.category.parent_article_category)
 
 		context.parents.append({"label": context.category.title, "route":context.category.route})

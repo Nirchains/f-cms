@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block page_content %}
+{% if has_web_edit_permission%}
+	<a href="/desk#Form/{{doctype}}/{{name}}" class="btn btn-light edit-absolute" target="_blank"><i class="fas fa-edit"></i></a>
+{% endif %}
 <div class="heading heading-border heading-middle-border">
 	<h3>{{ title }}</h3>
 </div>
