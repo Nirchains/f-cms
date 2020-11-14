@@ -11,8 +11,17 @@
 <div class="heading heading-border heading-middle-border">
 	<h3>{{ title }}</h3>
 </div>
-<div class="content">
+<div class="content eow">
+	{% if image|length%}
+	<div class="col-md-2">
+		<img class="" src="{{image}}" alt="{{title}}">
+	</div>
+	<div class="col-md-10">
+	{% else %}
+	<div>
+	{% endif %}
 	{{ content }}
+	</div>
 </div>
 
 {% endblock %}
