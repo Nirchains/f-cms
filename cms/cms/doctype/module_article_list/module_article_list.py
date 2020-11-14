@@ -33,12 +33,13 @@ def __get_article_list(context):
                     l_categories.append(sc.name)
                 else:
                     article_list[sc.name] = __get_article_categories([sc.name], context.article_order)
+                    l_categories.append(sc.name)
 
 
     if context.format != "Categorías":
         article_list["Todas las categorias"] = __get_article_categories(l_categories, context.article_order)
 
-    return article_list
+    return article_list, l_categories
 
 def __get_article_categories(l_categories, order):
     filters = {}

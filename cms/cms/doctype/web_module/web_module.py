@@ -102,7 +102,7 @@ def __prepare_module(module):
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
             from cms.cms.doctype.module_article_list.module_article_list import __get_article_list
-            module.article_list = __get_article_list(module.context)
+            module.article_list, module.categories = __get_article_list(module.context)
         except Exception as e:
             frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
 		

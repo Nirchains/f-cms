@@ -1,9 +1,9 @@
-{% for category, article_list in module.article_list.items() %}
-	{% if article_list and article_list|length > 0 %}
+{% for category in module.categories %}
+	{% if module.article_list[category] and module.article_list[category]|length > 0 %}
 		{% if module.context.format == "Listado" %}
 		<aside class="sidebar text-left">
 		   <ul class="nav nav-list flex-column mb-5">
-		   {% for article in article_list %}
+		   {% for article in module.article_list[category] %}
 		      <li class="nav-item">
 		         <a class="nav-link {{ 'active' if ( ('/'+pathname) == (article.route)) else '' }}" href="/{{article.route}}">{{article.title}}</a>
 		      </li>
@@ -18,7 +18,7 @@
 
 		{% if module.context.format == "Blog" or module.context.format == "Categorías" %}
 		<div class="{{ 'blog-post' if ( module.context.format == 'Blog') else 'blog-post-no-margins' }}">
-		   {% for article in article_list %}
+		   {% for article in module.article_list[category] %}
 		   	<article class="{{ 'post' if ( module.context.format == 'Blog') else 'list' }}">
 		      <h4>
 		         <a class="" href="/{{article.route}}">{{article.title}}</a>
@@ -42,4 +42,4 @@
 		{% endif %}
 
 	{% endif %}
-{% endfor %}
+{%endfor%}
