@@ -50,7 +50,10 @@ def load_module_positions_context(context):
     for module in common_modules:
         module = __prepare_module(module)
         if module.enabled and module.context.enabled:
-            layout['module_positions'][module.position].append(module)
+            try:
+                layout['module_positions'][module.position].append(module)
+            except:
+                pass
         #frappe.throw("{0}".format(module))
         #layout['module_positions'][module.position].append(module)
 
