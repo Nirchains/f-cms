@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Article Category', {
-	// refresh: function(frm) {
-
-	// }
+	refresh: function(frm) {
+		modulo.load_templates(frm, "Article"); 
+	}
 });

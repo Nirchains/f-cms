@@ -20,6 +20,7 @@
   "content",
   "content_md",
   "content_html",
+  "content_jodit",
   "email_sent"
  ],
  "fields": [
@@ -59,6 +60,7 @@
    "fieldname": "route",
    "fieldtype": "Data",
    "label": "Route",
+   "no_copy": 1,
    "unique": 1
   },
   {
@@ -72,17 +74,18 @@
    "label": "Intro"
   },
   {
-   "default": "Rich Text",
+   "default": "Jodit Html Editor",
    "fieldname": "content_type",
    "fieldtype": "Select",
    "label": "Content Type",
-   "options": "Rich Text\nMarkdown\nHTML",
+   "options": "Jodit Html Editor\nRich Text\nMarkdown\nHTML",
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.content_type === 'Rich Text'",
+   "depends_on": "eval:doc.content_type==='Jodit HTML Editor'",
    "fieldname": "content",
    "fieldtype": "Text Editor",
+   "hidden": 1,
    "ignore_xss_filter": 1,
    "in_global_search": 1,
    "label": "Content"
@@ -122,6 +125,11 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Orden"
+  },
+  {
+   "fieldname": "content_jodit",
+   "fieldtype": "HTML",
+   "label": "Contenido"
   }
  ],
  "has_web_view": 1,
@@ -129,7 +137,7 @@
  "image_field": "image",
  "is_published_field": "published",
  "max_attachments": 5,
- "modified": "2020-05-12 19:33:42.961779",
+ "modified": "2021-01-10 07:04:20.674918",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Article",

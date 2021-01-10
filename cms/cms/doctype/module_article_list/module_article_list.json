@@ -1,4 +1,5 @@
 {
+ "allow_rename": 1,
  "autoname": "LIST.#####",
  "creation": "2020-05-04 19:42:30.699017",
  "doctype": "DocType",
@@ -11,11 +12,13 @@
   "css_class",
   "section_break_4",
   "title",
+  "template",
   "column_break_6",
   "header",
   "css_title",
   "section_break_8",
   "format",
+  "img_bootstrap_size",
   "categories",
   "show_date",
   "show_read_more",
@@ -140,9 +143,21 @@
    "fieldname": "include_subcategories",
    "fieldtype": "Check",
    "label": "Incluir subcategor\u00edas"
+  },
+  {
+   "default": "2",
+   "fieldname": "img_bootstrap_size",
+   "fieldtype": "Select",
+   "label": "Tama\u00f1o de la imagen",
+   "options": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Select",
+   "label": "Template"
   }
  ],
- "modified": "2020-05-18 09:15:30.281050",
+ "modified": "2021-01-08 19:22:25.389080",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Module Article List",

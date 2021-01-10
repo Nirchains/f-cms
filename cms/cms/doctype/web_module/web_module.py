@@ -3,7 +3,7 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-import frappe
+import frappe, os
 from frappe.model.document import Document
 
 class Webmodule(Document):
@@ -87,6 +87,8 @@ def __prepare_module(module):
     if module.module_type == "Module menu":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
+            module.template_dir = 'cms/doctype/module_menu/templates/module_menu.html'
+            module.template_dir = get_doctype_template_folder(module.context, module.template_dir)
         except Exception as e:
             frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
 
@@ -98,12 +100,19 @@ def __prepare_module(module):
     if module.module_type == "Module HTML":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
+            module.template_dir = 'cms/doctype/module_html/templates/module_html.html'
+            module.template_dir = get_doctype_template_folder(module.context, module.template_dir)
         except Exception as e:
             frappe.throw("Module_type: {0} - Module_name: {1}".format(module.module_type, module.module_name))
 
     if module.module_type == "Module Article List":
         try:
             module.context = frappe.get_doc(module.module_type, module.module_name)
+            module.template_dir = "cms/doctype/module_article_list/templates/module_article_list.html"
+            module.template_dir = get_doctype_template_folder(module.context, module.template_dir)
+            
+            frappe.log_error("{0}".format(module.template_dir))
+            
             from cms.cms.doctype.module_article_list.module_article_list import __get_article_list
             module.article_list, module.categories = __get_article_list(module.context)
         except Exception as e:
@@ -126,3 +135,16 @@ def __get_menu_items(parent_label):
     #frappe.log_error(query)
         
     return frappe.db.sql(query, as_dict=1)
+
+def get_doctype_template_folder(doctypeobj, template_dir):
+    if (doctypeobj.template):               
+        path = doctypeobj.__class__.__module__
+        arr_path = path.split(".")
+        arr_path.pop()
+        arr_path.pop(0)
+        arr_path.append("templates")
+        arr_path.append(doctypeobj.template)
+        path = "/".join(arr_path)
+    else:
+        path = template_dir
+    return path

@@ -10,16 +10,6 @@
 </div>
 {% endif %}
 
-{% if module.module_type == "Module HTML" %}
-	{% include 'templates/includes/modules/module_html.html' %}
-{% endif %}
-
-{% if module.module_type == "Module menu" %}
-	{% include 'templates/includes/modules/module_menu.html' %}
-{% endif%}
-
-{% if module.module_type == "Module Article List" %}
-	{% include 'templates/includes/modules/module_article_list.html' %}
-{% endif%}
+{% include module.template_dir %}
 
 </div>

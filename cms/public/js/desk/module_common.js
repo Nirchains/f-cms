@@ -19,6 +19,8 @@ modulo = {
 		});
 	},
 	init_refresh: function(frm) {
+		this.load_templates(frm, frm.doctype);
+
 		if(!frm.doc.__islocal) {
 			frm.add_custom_button(__("Ver páginas"),
 				function() {
@@ -30,5 +32,20 @@ modulo = {
 				}
 			);
 		}
+	},
+	load_templates: function(frm, doctype) {
+		frappe.call({
+			method: "cms.cms.utils.load_templates",
+			args: {
+				doctype: doctype
+			},
+			callback: function(data) {
+				if (data.message.length > 0) {
+					frm.set_df_property("template", "options", data.message);
+					frm.set_value("template", data.message[0]);
+				}
+
+			}
+		});
 	}
 };

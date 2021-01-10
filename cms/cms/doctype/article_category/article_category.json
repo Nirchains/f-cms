@@ -12,9 +12,11 @@
   "article_category_name",
   "parent_article_category",
   "is_group",
+  "template",
   "column_break_4",
   "published",
   "order",
+  "img_bootstrap_size",
   "route",
   "lft",
   "rgt",
@@ -95,12 +97,26 @@
    "fieldname": "order",
    "fieldtype": "Int",
    "label": "Order"
+  },
+  {
+   "default": "2",
+   "description": "Tama\u00f1o que ocupa la imagen seg\u00fan la matriz de bootstrap",
+   "fieldname": "img_bootstrap_size",
+   "fieldtype": "Select",
+   "label": "Tama\u00f1o de la imagen",
+   "options": "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12"
+  },
+  {
+   "description": "Seleccione la plantilla para los art\u00edculos de esta categor\u00eda",
+   "fieldname": "template",
+   "fieldtype": "Select",
+   "label": "Template"
   }
  ],
  "icon": "fa fa-tag",
  "is_published_field": "published",
  "is_tree": 1,
- "modified": "2020-09-04 07:32:52.288424",
+ "modified": "2021-01-09 18:51:30.034886",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Article Category",

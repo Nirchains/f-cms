@@ -3,12 +3,9 @@
 
 frappe.ui.form.on('Module Article List', {
 	onload: function(frm) {
-		modulo.init_onload(frm);
-
-		
+		modulo.init_onload(frm);		
 	},
 	refresh: function (frm) {
-        modulo.init_refresh(frm);
-        
+        modulo.init_refresh(frm);        
     },
 });
