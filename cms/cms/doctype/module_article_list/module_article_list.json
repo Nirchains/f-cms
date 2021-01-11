@@ -18,6 +18,7 @@
   "css_title",
   "section_break_8",
   "format",
+  "pagination",
   "img_bootstrap_size",
   "categories",
   "show_date",
@@ -124,6 +125,7 @@
    "label": "Mostrar leer m\u00e1s"
   },
   {
+   "depends_on": "eval:doc.include_subcategories",
    "fieldname": "category_order",
    "fieldtype": "Select",
    "label": "Orden de las categor\u00edas",
@@ -155,9 +157,16 @@
    "fieldname": "template",
    "fieldtype": "Select",
    "label": "Template"
+  },
+  {
+   "default": "0",
+   "description": "Si se deja a 0 mostrar\u00e1 todos los elementos",
+   "fieldname": "pagination",
+   "fieldtype": "Int",
+   "label": "N\u00ba de elementos por p\u00e1gina / paginaci\u00f3n"
   }
  ],
- "modified": "2021-01-08 19:22:25.389080",
+ "modified": "2021-01-10 11:51:20.302778",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Module Article List",

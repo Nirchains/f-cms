@@ -110,9 +110,7 @@ def __prepare_module(module):
             module.context = frappe.get_doc(module.module_type, module.module_name)
             module.template_dir = "cms/doctype/module_article_list/templates/module_article_list.html"
             module.template_dir = get_doctype_template_folder(module.context, module.template_dir)
-            
-            frappe.log_error("{0}".format(module.template_dir))
-            
+                      
             from cms.cms.doctype.module_article_list.module_article_list import __get_article_list
             module.article_list, module.categories = __get_article_list(module.context)
         except Exception as e:

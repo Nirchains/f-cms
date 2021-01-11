@@ -1,15 +1,7 @@
 {% for category in module.categories %}
 	{% if module.article_list[category] and module.article_list[category]|length > 0 %}
 		{% if module.context.format == "Listado" %}
-		<aside class="sidebar text-left">
-		   <ul class="nav nav-list flex-column mb-5">
-		   {% for article in module.article_list[category] %}
-		      <li class="nav-item">
-		         <a class="nav-link {{ 'active' if ( ('/'+pathname) == (article.route)) else '' }}" href="/{{article.route}}">{{article.title}}</a>
-		      </li>
-		   {% endfor%}
-		   </ul>
-		</aside>
+			{% include "cms/doctype/module_article_list/templates/include/module_article_nav_list.html" %}
 		{% endif%}
 
 		{% if module.context.format == "Categorías" %}
@@ -69,3 +61,7 @@
 
 	{% endif %}
 {%endfor%}
+
+{% if module.context.show_pagination %}
+	{% include "cms/doctype/module_article_list/templates/include/pagination.html" %}
+{% endif %}

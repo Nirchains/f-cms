@@ -1,0 +1,13 @@
+<aside class="sidebar text-left">
+    <ul class="nav nav-list flex-column mb-5">
+    {% for article in module.article_list[category] %}
+       <li class="nav-item">
+          <a class="nav-link {{ 'active' if ( ('/'+pathname) == (article.route)) else '' }}" href="/{{article.route}}">
+            {% if module.context.show_date %}
+            ({{article.published_on}})
+            {% endif %}{{article.title}}</a>
+          
+       </li>
+    {% endfor%}
+    </ul>
+ </aside>
