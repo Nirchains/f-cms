@@ -21,9 +21,13 @@
 				{% if layout_positions[position].type in ["container", "section", "div"] %}
 						<div class="{{ 'container' if (layout_positions[position].type == 'container') else '' }} {{ layout_positions[position].css_class or '' }} container-{{position|lower}}">
 				{% endif %}
-
+				{% if layout_positions[position].create_row %}
+					<div class="row">
+				{% endif%}
 				{{ render_module(module_positions[position]) }}
-
+				{% if layout_positions[position].create_row %}
+					</div>
+				{% endif%}
 				{% if layout_positions[position].type in ["container", "section", "div"] %}
 						</div>
 				{% endif %}
@@ -41,10 +45,29 @@
 {% macro render_module(module_positions) %}
 
 	{% for module in module_positions %}
-		<div class="{{module.css_class or ''}} {% if module.size_md %} col-sm-{{module.size_md}} {% endif %}">
+		<div class="{{module.css_class or ''}} {{render_col(module.size_sm, module.size_md, module.size_lg, module.size_xl) }}">
 		{% include 'templates/includes/modules/index.html' %}
 		</div>
 	{% endfor %}
+
+{% endmacro %}
+
+{% macro render_col(size_sm, size_md, size_lg, size_xl) %}
+	{% set css_class="" %}
+	{% if size_sm %}
+		{% set css_class = css_class + " col-sm-" + size_sm %}
+	{% endif %}
+	{% if size_md %}
+		{% set css_class = css_class + " col-md-" + size_md %}
+	{% endif %}
+	{% if size_lg %}
+		{% set css_class = css_class + " col-lg-" + size_lg %}
+	{% endif %}
+	{% if size_xl %}
+		{% set css_class = css_class + " col-xl-" + size_xl %}
+	{% endif %}
+
+	{{css_class}}
 
 {% endmacro %}
 
@@ -160,6 +183,8 @@
 		{% block content_top %}{% endblock %}
 		<div class="container">
         {% block content %}{% endblock %}
+        {{ render_position('content-1') }}
+		{{ render_position('content-2') }}
         </div>
         {% block content_bottom %}{% endblock %}
 

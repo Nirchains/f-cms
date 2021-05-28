@@ -1,0 +1,32 @@
+{
+ "creation": "2020-05-04 20:36:41.462352",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "category"
+ ],
+ "fields": [
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Category",
+   "options": "Article Category"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-05-04 20:36:41.462352",
+ "modified_by": "Administrator",
+ "module": "CMS",
+ "name": "Module Article List Categories",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

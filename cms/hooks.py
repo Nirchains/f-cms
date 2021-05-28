@@ -19,12 +19,18 @@ app_license = "MIT"
 app_include_js = ["assets/cms/js/build/custom.min.js", "/assets/cms/vendor/autoresize/autoresize.jquery.min.js"]
 
 # include js, css files in header of web template
-web_include_css = ["assets/cms/css/build/vendor.css", "assets/cms/css/build/theme.css", "assets/cms/css/build/rs-plugin.css", "assets/cms/css/build/custom.css", "assets/cms/css/build/skin.css"]
+web_include_css = ["assets/cms/css/bootstrap/bootstrap.min.css","assets/cms/css/build/vendor.css", "assets/cms/css/build/theme.css", "assets/cms/css/build/rs-plugin.css", "assets/cms/css/build/custom.css", "assets/cms/css/build/skin.css"]
 web_include_js =  ["assets/cms/js/build/custom-web.min.js"]
 
 doctype_js = {
     "Web Page":[
         "custom_script/web_page.js"
+    ]
+}
+
+doctype_list_js = {
+    "Web Page":[
+        "custom_script/web_page_list.js"
     ]
 }
 
@@ -37,9 +43,14 @@ update_website_context_all = ["cms.cms.doctype.web_module.web_module.load_module
 							  "cms.cms.doctype.web_module.web_module.has_web_edit_permission"
 								]
 
+website_route_rules = [
+	#{"from_route": "/<category>/<article_name>", "to_route": "Article"},
+	#{"from_route": "/<category>", "to_route": "Article Category"}
+]
+
 website_context = {
 #	'layout': 'cms.cms.doctype.web_module.web_module.load_module_positions_context'
-	"favicon": "/assets/cms/images/favicon.png"
+	#"favicon": "/assets/cms/images/favicon.png"
 }
 
 # include js in page

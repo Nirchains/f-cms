@@ -1,57 +1,120 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
 from __future__ import unicode_literals
-import frappe, json
+import frappe
+import json
+import os
+import re
 from frappe.utils import cint, quoted
 from frappe.website.render import resolve_path
 from frappe.model.document import get_controller, Document
+from frappe.modules import scrub, get_module_path, load_doctype_module
 from frappe import _
 
 
 @frappe.whitelist(allow_guest=True)
-def get(doctype, txt=None, limit_start=0, limit=20, pathname=None, **kwargs):
-	"""Returns processed HTML page for a standard listing."""
-	limit_start = cint(limit_start)
-	raw_result = get_list_data(doctype, txt, limit_start, limit=limit + 1, **kwargs)
-	show_more = len(raw_result) > limit
-	if show_more:
-		raw_result = raw_result[:-1]
+def get(
+    doctype,
+    txt=None,
+    limit_start=0,
+    limit=20,
+    pathname=None,
+    **kwargs
+    ):
+    """Returns processed HTML page for a standard listing."""
 
-	meta = frappe.get_meta(doctype)
-	list_context = frappe.flags.list_context
+    limit_start = cint(limit_start)
+    raw_result = get_list_data(doctype, txt, limit_start, limit=limit
+                               + 1, **kwargs)
+    show_more = len(raw_result) > limit
+    if show_more:
+        raw_result = raw_result[:-1]
 
-	if not raw_result: return {"result": []}
+    meta = frappe.get_meta(doctype)
+    list_context = frappe.flags.list_context
 
-	if txt:
-		list_context.default_subtitle = _('Filtered by "{0}"').format(txt)
+    if not raw_result:
+        return {'result': []}
 
-	result = []
-	row_template = list_context.row_template or "templates/includes/list/row_template.html"
-	list_view_fields = [df for df in meta.fields if df.in_list_view][:4]
+    if txt:
+        list_context.default_subtitle = _('Filtered by "{0}"'
+                ).format(txt)
 
-	for doc in raw_result:
-		doc.doctype = doctype
-		new_context = frappe._dict(doc=doc, meta=meta,
-			list_view_fields=list_view_fields)
+    result = []
+    row_template = list_context.row_template \
+        or 'templates/includes/list/row_template.html'
+    list_view_fields = [df for df in meta.fields if df.in_list_view][:4]
 
-		if not list_context.get_list and not isinstance(new_context.doc, Document):
-			new_context.doc = frappe.get_doc(doc.doctype, doc.name)
-			new_context.update(new_context.doc.as_dict())
+    for doc in raw_result:
+        doc.doctype = doctype
+        new_context = frappe._dict(doc=doc, meta=meta,
+                                   list_view_fields=list_view_fields)
 
-		if not frappe.flags.in_test:
-			pathname = pathname or frappe.local.request.path
-			new_context["pathname"] = pathname.strip("/ ")
-		new_context.update(list_context)
-		set_route(new_context)
-		rendered_row = frappe.render_template(row_template, new_context, is_path=True)
-		result.append(rendered_row)
+        if not list_context.get_list \
+            and not isinstance(new_context.doc, Document):
+            new_context.doc = frappe.get_doc(doc.doctype, doc.name)
+            new_context.update(new_context.doc.as_dict())
 
-	from frappe.utils.response import json_handler
-	return {
-		"raw_result": json.dumps(raw_result, default=json_handler),
-		"result": result,
-		"show_more": show_more,
-		"next_start": limit_start + limit,
-	}
+        if not frappe.flags.in_test:
+            pathname = pathname or frappe.local.request.path
+            new_context['pathname'] = pathname.strip('/ ')
+        new_context.update(list_context)
+        set_route(new_context)
+        rendered_row = frappe.render_template(row_template,
+                new_context, is_path=True)
+        result.append(rendered_row)
+
+    from frappe.utils.response import json_handler
+    return {
+        'raw_result': json.dumps(raw_result, default=json_handler),
+        'result': result,
+        'show_more': show_more,
+        'next_start': limit_start + limit,
+        }
+
+
+def normalize_url(s):
+    replacements = (
+        ("á", 'a'),
+        ("é", 'e'),
+        ("í", 'i'),
+        ("ó", 'o'),
+        ("ú", 'u'),
+        ("ñ", 'n'),
+        )
+
+    for (a, b) in replacements:
+        s = s.replace(a, b).replace(a.upper(), b.upper())
+
+    patron_caracteres = \
+        re.compile(r'[\¿\?\.\,\:\;\(\)\[\]\&\-\—\+\=\<\>\…\/\*\º\ª\!\"\'\`\“]*'
+                   )
+    s = patron_caracteres.sub('', s or '')
+
+    return s
+
+
+@frappe.whitelist()
+def load_templates(doctype):
+    path = os.path.dirname(os.path.abspath(__file__))
+    doctype = scrub(doctype)
+    arr_path = path.split('/')
+    arr_path.append('doctype')
+    arr_path.append(doctype)
+    arr_path.append('templates')
+    path = '/'.join(arr_path)
+
+    templates = []
+    try:
+        if os.path.exists(path):
+            for fname in os.listdir(path):
+                if fname.endswith('.html'):
+                    templates.append(fname)
+    except:
+        pass
+
+    return templates

@@ -1,0 +1,5 @@
+{% if module.context.content_type == 'HTML' %}
+	{{ module.context.main_section_html }}	
+{% else %}
+	{{ module.context.content }}
+{% endif %}

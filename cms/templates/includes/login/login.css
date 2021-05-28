@@ -83,3 +83,10 @@
 	font-size: 14px;
 	margin-top: 45px;
 }
+
+.toggle-password {
+  right: 9px;
+  top: 9px;
+  position: absolute;
+  z-index: 2;
+}
