@@ -1,10 +1,8 @@
-// Copyright (c) 2019, Pedro Antonio Fernández Gómez and contributors
+// Copyright (c) 2020, Pedro Antonio Fernández Gómez and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Module HTML', {
+frappe.ui.form.on('Article', {
 	onload: function(frm) {
-		modulo.init_onload(frm);
-
 		if (!Jodit.instances.jeditor_webpage) {
             $('<textarea id="jeditor_webpage"></textarea>').appendTo(frm.fields_dict.content_jodit.wrapper);
             var ele = document.getElementById('jeditor_webpage');
@@ -18,11 +16,9 @@ frappe.ui.form.on('Module HTML', {
         }
 	},
 	refresh: function (frm) {
-        modulo.init_refresh(frm);
         let editor = Jodit.instances.jeditor_webpage
         if (editor) {
             editor.value = frm.doc.content || "";
         }
-    },
-
+    }
 });

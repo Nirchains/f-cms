@@ -1,0 +1,10 @@
+{% extends "templates/web.html" %}
+
+{%- block title -%}{{_("Not Found")}}{%- endblock -%}
+
+{% block page_content %}
+<h1>Error 404</h1>
+<h2>La página que está buscando no se encuentra disponible en estos momentos.</h2>
+<p>{{_("The page you are looking for is missing. This could be because it is moved or there is a typo in the link.")}}</p>
+
+{% endblock %}

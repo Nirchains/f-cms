@@ -1,5 +1,18 @@
 [
  {
+ {
+  "app_name": "cms",
+  "docstatus": 0,
+  "doctype": "Module Def",
+  "modified": "2020-04-29 18:41:12.419300",
+  "module_name": "Web module",
+  "name": "Web module",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "restrict_to_domain": null
+ },
+ {
   "app_name": "frappe",
   "docstatus": 0,
   "doctype": "Module Def",

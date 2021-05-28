@@ -1,0 +1,42 @@
+{% extends "templates/web.html" %}
+
+{% block meta_block %}
+	{% include "templates/includes/meta_block.html" %}
+{% endblock %}
+
+{% block page_content %}
+{% if has_web_edit_permission%}
+	<a href="/desk#Form/{{doctype}}/{{name}}" class="btn btn-light edit-absolute" target="_blank"><i class="fas fa-edit"></i></a>
+{% endif %}
+<div class="heading heading-border heading-middle-border">
+	<h3>{{ title }}</h3>
+</div>
+
+<div class="content row">
+	{% if image|length%}
+	<div class="col-md-{{category.img_bootstrap_size}}">
+		<a href="#" data-toggle="modal" data-target="#largeModal"><img class="img-fluid" src="{{image}}" alt="{{title}}" ></a>
+		<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content bg-dark">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body text-center">
+						<img class="img-fluid" src="{{image}}" alt="{{title}}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{%set content_size = 12 - category.img_bootstrap_size | int %}
+	<div class="col-md-{{content_size}}">
+	{% else %}
+	<div>
+	{% endif %}
+	{{ content }}
+	</div>
+
+</div>
+
+{% endblock %}

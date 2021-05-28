@@ -1,0 +1,63 @@
+{% for category in module.categories %}
+	{% if module.article_list[category] and module.article_list[category]|length > 0 %}
+		{% if module.context.format == "Listado" %}
+			{% include "cms/doctype/module_article_list/templates/include/module_article_nav_list.html" %}
+		{% endif%}
+
+		{% if module.context.format == "Categorías" %}
+			<h4>{{ category }}</h4>
+		{% endif %}
+
+		{% if module.context.format == "Blog" or module.context.format == "Categorías" %}
+		<div class="{{ 'blog-posts' if ( module.context.format == 'Blog') else 'blog-post-no-margins' }}">
+		   {% for article in module.article_list[category] %}
+		   	<article class="{{ 'post' if ( module.context.format == 'Blog') else 'list' }}">
+		  	  <h4><a class="" href="/{{article.route}}">{{article.title}}</a></h4>
+
+		  	  {% if module.context.img_bootstrap_size | int > 0 %}
+		  	  	<div class="row">
+
+		  	  		<div class="col-md-{{module.context.img_bootstrap_size}}">
+						<img class="img-fluid" src="{{article.image}}" alt="{{article.title}}">
+		  	  		</div>
+		  	  		{%set content_size = 12 - module.context.img_bootstrap_size | int %}
+		  	  		<div class="col-md-{{content_size}}">
+		  	  {% else %}
+		  	  	<div>
+		  	  		<div>
+		  	  {% endif %}
+
+		      {% if module.context.show_summary and article.article_intro %}
+		      <div class="article_content">
+		      	{{article.article_intro}}
+		      </div>
+		      {% endif %}
+
+		      <div class="post-meta mt-2">
+		      	{% if module.context.show_date %}
+		      		<i class="far fa-calendar"></i>
+		      		{{article.published_on}}
+		      	{% endif %}
+		      
+		      	{% if module.context.show_category %}
+		      		<a href="#">{{article.article_category}}</a>
+		      	{% endif %}
+
+		      	{% if module.context.show_read_more %}
+		      	<span class="d-block d-sm-inline-block float-sm-right mt-3 mt-sm-0">
+			    	<a class="btn btn-xs btn-primary text-1 " href="{{article.route}}">Leer más</a>
+			    </span>
+			    {% endif %}
+
+		  	  </div>
+
+		  		</div>
+		  	</div>
+
+		    </article>
+		   {% endfor %}
+		</div>
+		{% endif %}
+
+	{% endif %}
+{%endfor%}
