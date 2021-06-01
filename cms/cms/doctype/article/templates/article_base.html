@@ -13,7 +13,7 @@
 </div>
 
 <div class="content row">
-	{% if image|length%}
+	{% if image and image|length%}
 	<div class="col-md-{{category.img_bootstrap_size}}">
 		<a href="#" data-toggle="modal" data-target="#largeModal"><img class="img-fluid" src="{{image}}" alt="{{title}}" ></a>
 		<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">

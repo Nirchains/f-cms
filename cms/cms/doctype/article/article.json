@@ -14,6 +14,7 @@
   "article_category",
   "route",
   "image",
+  "pdf",
   "section_break_5",
   "article_intro",
   "content_type",
@@ -130,6 +131,12 @@
    "fieldname": "content_jodit",
    "fieldtype": "HTML",
    "label": "Contenido"
+  },
+  {
+   "depends_on": "eval:doc.article_category==\"Publicaciones\"",
+   "fieldname": "pdf",
+   "fieldtype": "Attach",
+   "label": "PDF"
   }
  ],
  "has_web_view": 1,
@@ -137,7 +144,7 @@
  "image_field": "image",
  "is_published_field": "published",
  "max_attachments": 5,
- "modified": "2021-01-10 07:04:20.674918",
+ "modified": "2021-06-01 12:30:25.901934",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Article",

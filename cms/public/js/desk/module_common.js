@@ -40,9 +40,14 @@ modulo = {
 				doctype: doctype
 			},
 			callback: function(data) {
+				console.log(data);
 				if (data.message.length > 0) {
 					frm.set_df_property("template", "options", data.message);
-					frm.set_value("template", data.message[0]);
+					if (frm.doc.template) {
+						frm.set_value("template", frm.doc.template);
+					} else {
+						frm.set_value("template", data.message[0]);
+					}
 				}
 
 			}
