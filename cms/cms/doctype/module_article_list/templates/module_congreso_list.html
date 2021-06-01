@@ -12,27 +12,32 @@
 		<div class="{{ 'blog-posts' if ( module.context.format == 'Blog') else 'blog-post-no-margins' }}">
 		   {% for article in module.article_list[category] %}
 		   	<article class="{{ 'post' if ( module.context.format == 'Blog') else 'list' }}">
-		  	  <h4><a class="" href="/{{article.route}}">{{article.title}}</a></h4>
+		   	  <h4><a class="" href="/{{article.route}}">{{article.title}}</a></h4>
 
 		  	  {% if module.context.img_bootstrap_size | int > 0 %}
-		  	  	<div class="row">
-		  	  		{% if article.image and article.image|length %}
+		  	  	<div class="row align-items-center">
 		  	  		<div class="col-md-{{module.context.img_bootstrap_size}}">
+		  	  			{% if article.image and article.image|length %}
 						<img class="img-fluid" src="{{article.image}}" alt="{{article.title}}">
+						{% endif %}
 		  	  		</div>
-		  	  		{% endif %}
-		  	  		{%set content_size = 12 - module.context.img_bootstrap_size | int %}
+		  	  			  	  		
+		  	  		{%set content_size = 11 - module.context.img_bootstrap_size | int %}
 		  	  		<div class="col-md-{{content_size}}">
 		  	  {% else %}
 		  	  	<div>
 		  	  		<div>
 		  	  {% endif %}
 
+		  	  {{article.content }}
+
 		      {% if module.context.show_summary and article.article_intro %}
 		      <div class="article_content">
 		      	{{article.article_intro}}
 		      </div>
 		      {% endif %}
+
+		        	  
 
 		      <div class="post-meta mt-2">
 		      	{% if module.context.show_date %}
@@ -53,6 +58,12 @@
 		  	  </div>
 
 		  		</div>
+
+				<div class="col-md-1">
+		  	  			{% if article.pdf %}
+						<a class="btn btn-primary" href="{{article.pdf}}">PDF</a>
+						{% endif %}
+		  	  </div>		
 		  	</div>
 
 		    </article>
@@ -62,7 +73,3 @@
 
 	{% endif %}
 {%endfor%}
-
-{% if module.context.show_pagination %}
-	{% include "cms/doctype/module_article_list/templates/include/pagination.html" %}
-{% endif %}
