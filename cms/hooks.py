@@ -36,7 +36,7 @@ doctype_list_js = {
 
 
 #fixtures=['Custom Field', 'Property Setter','Print Format','Custom Script', 'Domain', 'Module Def']
-fixtures=['Print Format','Custom Script', 'Domain', 'Module Def']
+fixtures=['Print Format','Custom Script']
 
 
 update_website_context_all = ["cms.cms.doctype.web_module.web_module.load_module_positions_context",
