@@ -247,6 +247,13 @@
 <script src="/assets/cms/js/theme.init.js"></script>
 
 <script type="text/javascript" src="/assets/js/frappe-web.min.js"></script>
+<script>
+	$(document).ready(function() {
+    	$("nav a").on("click", function() {
+    		$.cookie("activelist", "");
+    	});
+	});
+</script>
 {% endblock %}
 {%- if js_globals is defined %}
 <script>

@@ -3468,7 +3468,10 @@ window.theme.fn = {
 				$( ".toggle.active" ).each(function() {
 					activelist.push($(this)[0].classList[1]);
 				});
-				$.cookie(self.options.setActiveName, activelist.join(","));
+				var date = new Date();
+ 				var minutes = 20;
+ 				date.setTime(date.getTime() + (minutes * 60 * 1000));
+				$.cookie(self.options.setActiveName, activelist.join(","), { expires: date });
 
 			});
 		}
