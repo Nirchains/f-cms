@@ -3327,7 +3327,9 @@ window.theme.fn = {
 
 	PluginToggle.defaults = {
 		duration: 350,
-		isAccordion: false
+		isAccordion: false,
+		setActive: false,
+		setActiveName: "activelist"
 	};
 
 	PluginToggle.prototype = {
@@ -3366,8 +3368,21 @@ window.theme.fn = {
 				$items = $wrapper.find('> .toggle'),
 				$el = null;
 
-			$items.each(function() {
+			if (self.options.setActive) {
+				var activelist = $.cookie(self.options.setActiveName).split(",");
+			}
+
+
+			$items.each(function(index) {
 				$el = $(this);
+
+				if (self.options.setActive) {
+					if (activelist.includes($el[0].classList[1])) {
+						$el.addClass('active');
+						$el.find('> p').addClass('preview-active');
+						$el.find('> .toggle-content').slideDown(0);
+					}
+				}
 
 				if ($el.hasClass('active')) {
 					$el.find('> p').addClass('preview-active');
@@ -3402,7 +3417,7 @@ window.theme.fn = {
 					closeElement = parentWrapper.find('.toggle.active > label');
 
 					if (closeElement[0] == $this[0]) {
-						return;
+						//return;
 					}
 				}
 
@@ -3447,6 +3462,13 @@ window.theme.fn = {
 					toggleContent.slideUp(self.options.duration);
 
 				}
+
+				//PFG cookie set
+				var activelist = [];
+				$( ".toggle.active" ).each(function() {
+					activelist.push($(this)[0].classList[1]);
+				});
+				$.cookie(self.options.setActiveName, activelist.join(","));
 
 			});
 		}
