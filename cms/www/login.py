@@ -21,6 +21,7 @@ def get_context(context):
 		raise frappe.Redirect
 
 	# get settings from site config
+	#noheader
 	context.no_header = False
 	context.header = "<h1>Formulario de <b>acceso</b></h1>"
 	context.for_test = 'login.html'
