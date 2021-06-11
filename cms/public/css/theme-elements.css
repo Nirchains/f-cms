@@ -12568,11 +12568,11 @@ section.timeline .timeline-box .owl-carousel {
 
 .toggle > .toggle-content {
 	display: none;
+	padding-top: 15px;
 }
 
 .toggle > .toggle-content > p {
-	margin-bottom: 0;
-	padding: 10px 0;
+	
 }
 
 .toggle.active i.fa-minus {

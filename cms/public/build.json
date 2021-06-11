@@ -35,6 +35,7 @@
     ],
     "cms/js/build/custom-web.min.js": [
         "public/js/web/custom-web.js",
-        "public/js/web/custom-select2.js"
+        "public/js/web/custom-select2.js",
+        "public/js/helper.js"
     ]
 }

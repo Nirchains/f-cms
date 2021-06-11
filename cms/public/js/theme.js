@@ -3369,7 +3369,11 @@ window.theme.fn = {
 				$el = null;
 
 			if (self.options.setActive) {
-				var activelist = $.cookie(self.options.setActiveName).split(",");
+				var activestring = $.cookie(self.options.setActiveName)
+				var activelist = []
+				if (!helper.IsNullOrEmpty(activestring)) {
+					activelist = activestring.split(",");
+				}
 			}
 
 
