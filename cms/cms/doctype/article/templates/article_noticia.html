@@ -22,7 +22,7 @@
 	{% set content_size = 12 %}
 	{% endif %}
 	<div class="col-md-{{content_size}}">
-	{{ content || ''}}
+	{{ content or ''}}
 	{% if pdf %}
 		<a class="btn btn-primary" href="{{pdf}}" target="_blank">PDF</a>
 	{% endif %}
