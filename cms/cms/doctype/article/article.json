@@ -133,7 +133,6 @@
    "label": "Contenido"
   },
   {
-   "depends_on": "eval:doc.article_category==\"Publicaciones\"",
    "fieldname": "pdf",
    "fieldtype": "Attach",
    "label": "PDF"
@@ -143,7 +142,7 @@
  "icon": "fa fa-quote-left",
  "image_field": "image",
  "is_published_field": "published",
- "modified": "2021-06-11 07:31:33.173516",
+ "modified": "2021-06-11 18:54:09.474039",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Article",
