@@ -61,3 +61,8 @@
 
 	{% endif %}
 {%endfor%}
+
+
+{% if module.context.show_pagination %}
+	{% include "cms/doctype/module_article_list/templates/include/pagination.html" %}
+{% endif %}
