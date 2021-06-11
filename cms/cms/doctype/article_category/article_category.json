@@ -13,6 +13,7 @@
   "parent_article_category",
   "is_group",
   "template",
+  "show_return",
   "column_break_4",
   "published",
   "order",
@@ -111,12 +112,18 @@
    "fieldname": "template",
    "fieldtype": "Select",
    "label": "Template"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_return",
+   "fieldtype": "Check",
+   "label": "Mostrar bot\u00f3n volver"
   }
  ],
  "icon": "fa fa-tag",
  "is_published_field": "published",
  "is_tree": 1,
- "modified": "2021-01-09 18:51:30.034886",
+ "modified": "2021-06-11 23:09:40.197195",
  "modified_by": "Administrator",
  "module": "CMS",
  "name": "Article Category",

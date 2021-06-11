@@ -65,7 +65,7 @@ class Article(WebsiteGenerator):
 		}
 
 		#
-		context.category = frappe.db.get_value("Article Category", context.doc.article_category, ["title", "route", "parent_article_category", "img_bootstrap_size", "template"], as_dict=1)
+		context.category = frappe.db.get_value("Article Category", context.doc.article_category, ["title", "route", "parent_article_category", "show_return", "img_bootstrap_size", "template"], as_dict=1)
 		context.parents = []
 		context.header = "<h1>{0}</h1>".format(context.category.title)
 		context.doctype = self.doctype

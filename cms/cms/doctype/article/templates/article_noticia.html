@@ -13,14 +13,27 @@
 </div>
 
 <div class="content row">
-	<div class="col-md-12">
-	{% if image and image|length%}
-	<a href="#" data-toggle="modal" data-target="#largeModal" class="float-left pl-0 col-md-{{category.img_bootstrap_size}}"><img class="img-fluid" src="{{image}}" alt="{{title}}" ></a>
+	{% if image and image|length or pdf %}
+	<div class="col-md-{{category.img_bootstrap_size}}">
+		<a href="#" data-toggle="modal" data-target="#largeModal" class="float-left pl-0 "><img class="img-fluid" src="{{image}}" alt="{{title}}" ></a>
+	</div>
+	{% set content_size = 12 - category.img_bootstrap_size | int %}
+	{% else %}
+	{% set content_size = 12 %}
 	{% endif %}
-	{{ content }}
+	<div class="col-md-{{content_size}}">
+	{{ content || ''}}
+	{% if pdf %}
+		<a class="btn btn-primary" href="{{pdf}}" target="_blank">PDF</a>
+	{% endif %}
 	</div>
 
 </div>
+
+{% if category.show_return %}
+	<hr>
+	<a class="btn btn-default float-right">Volver</a>
+{% endif%}
 
 <div class="col-md-{{category.img_bootstrap_size}}">
 	<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -36,5 +49,7 @@
 		</div>
 	</div>
 </div>
+
+<div class="pt-5"></div>
 
 {% endblock %}

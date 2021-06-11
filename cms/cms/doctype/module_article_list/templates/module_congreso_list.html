@@ -29,7 +29,7 @@
 		  	  		<div>
 		  	  {% endif %}
 
-		  	  {{article.content }}
+		  	  {{article.content or '' }}
 
 		      {% if module.context.show_summary and article.article_intro %}
 		      <div class="article_content">
